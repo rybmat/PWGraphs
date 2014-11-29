@@ -24,7 +24,7 @@ namespace Tests
 		public void AddNodeTest_T ()
 		{
 			g.AddNode (c);
-			Assert.AreSame (c, g["poz"].data);
+			Assert.AreSame (c, g["poz"].Data);
 		}
 
 		[Test ()]
