@@ -80,6 +80,17 @@ namespace Tests
 			Assert.False(g.RemoveNode ("war"));
 		}
 
+		[Test ()]
+		public void EnumerableTest() {
+			g.AddNode (c);
+			g.AddNode( new City("war", "maz", 4254));
+			g.AddNode( new City("kra", "mlp", 4254));
+
+			foreach (var n in g) {
+				Assert.True (n.Data.Name.Equals ("war") || n.Data.Name.Equals ("kra") || n.Data.Name.Equals ("poz"));
+			}
+		}
+
 	}
 }
 

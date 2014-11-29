@@ -18,8 +18,7 @@ namespace Tests
 		}
 
 		[Test]
-		public void NodeTest ()
-		{
+		public void NodeTest () {
 			Assert.AreSame (c, n.Data);
 		}
 

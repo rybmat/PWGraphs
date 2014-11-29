@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using GraphProject;
 
 namespace GraphProject
 {
-	public class Graph<T>
+	public class Graph<T>: IEnumerable<Node<T>>
 	{
 		private Dictionary<string, Node<T>> nodes = new Dictionary<string, Node<T>>();
 
@@ -36,6 +37,18 @@ namespace GraphProject
 		public bool RemoveNode (string n) {
 			return nodes.Remove (n);
 		}
+
+		//IEnumerable
+		public IEnumerator<Node<T>> GetEnumerator() {
+			return nodes.Values.GetEnumerator();
+		}
+
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return GetEnumerator();
+		}
+
+		//Algorithms
 	}
 }
 
