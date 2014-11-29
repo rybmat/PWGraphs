@@ -18,7 +18,7 @@ namespace GraphProject
 			successors.Add (n);
 			return this;
 		}
-
+			
 		public bool RemoveSuccesor(Node<T> n) {
 			return successors.Remove (n);
 		}

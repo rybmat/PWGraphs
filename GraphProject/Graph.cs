@@ -18,12 +18,24 @@ namespace GraphProject
 			}
 		}
 
-		public void AddNode (T n) {
+		public Graph<T> AddNode (T n) {
 			nodes [n.ToString ()] = new Node<T> (n);
+			return this;
 		}
 
-		public void AddNode (Node<T> n) {
+		public Graph<T> AddNode (Node<T> n) {
 			nodes [n.ToString ()] = n;
+			return this;
+		}
+
+		public static Graph<T> operator +(Graph<T> g, T n) {
+			g.AddNode (n);
+			return g;
+		}
+
+		public static Graph<T> operator +(Graph<T> g, Node<T> n) {
+			g.AddNode (n);
+			return g;
 		}
 
 		public bool RemoveNode (T n) {
@@ -49,6 +61,21 @@ namespace GraphProject
 		}
 
 		//Algorithms
+		public List<Node<T>> DFS(Node<T> node){
+			return new List<Node<T>>();
+		}
+
+		public List<Node<T>> BFS(Node<T> node){
+			return new List<Node<T>>();
+		}
+
+		public List<Node<T>> SortTopologically(){
+			return new List<Node<T>>();
+		}
+
+		public List<Node<T>> EulerianDirectedPath(){
+			return new List<Node<T>>();
+		}
 	}
 }
 

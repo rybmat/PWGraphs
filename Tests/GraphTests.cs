@@ -21,16 +21,16 @@ namespace Tests
 		}
 
 		[Test ()]
+		[ExpectedException(typeof(KeyNotFoundException))]
+		public void IndexerNodeTest_Invalid_Key() {
+			Node<City> nc = g["war"];
+		}
+
+		[Test ()]
 		public void AddNodeTest_T ()
 		{
 			g.AddNode (c);
 			Assert.AreSame (c, g["poz"].Data);
-		}
-
-		[Test ()]
-		[ExpectedException(typeof(KeyNotFoundException))]
-		public void IndexerNodeTest_Invalid_Key() {
-			Node<City> nc = g["war"];
 		}
 
 		[Test ()]
@@ -40,6 +40,44 @@ namespace Tests
 			Assert.AreSame (n, g["poz"]);
 		}
 
+		[Test ()]
+		public void AddNodeTest_invocation_chain ()
+		{
+			City c1 = new City ("war", "maz", 4253);
+			Graph<City> r = g.AddNode (c1).AddNode (n);
+
+			Assert.AreSame (n, g["poz"]);
+			Assert.AreSame (c1, g["war"].Data);
+			Assert.AreSame (r, g);
+
+		}
+
+		[Test ()]
+		public void AddNodeTest_T_operator ()
+		{
+			g += c;
+			Assert.AreSame (c, g["poz"].Data);
+		}
+
+		[Test ()]
+		public void AddNodeTest_Node_T_operator ()
+		{
+			g += n;
+			Assert.AreSame (n, g["poz"]);
+		}
+
+		[Test ()]
+		public void AddNodeTest_invocation_chain_operator ()
+		{
+			City c1 = new City ("war", "maz", 4253);
+			Graph<City> r = g + c1 +n;
+
+			Assert.AreSame (n, g["poz"]);
+			Assert.AreSame (c1, g["war"].Data);
+			Assert.AreSame (r, g);
+
+		}
+			
 		[Test ()]	
 		public void RemoveNodeTest_T ()
 		{
