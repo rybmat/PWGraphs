@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Tests {
 
 	[TestFixture ()]
-	public partial class GraphTestsStructure {
+	public class GraphStructureTests {
 		private Graph<City> g;
 		private City c;
 		private Node<City> n;
