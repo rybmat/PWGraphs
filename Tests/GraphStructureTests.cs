@@ -4,11 +4,10 @@ using models;
 using GraphProject;
 using System.Collections.Generic;
 
-namespace Tests
-{
+namespace Tests {
+
 	[TestFixture ()]
-	public class GraphTests
-	{
+	public partial class GraphTestsStructure {
 		private Graph<City> g;
 		private City c;
 		private Node<City> n;

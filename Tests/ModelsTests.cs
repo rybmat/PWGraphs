@@ -2,8 +2,8 @@
 using System;
 using models;
 
-namespace Tests
-{
+namespace Tests { 
+
 	[TestFixture ()]
 	public class ModelsTests
 	{

@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GraphProject
-{
-	public class Node<T>
-	{
+namespace GraphProject {
+	public class Node<T> {
 		public T Data { get; set; }
 
 		public List<Node<T>> successors = new List<Node<T>>();
 
-		public Node (T m)
-		{
+		public Node (T m) { 
 			Data = m;
 		} 
 

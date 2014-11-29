@@ -36,7 +36,8 @@
   <ItemGroup>
     <Compile Include="ModelsTests.cs" />
     <Compile Include="NodeTests.cs" />
-    <Compile Include="GraphTests.cs" />
+    <Compile Include="GraphStructureTests.cs" />
+    <Compile Include="GraphAlgorithmsTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

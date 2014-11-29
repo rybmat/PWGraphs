@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using GraphProject;
 
-namespace GraphProject
-{
-	public class Graph<T>: IEnumerable<Node<T>>
-	{
-		private Dictionary<string, Node<T>> nodes = new Dictionary<string, Node<T>>();
+namespace GraphProject {
+
+	public partial class Graph<T>: IEnumerable<Node<T>> {
+
+		private Dictionary<string, Node<T>> nodes = new Dictionary<string, Node<T>>(); 
 
 		public Node<T> this [string id] {
 			get {
@@ -59,23 +59,7 @@ namespace GraphProject
 		{
 			return GetEnumerator();
 		}
-
-		//Algorithms
-		public List<Node<T>> DFS(Node<T> node){
-			return new List<Node<T>>();
-		}
-
-		public List<Node<T>> BFS(Node<T> node){
-			return new List<Node<T>>();
-		}
-
-		public List<Node<T>> SortTopologically(){
-			return new List<Node<T>>();
-		}
-
-		public List<Node<T>> EulerianDirectedPath(){
-			return new List<Node<T>>();
-		}
+			
 	}
 }
 

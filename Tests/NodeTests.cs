@@ -3,11 +3,10 @@ using System;
 using models;
 using GraphProject;
 
-namespace Tests
-{
+namespace Tests {
+
 	[TestFixture ()]
-	public class NodeTests
-	{
+	public class NodeTests {
 		private City c;
 		private Node<City> n;
 

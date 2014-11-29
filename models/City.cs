@@ -1,7 +1,7 @@
 ﻿using System;
 
-namespace models
-{
+namespace models {
+
 	public class City {
 		public City (string name, string land, uint population){
 			Name = name;
