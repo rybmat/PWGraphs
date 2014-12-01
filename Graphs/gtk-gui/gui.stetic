@@ -88,7 +88,6 @@
                 <child>
                   <widget class="Gtk.ComboBox" id="modelsCombobox">
                     <property name="MemberName" />
-                    <property name="WidthRequest">170</property>
                     <property name="IsTextCombo">True</property>
                     <property name="Items" translatable="yes" />
                   </widget>

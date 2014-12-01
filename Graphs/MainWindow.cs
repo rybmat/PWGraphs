@@ -19,7 +19,7 @@ public partial class MainWindow: Gtk.Window
 	}
 	protected void OnOpen (object sender, EventArgs e) {
 		FileChooserDialog chooser = new FileChooserDialog(
-			"Please select a logfile to view ...",
+			"Please select a dll file with models ...",
 			this,
 			FileChooserAction.Open,
 			"Cancel", ResponseType.Cancel,
