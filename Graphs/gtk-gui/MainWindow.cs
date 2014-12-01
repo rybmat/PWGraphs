@@ -91,7 +91,6 @@ public partial class MainWindow
 		this.vbox3.Spacing = 6;
 		// Container child vbox3.Gtk.Box+BoxChild
 		this.modelsCombobox = global::Gtk.ComboBox.NewText ();
-		this.modelsCombobox.WidthRequest = 170;
 		this.modelsCombobox.Name = "modelsCombobox";
 		this.vbox3.Add (this.modelsCombobox);
 		global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.modelsCombobox]));
@@ -140,6 +139,7 @@ public partial class MainWindow
 		this.GtkScrolledWindow.ShadowType = ((global::Gtk.ShadowType)(1));
 		// Container child GtkScrolledWindow.Gtk.Container+ContainerChild
 		this.nodesTreeView = new global::Gtk.TreeView ();
+		this.nodesTreeView.WidthRequest = 300;
 		this.nodesTreeView.Sensitive = false;
 		this.nodesTreeView.CanFocus = true;
 		this.nodesTreeView.Name = "nodesTreeView";
@@ -166,7 +166,9 @@ public partial class MainWindow
 		this.openAction.Activated += new global::System.EventHandler (this.OnOpen);
 		this.quitAction.Activated += new global::System.EventHandler (this.OnQuit);
 		this.dialogInfoAction.Activated += new global::System.EventHandler (this.OnAbout);
+		this.modelsCombobox.Changed += new global::System.EventHandler (this.OnSelect);
 		this.clearBtn.Clicked += new global::System.EventHandler (this.OnClear);
 		this.drawBtn.Clicked += new global::System.EventHandler (this.OnDraw);
+		this.nodesTreeView.SelectCursorRow += new global::Gtk.SelectCursorRowHandler (this.OnSelect);
 	}
 }

@@ -6,6 +6,9 @@ using System.Reflection;
 public partial class MainWindow: Gtk.Window
 {
 	private string assemblyFileName;
+	private List<TreeViewColumn> columns = new List<TreeViewColumn> ();
+	private Type[] models;
+	private ListStore nodesListStore;
 
 	public MainWindow () : base (Gtk.WindowType.Toplevel)
 	{
@@ -31,9 +34,11 @@ public partial class MainWindow: Gtk.Window
 		if( chooser.Run() == ( int )ResponseType.Accept )
 		{
 			assemblyFileName = chooser.Filename;
-			foreach(var t in Assembly.LoadFrom(assemblyFileName).GetTypes()) {
+			models = Assembly.LoadFrom (assemblyFileName).GetTypes ();
+			foreach(var t in models) {
 				modelsCombobox.AppendText (t.ToString ());
 			}
+
 			modelsCombobox.Active = 0;
 			drawBtn.Sensitive = true;
 		}
@@ -66,5 +71,23 @@ public partial class MainWindow: Gtk.Window
 		clearBtn.Sensitive = false;
 		modelsCombobox.Sensitive = true;
 		nodesTreeView.Sensitive = false;
+	}
+
+	protected void OnSelect (object sender, EventArgs e) {
+		Type selectedModel = models [modelsCombobox.Active];
+		foreach(var c in columns) {
+			nodesTreeView.RemoveColumn(c);
+		}
+
+		columns = new List<TreeViewColumn> ();
+		foreach (var p in selectedModel.GetProperties()) {
+			var c = new TreeViewColumn ();
+			c.Title = p.ToString ().Split(' ')[1];
+			columns.Add (c);
+			nodesTreeView.AppendColumn (c);
+		}
+		nodesListStore = new ListStore (selectedModel);
+		nodesTreeView.Model = nodesListStore;
+
 	}
 }

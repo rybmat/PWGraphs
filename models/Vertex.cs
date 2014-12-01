@@ -4,7 +4,7 @@ namespace models {
 
 	public class Vertex {
 
-		string Label { get; set; }
+		public string Label { get; set; }
 
 		public Vertex (string label) {
 			Label = label;
