@@ -64,6 +64,9 @@ public partial class MainWindow: Gtk.Window
 		clearBtn.Sensitive = true;
 		modelsCombobox.Sensitive = false;
 		nodesTreeView.Sensitive = true;
+		addBtn.Sensitive = true;
+		removeBtn.Sensitive = true;
+
 	}
 
 	protected void OnClear (object sender, EventArgs e) {
@@ -71,6 +74,9 @@ public partial class MainWindow: Gtk.Window
 		clearBtn.Sensitive = false;
 		modelsCombobox.Sensitive = true;
 		nodesTreeView.Sensitive = false;
+		addBtn.Sensitive = false;
+		removeBtn.Sensitive = false;
+
 	}
 
 	protected void OnSelect (object sender, EventArgs e) {
@@ -89,5 +95,9 @@ public partial class MainWindow: Gtk.Window
 		nodesListStore = new ListStore (selectedModel);
 		nodesTreeView.Model = nodesListStore;
 
+	}
+
+	protected void OnAddBtnClicked (object sender, EventArgs e) {
+		nodesListStore.Append();
 	}
 }

@@ -33,6 +33,12 @@ public partial class MainWindow
 	
 	private global::Gtk.Button drawBtn;
 	
+	private global::Gtk.HBox hbox1;
+	
+	private global::Gtk.Button removeBtn;
+	
+	private global::Gtk.Button addBtn;
+	
 	private global::Gtk.ScrolledWindow GtkScrolledWindow;
 	
 	private global::Gtk.TreeView nodesTreeView;
@@ -134,6 +140,37 @@ public partial class MainWindow
 		w8.Expand = false;
 		w8.Fill = false;
 		// Container child vbox3.Gtk.Box+BoxChild
+		this.hbox1 = new global::Gtk.HBox ();
+		this.hbox1.Name = "hbox1";
+		this.hbox1.Spacing = 6;
+		// Container child hbox1.Gtk.Box+BoxChild
+		this.removeBtn = new global::Gtk.Button ();
+		this.removeBtn.Sensitive = false;
+		this.removeBtn.CanFocus = true;
+		this.removeBtn.Name = "removeBtn";
+		this.removeBtn.UseStock = true;
+		this.removeBtn.UseUnderline = true;
+		this.removeBtn.Label = "gtk-remove";
+		this.hbox1.Add (this.removeBtn);
+		global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.removeBtn]));
+		w9.Position = 0;
+		// Container child hbox1.Gtk.Box+BoxChild
+		this.addBtn = new global::Gtk.Button ();
+		this.addBtn.Sensitive = false;
+		this.addBtn.CanFocus = true;
+		this.addBtn.Name = "addBtn";
+		this.addBtn.UseStock = true;
+		this.addBtn.UseUnderline = true;
+		this.addBtn.Label = "gtk-add";
+		this.hbox1.Add (this.addBtn);
+		global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.addBtn]));
+		w10.Position = 1;
+		this.vbox3.Add (this.hbox1);
+		global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.hbox1]));
+		w11.Position = 2;
+		w11.Expand = false;
+		w11.Fill = false;
+		// Container child vbox3.Gtk.Box+BoxChild
 		this.GtkScrolledWindow = new global::Gtk.ScrolledWindow ();
 		this.GtkScrolledWindow.Name = "GtkScrolledWindow";
 		this.GtkScrolledWindow.ShadowType = ((global::Gtk.ShadowType)(1));
@@ -145,21 +182,21 @@ public partial class MainWindow
 		this.nodesTreeView.Name = "nodesTreeView";
 		this.GtkScrolledWindow.Add (this.nodesTreeView);
 		this.vbox3.Add (this.GtkScrolledWindow);
-		global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.GtkScrolledWindow]));
-		w10.Position = 2;
+		global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.GtkScrolledWindow]));
+		w13.Position = 3;
 		this.hbox3.Add (this.vbox3);
-		global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.vbox3]));
-		w11.Position = 0;
-		w11.Expand = false;
-		w11.Fill = false;
+		global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.vbox3]));
+		w14.Position = 0;
+		w14.Expand = false;
+		w14.Fill = false;
 		this.mainVbox.Add (this.hbox3);
-		global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.mainVbox [this.hbox3]));
-		w12.Position = 1;
+		global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.mainVbox [this.hbox3]));
+		w15.Position = 1;
 		this.Add (this.mainVbox);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
 		}
-		this.DefaultWidth = 615;
+		this.DefaultWidth = 1035;
 		this.DefaultHeight = 560;
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
@@ -169,6 +206,7 @@ public partial class MainWindow
 		this.modelsCombobox.Changed += new global::System.EventHandler (this.OnSelect);
 		this.clearBtn.Clicked += new global::System.EventHandler (this.OnClear);
 		this.drawBtn.Clicked += new global::System.EventHandler (this.OnDraw);
+		this.addBtn.Clicked += new global::System.EventHandler (this.OnAddBtnClicked);
 		this.nodesTreeView.SelectCursorRow += new global::Gtk.SelectCursorRowHandler (this.OnSelect);
 	}
 }
