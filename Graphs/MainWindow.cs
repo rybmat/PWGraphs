@@ -2,6 +2,7 @@
 using Gtk;
 using System.Collections.Generic;
 using System.Reflection;
+using Graphs;
 
 public partial class MainWindow: Gtk.Window
 {
@@ -98,6 +99,15 @@ public partial class MainWindow: Gtk.Window
 	}
 
 	protected void OnAddBtnClicked (object sender, EventArgs e) {
-		nodesListStore.Append();
+
+		object model = Activator.CreateInstance (models [modelsCombobox.Active]);
+
+		AddNodeDialog addDialog = new AddNodeDialog (models [modelsCombobox.Active], model);
+
+		if (addDialog.Run () == (int)ResponseType.Ok) {
+			//TODO: do sth with model, it has data, but first check if ToString is not null or empty;
+		}
+		addDialog.Destroy ();
+
 	}
 }

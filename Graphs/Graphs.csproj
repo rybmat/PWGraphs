@@ -51,6 +51,7 @@
     </Reference>
     <Reference Include="Mono.Posix" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Data.Linq" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="gtk-gui\gui.stetic">
@@ -64,6 +65,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="NodeVisualization.cs" />
+    <Compile Include="gtk-gui\Graphs.addNodeWindow.cs" />
+    <Compile Include="AddNodeDialog.cs" />
+    <Compile Include="gtk-gui\Graphs.AddNodeDialog.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

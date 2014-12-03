@@ -1,12 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Graphs/MainWindow.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Graphs/AddNodeDialog.cs">
     <Files>
-      <File FileName="Graphs/MainWindow.cs" Line="26" Column="26" />
+      <File FileName="Graphs/MainWindow.cs" Line="9" Column="9" />
+      <File FileName="Graphs/AddNodeDialog.cs" Line="34" Column="34" />
       <File FileName="Graphs/NodeVisualization.cs" Line="1" Column="1" />
-      <File FileName="GraphProject/Node.cs" Line="1" Column="1" />
-      <File FileName="Tests/GraphStructureTests.cs" Line="1" Column="1" />
-      <File FileName="GraphProject/GraphStructure.cs" Line="1" Column="1" />
+      <File FileName="models/Vertex.cs" Line="5" Column="5" />
+      <File FileName="models/City.cs" Line="13" Column="13" />
+      <File FileName="Graphs/AddNodeWindow.cs" Line="2" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

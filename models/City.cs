@@ -3,17 +3,20 @@
 namespace models {
 
 	public class City {
-		public City (string name, string land, uint population){
+		public City (string name, string land, string funFact){
 			Name = name;
 			Land = land;
-			Population = population;
+			FunFact = funFact;
+		}
+
+		public City(){
 		}
 
 		public string Name { get; set; }
 
 		public string Land { get; set; }
 
-		public uint Population { get; set; }
+		public string FunFact { get; set; }
 
 		override public string ToString() {
 			return Name;

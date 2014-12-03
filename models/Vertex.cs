@@ -10,6 +10,9 @@ namespace models {
 			Label = label;
 		}
 
+		public Vertex() {
+		}
+
 		override public string ToString() {
 			return Label;
 		}
