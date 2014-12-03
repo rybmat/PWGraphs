@@ -1,50 +1,39 @@
 ﻿using System;
 using Gtk;
+using Cairo;
 
-namespace Graphs
-{
+namespace Graphs {
 
-	public class MVObject : Gtk.DrawingArea 
-	{
-		Pango.Layout titleLayout;
-		Gtk.DrawingArea da;
+	public class MVObject : Gtk.DrawingArea {
 		string parentName = "";
 		string caption = "";
 		Gtk.Menu popup = null;
-		string body = "";
 		int width = 0;
+		int height;
 
 		public MVObject(string pName, string cap) {
 			popup = new Gtk.Menu();
-
-			Gtk.MenuItem text1 = new MenuItem("Test1");
-			text1.Activated += new EventHandler(Menu1Clicked);
-			Gtk.MenuItem text2 = new MenuItem("Test2");
-			text2.Activated += new EventHandler(Menu2Clicked);
-
-			popup.Add(text1);			
-			popup.Add(text2);
+			Gtk.MenuItem rm = new MenuItem("Remove");
+			rm.Activated += new EventHandler(OnRemove);
+			popup.Add(rm);			
 
 			parentName = pName;
 			caption = cap;
-			width = caption.Length*8+10;
+			width = caption.Length * 6 + 10;
+			height = 40;
 
-			Name = parentName+"MVObject";
+			Name = parentName + "MVObject";
 
-			SetSizeRequest(width,40);
-
-			titleLayout = GetLayout(caption);
+			SetSizeRequest(width, height);
 		}
 
 		public void ShowMenu() {
-			if (popup!=null) {
-				popup.Popup();
-				popup.ShowAll();
-			}
+			popup.Popup();
+			popup.ShowAll();
 		}
 
-		public void Edit() {
-			body="Edit";
+		public void ShowDetails() {
+			//Todo: show dialog with details
 			QueueDraw();
 		}
 
@@ -59,41 +48,55 @@ namespace Graphs
 			QueueDraw();
 		}
 
-		private Pango.Layout GetLayout(string text) {
-			Pango.Layout layout = new Pango.Layout(PangoContext);
-			layout.FontDescription = Pango.FontDescription.FromString("monospace 8");
-			layout.SetMarkup("<span color=\"black\">" + text + "</span>");
-			return layout;
-		}
-
-		protected void Menu1Clicked(object sender, EventArgs args) {
-			Console.WriteLine("Test");
-			body = "Test1";
+		protected void OnRemove(object sender, EventArgs args) {
+			Console.WriteLine("Remove clicked");
+			//Todo: remove entry from graph, detach from MVPanel and destroy self;
 			QueueDraw();
 		}
 
-		protected void Menu2Clicked(object sender, EventArgs args) {
-			Console.WriteLine("Test");
-			body = "Test2";
-			QueueDraw();
-		}
+		protected override bool OnExposeEvent (Gdk.EventExpose args) {
+			using (Context g = Gdk.CairoHelper.Create (args.Window)) {
+				DrawCurvedRectangle (g);
+				g.SetSourceColor(new Color (0.1, 0.6, 1, 1));
+				g.FillPreserve ();
+				g.SetSourceColor(new Color (0.2, 0.8, 1, 1));
+				g.LineWidth = 5;
+				g.Stroke ();
 
-		protected override bool OnExposeEvent (Gdk.EventExpose args) {	
-			Gdk.Window win = args.Window;
-			Gdk.Rectangle area = args.Area;
+				SetupFont (g);
+				FontExtents fe = g.FontExtents;
+				TextExtents te = g.TextExtents(caption);
+				double x = width/2 + te.XBearing - te.Width / 2;
+				double y = height/2 + fe.Descent + fe.Height / 2;
 
-
-			win.DrawRectangle(Style.DarkGC(StateType.Normal), true, area);
-			win.DrawRectangle(Style.BlackGC,false,area);
-			win.DrawRectangle(Style.MidGC(StateType.Normal),true,0,15,1000,1000);
-			win.DrawLine(Style.BlackGC,0,15,1000,15);			
-			win.DrawLayout(Style.BlackGC,2,2,titleLayout);
-
-			if (!string.IsNullOrEmpty(body)) {
-				win.DrawLayout(Style.BlackGC,2,17,GetLayout(body));
+				g.MoveTo(x, y);
+				g.SetSourceColor(new Color(0, 0, 0));
+				g.ShowText(caption);
 			}
 			return true;
-		} 
+		}
+
+		private void DrawCurvedRectangle (Cairo.Context gr) {	
+			double x = 0, y = 0;
+			gr.Save ();
+			gr.MoveTo (x, y + height / 2);
+			gr.CurveTo (x, y, x, y, x + width / 2, y);
+			gr.CurveTo (x + width, y, x + width, y, x + width, y + height / 2);
+			gr.CurveTo (x + width, y + height, x + width, y + height, x + width / 2, y + height);
+			gr.CurveTo (x, y + height, x, y + height, x, y + height / 2);
+			gr.Restore ();
+		}
+
+		private void SetupFont (Cairo.Context g) {
+			g.SetSourceColor(new Color(0, 0, 0));
+			g.SelectFontFace("Georgia", FontSlant.Normal, FontWeight.Bold);
+			g.SetFontSize(10);
+
+			double ux = 1, uy = 1;
+			g.DeviceToUserDistance(ref ux, ref uy);
+			double px = Math.Max(ux, uy);
+			g.LineWidth = 4 * px;
+		}
 	}
 }
 
