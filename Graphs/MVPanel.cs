@@ -13,9 +13,12 @@ namespace Graphs {
 		private int pointX = 0;
 		private int pointY = 0;
 		private bool isDragged = false;
+		private string rightClick;
+		private string doubleClick;
 
-
-		public MVPanel() {
+		public MVPanel(string _rightClick, string _doubleClick) {		
+			rightClick = _rightClick;
+			doubleClick = _doubleClick;
 			Build();
 		}
 
@@ -101,7 +104,7 @@ namespace Graphs {
 			//Right click
 			if (a.Event.Button == 3) {
 				if (sender is EventBox) {
-					(sender as EventBox).Child.GetType().GetMethod("ShowMenu").Invoke((sender as EventBox).Child, null);
+					(sender as EventBox).Child.GetType().GetMethod(rightClick).Invoke((sender as EventBox).Child, null);
 				}	
 			}
 			//Left click
@@ -110,7 +113,7 @@ namespace Graphs {
 				if (a.Event.Type == Gdk.EventType.TwoButtonPress) {
 					if (sender is EventBox) {
 						//Calling the edit method of the control
-						(sender as EventBox).Child.GetType().GetMethod("Edit").Invoke((sender as EventBox).Child, null);
+						(sender as EventBox).Child.GetType().GetMethod(doubleClick).Invoke((sender as EventBox).Child, null);
 					}	
 				}
 				else {

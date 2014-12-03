@@ -15,7 +15,7 @@ public partial class MainWindow: Gtk.Window
 	{
 		Build ();
 
-		MVPanel mvpanel1 = new MVPanel ();
+		MVPanel mvpanel1 = new MVPanel(_rightClick: "ShowMenu", _doubleClick: "Edit");
 
 		string name ="MovingBox";
 		int index = 0;
