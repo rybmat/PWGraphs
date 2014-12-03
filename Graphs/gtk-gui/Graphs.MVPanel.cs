@@ -21,6 +21,7 @@ namespace Graphs
 				this.Child.ShowAll ();
 			}
 			this.Hide ();
+			this.fixed1.MotionNotifyEvent += new global::Gtk.MotionNotifyEventHandler (this.OnFixed1MotionNotifyEvent);
 		}
 	}
 }

@@ -292,6 +292,7 @@
       <widget class="Gtk.Fixed" id="fixed1">
         <property name="MemberName" />
         <property name="HasWindow">False</property>
+        <signal name="MotionNotifyEvent" handler="OnFixed1MotionNotifyEvent" />
       </widget>
     </child>
   </widget>

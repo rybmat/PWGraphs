@@ -40,7 +40,7 @@ namespace Graphs {
 			ev.ButtonReleaseEvent += new ButtonReleaseEventHandler(OnButtonReleased);
 
 			//Add the control to the panel
-			fixed1.Put(ev,x,y);
+			fixed1.Put(ev, x, y);
 			ShowAll();
 		}
 
@@ -49,6 +49,7 @@ namespace Graphs {
 			EventBox rev = new EventBox();
 			rev.Name = wdg.ToString();
 			rev.Add(wdg);
+
 			Console.WriteLine("Creating new moving object"+rev.Name);
 			return rev;
 		}
@@ -59,13 +60,11 @@ namespace Graphs {
 
 			if (currCtrl != null) {
 				if (currCtrl is EventBox) {
-					re = GetMovingBox((currCtrl as EventBox).Child);
+					Widget wdg = (currCtrl as EventBox).Child;
+					(currCtrl as EventBox).Remove (wdg);
+					re = GetMovingBox(wdg);
 				}
 			}
-			//if (re == null) {
-				//This should not really happen but that would prevent an exception
-			//	re = GetMovingBox("Unknown", "Unknown");
-			//}
 			return re;
 		}
 
@@ -90,7 +89,7 @@ namespace Graphs {
 				destY = 0;
 			}		
 
-			fixed1.Move(wdg,destX,destY);
+			fixed1.Move(wdg, destX, destY);
 			if (!isClone) {
 				Console.WriteLine("MovingBox KeyReleased:"+destX.ToString()+"-"+destY.ToString());
 			}
@@ -130,15 +129,19 @@ namespace Graphs {
 		protected void OnButtonReleased(object sender, ButtonReleaseEventArgs a) {
 			//Final destination of the control
 			if (a.Event.Button == 1) {
-				MoveControl(currCtrl, a.Event.X, a.Event.Y, false);
-				isDragged = false;
-				currCtrl = null;
 				if (currClone!=null) {
+					Widget wdg = (currClone as EventBox).Child;
+					(currClone as EventBox).Remove (wdg);
+					(currCtrl as EventBox).Add (wdg);
+
 					fixed1.Remove(currClone);
 					Console.WriteLine("Deleting moving object" + currClone.Name);
 					currClone.Destroy();
 					currClone = null;
 				}
+				MoveControl(currCtrl, a.Event.X, a.Event.Y, false);
+				isDragged = false;
+				currCtrl = null;
 			}
 		}
 
