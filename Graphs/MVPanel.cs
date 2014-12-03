@@ -14,6 +14,7 @@ namespace Graphs {
 		private int pointY = 0;
 		private bool isDragged = false;
 
+
 		public MVPanel() {
 			Build();
 		}
@@ -24,13 +25,10 @@ namespace Graphs {
 		}
 
 		//Add a movable control to the panel
-		public void AddMovingObject(Widget wdg, int x, int y)
-		{
-			//Prevent the object to be displayed outside the panel
+		public void AddMovingObject(Widget wdg, int x, int y) {
 			if (x<0) {
 				x = 0;
 			}
-
 			if (y<0) {
 				y = 0;
 			}
@@ -104,16 +102,16 @@ namespace Graphs {
 			//Right click
 			if (a.Event.Button == 3) {
 				if (sender is EventBox) {
-					((sender as EventBox).Child as MVObject).ShowMenu();
+					(sender as EventBox).Child.GetType().GetMethod("ShowMenu").Invoke((sender as EventBox).Child, null);
 				}	
 			}
 			//Left click
 			else if (a.Event.Button == 1) {
 				//Double-click
-				if (a.Event.Type==Gdk.EventType.TwoButtonPress) {
+				if (a.Event.Type == Gdk.EventType.TwoButtonPress) {
 					if (sender is EventBox) {
 						//Calling the edit method of the control
-						((sender as EventBox).Child as MVObject).Edit();
+						(sender as EventBox).Child.GetType().GetMethod("Edit").Invoke((sender as EventBox).Child, null);
 					}	
 				}
 				else {

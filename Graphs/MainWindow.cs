@@ -20,12 +20,12 @@ public partial class MainWindow: Gtk.Window
 		string name ="MovingBox";
 		int index = 0;
 
-		mvpanel1.AddMovingObject(new MVObject(name+(index++).ToString(),"Moving Object 1"),10,10);
-		mvpanel1.AddMovingObject(new MVObject(name+(index++).ToString(),"Moving Object 2"),10,10);
-		mvpanel1.AddMovingObject(new MVObject(name+(index++).ToString(),"Moving Object 3"),10,10);
-		mvpanel1.AddMovingObject(new MVObject(name+(index++).ToString(),"Moving Object 4"),10,10);
-		mvpanel1.AddMovingObject(new MVObject(name+(index++).ToString(),"Moving Object 5"),10,10);
-		mvpanel1.AddMovingObject(new MVObject(name+(index++).ToString(),"Moving Object 6"),10,10);
+		mvpanel1.AddMovingObject(new MVObject(name+(index++).ToString(),"Moving Object 1"), 10,10);
+		mvpanel1.AddMovingObject(new MVObject(name+(index++).ToString(),"Moving Object 2"), 15,15);
+		mvpanel1.AddMovingObject(new MVObject(name+(index++).ToString(),"Moving Object 3"), 20,20);
+		mvpanel1.AddMovingObject(new MVObject(name+(index++).ToString(),"Moving Object 4"), 25,25);
+		mvpanel1.AddMovingObject(new MVObject(name+(index++).ToString(),"Moving Object 5"), 30,30);
+		mvpanel1.AddMovingObject(new MVObject(name+(index++).ToString(),"Moving Object 6"), 35,35);
 
 		hbox3.Add (mvpanel1);
 	}
