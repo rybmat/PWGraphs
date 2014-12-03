@@ -14,6 +14,24 @@ public partial class MainWindow: Gtk.Window
 	public MainWindow () : base (Gtk.WindowType.Toplevel)
 	{
 		Build ();
+
+		MVPanel mvpanel1 = new MVPanel ();
+
+		string name ="MovingBox";
+		int index = 0;
+
+		mvpanel1.AddMovingObject(name+(index++).ToString(),"Moving Object 1",10,10);
+		mvpanel1.AddMovingObject(name+(index++).ToString(),"Moving Object 2",10,55);
+		mvpanel1.AddMovingObject(name+(index++).ToString(),"Mono",10,100);
+		mvpanel1.AddMovingObject(name+(index++).ToString(),"Gtk#",10,145);
+		mvpanel1.AddMovingObject(name+(index++).ToString(),"MonoDevelop",10,190);
+		mvpanel1.AddMovingObject(name+(index++).ToString(),"Pango",10,235);
+		mvpanel1.AddMovingObject(name+(index++).ToString(),"Test",10,280);
+
+
+		//mvpanel1.AddMovingObject (name + (index++).ToString (), "Moving Object 2", 10, 55);
+
+		hbox3.Add (mvpanel1);
 	}
 
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
