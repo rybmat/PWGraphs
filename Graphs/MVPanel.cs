@@ -24,7 +24,7 @@ namespace Graphs {
 		}
 
 		//Add a movable control to the panel
-		public void AddMovingObject(string name, string caption, int x, int y)
+		public void AddMovingObject(Widget wdg, int x, int y)
 		{
 			//Prevent the object to be displayed outside the panel
 			if (x<0) {
@@ -36,10 +36,10 @@ namespace Graphs {
 			}
 
 			//Create the box where the custom object is rendered
-			EventBox ev = GetMovingBox(name, caption);
+			EventBox ev = GetMovingBox(wdg);
 			//Add the events to control the movement of the box
-			ev.ButtonPressEvent+=new ButtonPressEventHandler(OnButtonPressed);
-			ev.ButtonReleaseEvent+=new ButtonReleaseEventHandler(OnButtonReleased);
+			ev.ButtonPressEvent += new ButtonPressEventHandler(OnButtonPressed);
+			ev.ButtonReleaseEvent += new ButtonReleaseEventHandler(OnButtonReleased);
 
 			//Add the control to the panel
 			fixed1.Put(ev,x,y);
@@ -47,11 +47,10 @@ namespace Graphs {
 		}
 
 		//Create the event box for the custom control
-		private EventBox GetMovingBox(string name, string caption) { 
-			MVObject ctrl = new MVObject(name,caption);
+		private EventBox GetMovingBox(Widget wdg) { 
 			EventBox rev = new EventBox();
-			rev.Name = name;
-			rev.Add(ctrl);
+			rev.Name = wdg.ToString();
+			rev.Add(wdg);
 			Console.WriteLine("Creating new moving object"+rev.Name);
 			return rev;
 		}
@@ -62,13 +61,13 @@ namespace Graphs {
 
 			if (currCtrl != null) {
 				if (currCtrl is EventBox) {
-					re = GetMovingBox((currCtrl as EventBox).Name+"Clone", ((currCtrl as EventBox).Child as MVObject).Caption);
+					re = GetMovingBox((currCtrl as EventBox).Child);
 				}
 			}
-			if (re == null) {
+			//if (re == null) {
 				//This should not really happen but that would prevent an exception
-				re = GetMovingBox("Unknown", "Unknown");
-			}
+			//	re = GetMovingBox("Unknown", "Unknown");
+			//}
 			return re;
 		}
 

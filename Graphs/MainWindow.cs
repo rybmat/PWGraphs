@@ -20,16 +20,12 @@ public partial class MainWindow: Gtk.Window
 		string name ="MovingBox";
 		int index = 0;
 
-		mvpanel1.AddMovingObject(name+(index++).ToString(),"Moving Object 1",10,10);
-		mvpanel1.AddMovingObject(name+(index++).ToString(),"Moving Object 2",10,55);
-		mvpanel1.AddMovingObject(name+(index++).ToString(),"Mono",10,100);
-		mvpanel1.AddMovingObject(name+(index++).ToString(),"Gtk#",10,145);
-		mvpanel1.AddMovingObject(name+(index++).ToString(),"MonoDevelop",10,190);
-		mvpanel1.AddMovingObject(name+(index++).ToString(),"Pango",10,235);
-		mvpanel1.AddMovingObject(name+(index++).ToString(),"Test",10,280);
-
-
-		//mvpanel1.AddMovingObject (name + (index++).ToString (), "Moving Object 2", 10, 55);
+		mvpanel1.AddMovingObject(new MVObject(name+(index++).ToString(),"Moving Object 1"),10,10);
+		mvpanel1.AddMovingObject(new MVObject(name+(index++).ToString(),"Moving Object 2"),10,10);
+		mvpanel1.AddMovingObject(new MVObject(name+(index++).ToString(),"Moving Object 3"),10,10);
+		mvpanel1.AddMovingObject(new MVObject(name+(index++).ToString(),"Moving Object 4"),10,10);
+		mvpanel1.AddMovingObject(new MVObject(name+(index++).ToString(),"Moving Object 5"),10,10);
+		mvpanel1.AddMovingObject(new MVObject(name+(index++).ToString(),"Moving Object 6"),10,10);
 
 		hbox3.Add (mvpanel1);
 	}
