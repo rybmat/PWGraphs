@@ -62,6 +62,22 @@ namespace GraphProject {
 			nodes.Clear ();
 		}
 
+		override public string ToString(){
+			string re = "Graph:\n";
+			foreach (var n in nodes) {
+				re += "\t" + n.Value.ToString() + "\n \t\tpred:";
+				foreach (var p in n.Value.predecessors) {
+					re += " " + p.ToString() + ",";
+				}
+				re += "\n\t\tsucc:";
+				foreach (var p in n.Value.successors) {
+					re += "\t\t" + p.ToString() + ", ";
+				}
+				re += "\n";
+			}
+			return re;
+		}
+
 		//IEnumerable
 		public IEnumerator<Node<T>> GetEnumerator() {
 			return nodes.Values.GetEnumerator();

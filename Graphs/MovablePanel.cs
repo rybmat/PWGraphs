@@ -38,6 +38,8 @@ namespace Graphs {
 				ch.Destroy ();
 			}
 			RefreshChildren ();
+			Console.WriteLine ("MovablePanel.RemoveAllChildren");
+			Console.WriteLine (graph.ToString ());
 		}
 			
 		public void AddNode(Widget wdg, int x, int y) {
@@ -62,6 +64,9 @@ namespace Graphs {
 			//Add to the panel
 			fixed1.Put(ev, x, y);
 			ShowAll();
+
+			Console.WriteLine ("MovablePanel.addNode");
+			Console.WriteLine (graph.ToString ());
 		}
 			
 		private EventBox GetMovingBox(Widget wdg) { 

@@ -1,25 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Graphs/MainWindow.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Graphs/NodeVisualization.cs">
     <Files>
-      <File FileName="Graphs/MainWindow.cs" Line="46" Column="46" />
-      <File FileName="Graphs/NodeVisualization.cs" Line="3" Column="3" />
-      <File FileName="Graphs/MovablePanel.cs" Line="47" Column="47" />
-      <File FileName="Graphs/NodeDialog.cs" Line="20" Column="20" />
+      <File FileName="Graphs/MainWindow.cs" Line="76" Column="76" />
+      <File FileName="Graphs/NodeVisualization.cs" Line="1" Column="1" />
+      <File FileName="Graphs/MovablePanel.cs" Line="5" Column="5" />
+      <File FileName="Graphs/NodeDialog.cs" Line="1" Column="1" />
       <File FileName="models/City.cs" Line="1" Column="1" />
       <File FileName="models/Vertex.cs" Line="1" Column="1" />
-      <File FileName="GraphProject/Node.cs" Line="42" Column="42" />
-      <File FileName="GraphProject/GraphStructure.cs" Line="35" Column="35" />
+      <File FileName="GraphProject/Node.cs" Line="30" Column="30" />
+      <File FileName="GraphProject/GraphStructure.cs" Line="33" Column="33" />
     </Files>
-    <Pads>
-      <Pad Id="MonoDevelop.NUnit.TestPad">
-        <State expanded="True">
-          <Node name="Tests" expanded="True">
-            <Node name="Tests" selected="True" />
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

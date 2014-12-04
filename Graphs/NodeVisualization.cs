@@ -60,10 +60,11 @@ namespace Graphs {
 		}
 
 		protected void OnRemove(object sender, EventArgs args) {
-			Console.WriteLine("Remove clicked");
 			object[] margs = {Node};
 
 			graph.GetType().GetMethod("RemoveNode").Invoke(graph, margs);
+			Console.WriteLine ("NodeVisualization.RemoveNode");
+			Console.WriteLine (graph.ToString ());
 			Destroy ();
 			QueueDraw();
 		}
