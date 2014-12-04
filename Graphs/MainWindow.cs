@@ -12,8 +12,6 @@ public partial class MainWindow: Gtk.Window {
 	Type selectedModel;
 	private MovablePanel mvpanel1 = new MovablePanel(_rightClick: "ShowMenu", _doubleClick: "ShowDetails");
 
-	public object graph;
-
 	public MainWindow () : base (Gtk.WindowType.Toplevel) {
 		Build ();
 		hbox3.Add (mvpanel1);
@@ -69,7 +67,7 @@ public partial class MainWindow: Gtk.Window {
 		Type[] typeArgs = { selectedModel };
 		Type graphType = typeof(Graph<>);
 		Type constructedGraphType = graphType.MakeGenericType(typeArgs);
-		graph = Activator.CreateInstance (constructedGraphType);
+		mvpanel1.graph = Activator.CreateInstance (constructedGraphType);
 	}
 
 	protected void OnClear (object sender, EventArgs e) {
@@ -79,7 +77,7 @@ public partial class MainWindow: Gtk.Window {
 		addBtn.Sensitive = false;
 
 		mvpanel1.RemoveAllChildren ();
-		graph.GetType().GetMethod("Clear").Invoke(graph, null);
+		mvpanel1.graph.GetType().GetMethod("Clear").Invoke(mvpanel1.graph, null);
 	}
 
 	protected void OnSelect (object sender, EventArgs e) {
@@ -100,7 +98,7 @@ public partial class MainWindow: Gtk.Window {
 			mvpanel1.AddNode (mvo, 10, 10);
 
 			object[] args = {node};
-			graph.GetType().GetMethod("AddNode").Invoke(graph, args);
+			mvpanel1.graph.GetType().GetMethod("AddNode").Invoke(mvpanel1.graph, args);
 		}
 		addDialog.Destroy ();
 	}

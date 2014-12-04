@@ -19,6 +19,8 @@ namespace Graphs {
 		private string rightClick;
 		private string doubleClick;
 
+		public object graph;
+
 		public MovablePanel(string _rightClick, string _doubleClick) {		
 			rightClick = _rightClick;
 			doubleClick = _doubleClick;
