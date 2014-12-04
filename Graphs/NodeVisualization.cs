@@ -62,11 +62,6 @@ namespace Graphs {
 		protected void OnRemove(object sender, EventArgs args) {
 			Console.WriteLine("Remove clicked");
 			object[] margs = {Node};
-			if (Node == null)
-				Console.WriteLine("Node==null at OnRemove");
-
-			if (graph == null)
-				Console.WriteLine("graph==null at OnRemove");
 
 			graph.GetType().GetMethod("RemoveNode").Invoke(graph, margs);
 			Destroy ();
