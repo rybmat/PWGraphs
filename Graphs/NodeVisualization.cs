@@ -8,8 +8,10 @@ namespace Graphs {
 	public class NodeVisualization : Gtk.DrawingArea {
 		private string caption = "";
 		private Gtk.Menu popup = null;
+
 		private int width = 0;
 		private int height;
+
 		public object graph;
 
 		public int X{ get; set; }
@@ -26,9 +28,18 @@ namespace Graphs {
 			nodeType = _nodeType;
 
 			popup = new Gtk.Menu();
+
 			Gtk.MenuItem rm = new MenuItem("Remove");
 			rm.Activated += new EventHandler(OnRemove);
-			popup.Add(rm);			
+			popup.Add(rm);
+
+			Gtk.MenuItem connect = new MenuItem("Connect To");
+			connect.Activated += new EventHandler(OnConnect);
+			popup.Add(connect);
+
+			Gtk.MenuItem disconnect = new MenuItem("Remove Connection To");
+			disconnect.Activated += new EventHandler(OnDisconnect);
+			popup.Add(disconnect);
 
 			caption = _node.ToString();
 			Name = _node.ToString();
@@ -67,6 +78,17 @@ namespace Graphs {
 			Console.WriteLine (graph.ToString ());
 			Destroy ();
 			QueueDraw();
+		}
+
+		protected void OnConnect(object sender, EventArgs args) {
+			object[] margs = { (sender as MenuItem).Parent.Parent };
+			node.GetType ().GetMethod ("AddSuccessor").Invoke (node, margs);
+			Console.WriteLine ("NodeVisualization.OnConnect");
+			Console.WriteLine (graph.ToString ());
+		}
+
+		protected void OnDisconnect(object sender, EventArgs args) {
+	
 		}
 
 		protected override bool OnExposeEvent (Gdk.EventExpose args) {
