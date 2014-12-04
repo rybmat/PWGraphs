@@ -6,6 +6,7 @@ namespace GraphProject {
 		public T Data { get; set; }
 
 		public List<Node<T>> successors = new List<Node<T>>();
+		public List<Node<T>> predecessors = new List<Node<T>>();
 
 		public Node (T m) { 
 			Data = m;
@@ -13,11 +14,24 @@ namespace GraphProject {
 
 		public Node<T> AddSuccessor(Node<T> n) {
 			successors.Add (n);
+			n.predecessors.Add (this);
 			return this;
 		}
 			
 		public bool RemoveSuccesor(Node<T> n) {
+			n.predecessors.Remove (this);
 			return successors.Remove (n);
+		}
+
+		public Node<T> AddPredecessor(Node<T> n) {
+			predecessors.Add (n);
+			n.successors.Add (this);
+			return this;
+		}
+
+		public bool RemovePredecessor(Node<T> n) {
+			n.successors.Remove (this);
+			return predecessors.Remove (n);
 		}
 
 		override public string ToString() {

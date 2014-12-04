@@ -32,6 +32,8 @@ namespace Tests {
 			Node<City> r = n.AddSuccessor (ct);
 			Assert.Contains (ct, n.successors);
 			Assert.Contains (ct, r.successors);
+
+			Assert.Contains (n, ct.predecessors);
 			Assert.AreSame (n, r);
 		}
 
@@ -42,9 +44,13 @@ namespace Tests {
 
 			Node<City> r = n.AddSuccessor (ct).AddSuccessor(ct2);
 			Assert.Contains (ct, n.successors);
+			Assert.Contains (n, ct.predecessors);
 			Assert.Contains (ct, r.successors);
+
 			Assert.Contains (ct2, n.successors);
+			Assert.Contains (n, ct2.predecessors);
 			Assert.Contains (ct2, r.successors);
+
 			Assert.AreSame (n, r);
 		}
 
@@ -55,6 +61,7 @@ namespace Tests {
 			Assert.True (n.RemoveSuccesor (ct));
 
 			Assert.False (n.successors.Contains(ct));
+			Assert.False (ct.predecessors.Contains(n));
 			Assert.False (r.successors.Contains(ct));
 			Assert.AreSame (n, r);
 		}
