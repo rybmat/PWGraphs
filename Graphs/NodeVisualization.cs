@@ -11,6 +11,9 @@ namespace Graphs {
 		private int width = 0;
 		private int height;
 
+		public int X{ get; set; }
+		public int Y{ get; set; }
+
 		private object node;
 		public object Node { get { return node; } }
 

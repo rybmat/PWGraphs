@@ -42,6 +42,9 @@ namespace Graphs {
 				y = 0;
 			}
 				
+			(wdg as NodeVisualization).X = x;
+			(wdg as NodeVisualization).Y = y;
+
 			EventBox ev = GetMovingBox(wdg);
 			ev.ButtonPressEvent += new ButtonPressEventHandler(OnButtonPressed);
 			ev.ButtonReleaseEvent += new ButtonReleaseEventHandler(OnButtonReleased);
@@ -95,6 +98,9 @@ namespace Graphs {
 			fixed1.Move(wdg, destX, destY);
 			if (!isClone) {
 				Console.WriteLine("MovingBox KeyReleased:"+destX.ToString()+"-"+destY.ToString());
+				((wdg as EventBox).Child as NodeVisualization).X = destX;
+				((wdg as EventBox).Child as NodeVisualization).Y = destY;
+
 			}
 			fixed1.QueueDraw();	
 		}
