@@ -1,30 +1,41 @@
 ﻿using System;
 using Gtk;
 using Cairo;
+using GraphProject;
 
 namespace Graphs {
 
 	public class MVObject : Gtk.DrawingArea {
-		string parentName = "";
-		string caption = "";
-		Gtk.Menu popup = null;
-		int width = 0;
-		int height;
+		private string caption = "";
+		private Gtk.Menu popup = null;
+		private int width = 0;
+		private int height;
 
-		public MVObject(string pName, string cap) {
+		private object node;
+		public object Node { get { return node; } }
+
+		private Type nodeType;
+		public Type NodeType { get { return nodeType; } }
+
+		public MVObject(Type _nodeType, object _node) {
+			node = _node;
+			nodeType = _nodeType;
+
 			popup = new Gtk.Menu();
 			Gtk.MenuItem rm = new MenuItem("Remove");
 			rm.Activated += new EventHandler(OnRemove);
 			popup.Add(rm);			
 
-			parentName = pName;
-			caption = cap;
-			width = caption.Length * 6 + 10;
+			caption = _node.ToString();
+			Name = _node.ToString();
+
+			width = caption.Length * 8 + 10;
 			height = 40;
-
-			Name = parentName + "MVObject";
-
 			SetSizeRequest(width, height);
+		}
+
+		public override string ToString () {
+			return node.ToString();
 		}
 
 		public void ShowMenu() {
@@ -35,12 +46,6 @@ namespace Graphs {
 		public void ShowDetails() {
 			//Todo: show dialog with details
 			QueueDraw();
-		}
-
-		public string Caption {
-			get {
-				return caption;
-			}
 		}
 
 		public void Redraw() {

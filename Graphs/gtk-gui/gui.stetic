@@ -188,24 +188,7 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="Gtk.ScrolledWindow" id="GtkScrolledWindow">
-                    <property name="MemberName" />
-                    <property name="ShadowType">In</property>
-                    <child>
-                      <widget class="Gtk.TreeView" id="nodesTreeView">
-                        <property name="MemberName" />
-                        <property name="WidthRequest">300</property>
-                        <property name="Sensitive">False</property>
-                        <property name="CanFocus">True</property>
-                        <property name="ShowScrollbars">True</property>
-                        <signal name="SelectCursorRow" handler="OnSelect" />
-                      </widget>
-                    </child>
-                  </widget>
-                  <packing>
-                    <property name="Position">3</property>
-                    <property name="AutoSize">True</property>
-                  </packing>
+                  <placeholder />
                 </child>
               </widget>
               <packing>

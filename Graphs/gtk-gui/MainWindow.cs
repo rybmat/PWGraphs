@@ -38,10 +38,6 @@ public partial class MainWindow
 	private global::Gtk.Button removeBtn;
 	
 	private global::Gtk.Button addBtn;
-	
-	private global::Gtk.ScrolledWindow GtkScrolledWindow;
-	
-	private global::Gtk.TreeView nodesTreeView;
 
 	protected virtual void Build ()
 	{
@@ -170,28 +166,14 @@ public partial class MainWindow
 		w11.Position = 2;
 		w11.Expand = false;
 		w11.Fill = false;
-		// Container child vbox3.Gtk.Box+BoxChild
-		this.GtkScrolledWindow = new global::Gtk.ScrolledWindow ();
-		this.GtkScrolledWindow.Name = "GtkScrolledWindow";
-		this.GtkScrolledWindow.ShadowType = ((global::Gtk.ShadowType)(1));
-		// Container child GtkScrolledWindow.Gtk.Container+ContainerChild
-		this.nodesTreeView = new global::Gtk.TreeView ();
-		this.nodesTreeView.WidthRequest = 300;
-		this.nodesTreeView.Sensitive = false;
-		this.nodesTreeView.CanFocus = true;
-		this.nodesTreeView.Name = "nodesTreeView";
-		this.GtkScrolledWindow.Add (this.nodesTreeView);
-		this.vbox3.Add (this.GtkScrolledWindow);
-		global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.GtkScrolledWindow]));
-		w13.Position = 3;
 		this.hbox3.Add (this.vbox3);
-		global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.vbox3]));
-		w14.Position = 0;
-		w14.Expand = false;
-		w14.Fill = false;
+		global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.vbox3]));
+		w12.Position = 0;
+		w12.Expand = false;
+		w12.Fill = false;
 		this.mainVbox.Add (this.hbox3);
-		global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.mainVbox [this.hbox3]));
-		w15.Position = 1;
+		global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.mainVbox [this.hbox3]));
+		w13.Position = 1;
 		this.Add (this.mainVbox);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
@@ -207,6 +189,5 @@ public partial class MainWindow
 		this.clearBtn.Clicked += new global::System.EventHandler (this.OnClear);
 		this.drawBtn.Clicked += new global::System.EventHandler (this.OnDraw);
 		this.addBtn.Clicked += new global::System.EventHandler (this.OnAddBtnClicked);
-		this.nodesTreeView.SelectCursorRow += new global::Gtk.SelectCursorRowHandler (this.OnSelect);
 	}
 }
