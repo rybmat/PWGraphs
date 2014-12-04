@@ -77,7 +77,6 @@ public partial class MainWindow: Gtk.Window {
 		addBtn.Sensitive = false;
 
 		mvpanel1.RemoveAllChildren ();
-		mvpanel1.graph.GetType().GetMethod("Clear").Invoke(mvpanel1.graph, null);
 	}
 
 	protected void OnSelect (object sender, EventArgs e) {
@@ -96,9 +95,6 @@ public partial class MainWindow: Gtk.Window {
 
 			NodeVisualization mvo = new NodeVisualization (constructedNodeType, node);
 			mvpanel1.AddNode (mvo, 10, 10);
-
-			object[] args = {node};
-			mvpanel1.graph.GetType().GetMethod("AddNode").Invoke(mvpanel1.graph, args);
 		}
 		addDialog.Destroy ();
 	}

@@ -33,6 +33,7 @@ namespace Graphs {
 		}
 
 		public void RemoveAllChildren() {
+			graph.GetType().GetMethod("Clear").Invoke(graph, null);
 			foreach (Widget ch in fixed1.AllChildren) {
 				ch.Destroy ();
 			}
@@ -49,6 +50,9 @@ namespace Graphs {
 				
 			(wdg as NodeVisualization).X = x;
 			(wdg as NodeVisualization).Y = y;
+			object[] args = {(wdg as NodeVisualization).Node};
+			graph.GetType().GetMethod("AddNode").Invoke(graph, args);
+
 
 			EventBox ev = GetMovingBox(wdg);
 			ev.ButtonPressEvent += new ButtonPressEventHandler(OnButtonPressed);
