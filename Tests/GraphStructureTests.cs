@@ -15,7 +15,7 @@ namespace Tests {
 		[SetUp]
 		public void SetUp() {
 			g = new Graph<City> ();
-			c = new City ("poz", "wlkp", 1234);
+			c = new City ("poz", "wlkp", "aaa");
 			n = new Node<City> (c);
 		}
 
@@ -23,6 +23,19 @@ namespace Tests {
 		[ExpectedException(typeof(KeyNotFoundException))]
 		public void IndexerNodeTest_Invalid_Key() {
 			Node<City> nc = g["war"];
+		}
+
+		[Test ()]
+		public void IndexerNodeTest_setter() {
+			g ["ddd"] = c;
+			Assert.AreSame (c, g ["ddd"].Data);
+		}
+
+		[Test ()]
+		[ExpectedException(typeof(KeyNotFoundException))]
+		public void IndexerNodeTest_setter_exeption() {
+			g ["ddd"] = c;
+			Assert.AreSame (c, g ["poz"].Data);
 		}
 
 		[Test ()]
@@ -42,7 +55,7 @@ namespace Tests {
 		[Test ()]
 		public void AddNodeTest_invocation_chain ()
 		{
-			City c1 = new City ("war", "maz", 4253);
+			City c1 = new City ("war", "maz", "bbb");
 			Graph<City> r = g.AddNode (c1).AddNode (n);
 
 			Assert.AreSame (n, g["poz"]);
@@ -68,7 +81,7 @@ namespace Tests {
 		[Test ()]
 		public void AddNodeTest_invocation_chain_operator ()
 		{
-			City c1 = new City ("war", "maz", 4253);
+			City c1 = new City ("war", "maz", "bbb");
 			Graph<City> r = g + c1 +n;
 
 			Assert.AreSame (n, g["poz"]);
@@ -120,8 +133,8 @@ namespace Tests {
 		[Test ()]
 		public void EnumerableTest() {
 			g.AddNode (c);
-			g.AddNode( new City("war", "maz", 4254));
-			g.AddNode( new City("kra", "mlp", 4254));
+			g.AddNode( new City("war", "maz", "bbb"));
+			g.AddNode( new City("kra", "mlp", "ccc"));
 
 			foreach (var n in g) {
 				Assert.True (n.Data.Name.Equals ("war") || n.Data.Name.Equals ("kra") || n.Data.Name.Equals ("poz"));

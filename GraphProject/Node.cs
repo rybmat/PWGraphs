@@ -23,6 +23,10 @@ namespace GraphProject {
 		override public string ToString() {
 			return Data.ToString ();
 		}
+
+		public static implicit operator Node<T>(T model) {
+			return new Node<T>(model);
+		}
 	}
 }
 

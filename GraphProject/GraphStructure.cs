@@ -16,6 +16,10 @@ namespace GraphProject {
 				else
 					throw new KeyNotFoundException();
 			}
+
+			set {
+				nodes [id] = value;
+			}
 		}
 
 		public Graph<T> AddNode (T n) {

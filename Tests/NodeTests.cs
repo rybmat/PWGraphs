@@ -12,7 +12,7 @@ namespace Tests {
 
 		[SetUp]
 		public void SetUp() {
-			c = new City ("Poznan", "wlkp", 5435);
+			c = new City ("Poznan", "wlkp", "aaa");
 			n = new Node<City> (c);
 		}
 
@@ -28,7 +28,7 @@ namespace Tests {
 
 		[Test]
 		public void AddSuccessorTest() {
-			Node<City> ct = new Node<City> (new City ("war", "maz", 24351));
+			Node<City> ct = new Node<City> (new City ("war", "maz", "bbb"));
 			Node<City> r = n.AddSuccessor (ct);
 			Assert.Contains (ct, n.successors);
 			Assert.Contains (ct, r.successors);
@@ -37,8 +37,8 @@ namespace Tests {
 
 		[Test]
 		public void AddSuccessorTest_inokation_chain() {
-			Node<City> ct = new Node<City> (new City ("war", "maz", 24351));
-			Node<City> ct2 = new Node<City> (new City ("kra", "mlp", 24351));
+			Node<City> ct = new Node<City> (new City ("war", "maz", "24351"));
+			Node<City> ct2 = new Node<City> (new City ("kra", "mlp", "24351"));
 
 			Node<City> r = n.AddSuccessor (ct).AddSuccessor(ct2);
 			Assert.Contains (ct, n.successors);
@@ -50,7 +50,7 @@ namespace Tests {
 
 		[Test]
 		public void RemoveSuccessorTest() {
-			Node<City> ct = new Node<City> (new City ("war", "maz", 24351));
+			Node<City> ct = new Node<City> (new City ("war", "maz", "24351"));
 			Node<City> r = n.AddSuccessor (ct);
 			Assert.True (n.RemoveSuccesor (ct));
 
@@ -61,7 +61,7 @@ namespace Tests {
 
 		[Test]
 		public void RemoveSuccessorTest_not_contained() {
-			Node<City> ct = new Node<City> (new City ("war", "maz", 24351));
+			Node<City> ct = new Node<City> (new City ("war", "maz", "24351"));
 			Assert.False (n.RemoveSuccesor (ct));
 			Assert.False (n.successors.Contains(ct));
 		}
