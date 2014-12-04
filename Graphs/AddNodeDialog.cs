@@ -10,7 +10,7 @@ namespace Graphs {
 
 		object model;
 
-		public AddNodeDialog (Type type, object _model) {
+		public AddNodeDialog (Type type, object _model, bool editable=true) {
 			model = _model;
 			foreach (var p in type.GetProperties()) {
 				HBox hb = new HBox ();
@@ -18,6 +18,9 @@ namespace Graphs {
 				l.Name = p.Name + "_label";
 				Entry e = new Entry ();
 				e.Name = p.Name;
+				e.IsEditable = editable;
+				if (!editable)
+					e.Text = p.GetValue(_model).ToString();
 				hb.Add (l);
 				hb.Add (e);
 				this.VBox.Add (hb);

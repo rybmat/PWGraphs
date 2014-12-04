@@ -44,7 +44,11 @@ namespace Graphs {
 		}
 
 		public void ShowDetails() {
-			//Todo: show dialog with details
+			//Console.WriteLine (nodeType.GenericTypeArguments [0]);
+
+			AddNodeDialog addDialog = new AddNodeDialog (nodeType.GenericTypeArguments[0], node.GetType().GetProperty("Data").GetValue(node), false);
+			addDialog.Run ();
+			addDialog.Destroy ();
 			QueueDraw();
 		}
 
@@ -55,7 +59,8 @@ namespace Graphs {
 
 		protected void OnRemove(object sender, EventArgs args) {
 			Console.WriteLine("Remove clicked");
-			//Todo: remove entry from graph, detach from MVPanel and destroy self;
+			//Todo: remove entry from graph (don't know how yet)
+			Destroy ();
 			QueueDraw();
 		}
 
