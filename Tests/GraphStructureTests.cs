@@ -94,13 +94,13 @@ namespace Tests {
 		public void RemoveNodeTest_T ()
 		{
 			g.AddNodeFromModel (c);
-			Assert.True(g.RemoveNode (c));
+			Assert.True(g.RemoveNodeFromModel (c));
 		}
 
 		[Test ()]
 		public void RemoveNodeTest_T_non_existing ()
 		{
-			Assert.False(g.RemoveNode (c));
+			Assert.False(g.RemoveNodeFromModel (c));
 		}
 
 		[Test ()]
@@ -120,14 +120,14 @@ namespace Tests {
 		public void RemoveNodeTest_str ()
 		{
 			g.AddNode (n);
-			Assert.True(g.RemoveNode ("poz"));
+			Assert.True(g.RemoveNodeFromName ("poz"));
 		}
 
 		[Test ()]
 		public void RemoveNodeTest_str_non_existing ()
 		{
 			g.AddNode (n);
-			Assert.False(g.RemoveNode ("war"));
+			Assert.False(g.RemoveNodeFromName ("war"));
 		}
 
 		[Test ()]

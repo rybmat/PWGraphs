@@ -10,6 +10,7 @@ namespace Graphs {
 		private Gtk.Menu popup = null;
 		private int width = 0;
 		private int height;
+		public object graph;
 
 		public int X{ get; set; }
 		public int Y{ get; set; }
@@ -60,7 +61,14 @@ namespace Graphs {
 
 		protected void OnRemove(object sender, EventArgs args) {
 			Console.WriteLine("Remove clicked");
-			//Todo: remove entry from graph (don't know how yet)
+			object[] margs = {Node};
+			if (Node == null)
+				Console.WriteLine("Node==null at OnRemove");
+
+			if (graph == null)
+				Console.WriteLine("graph==null at OnRemove");
+
+			graph.GetType().GetMethod("RemoveNode").Invoke(graph, margs);
 			Destroy ();
 			QueueDraw();
 		}

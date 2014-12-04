@@ -46,7 +46,7 @@ namespace GraphProject {
 			return g;
 		}
 
-		public bool RemoveNode (T n) {
+		public bool RemoveNodeFromModel (T n) {
 			return nodes.Remove (n.ToString ());
 		}
 
@@ -54,7 +54,7 @@ namespace GraphProject {
 			return nodes.Remove (n.ToString ());
 		}
 
-		public bool RemoveNode (string n) {
+		public bool RemoveNodeFromName (string n) {
 			return nodes.Remove (n);
 		}
 

@@ -50,6 +50,7 @@ namespace Graphs {
 				
 			(wdg as NodeVisualization).X = x;
 			(wdg as NodeVisualization).Y = y;
+			(wdg as NodeVisualization).graph = graph;
 			object[] args = {(wdg as NodeVisualization).Node};
 			graph.GetType().GetMethod("AddNode").Invoke(graph, args);
 
