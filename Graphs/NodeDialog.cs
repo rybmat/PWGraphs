@@ -13,17 +13,19 @@ namespace Graphs {
 		public NodeDialog (Type type, object _model, bool editable=true) {
 			model = _model;
 			foreach (var p in type.GetProperties()) {
-				HBox hb = new HBox ();
-				Label l = new Label (p.Name);
-				l.Name = p.Name + "_label";
-				Entry e = new Entry ();
-				e.Name = p.Name;
-				e.IsEditable = editable;
-				if (!editable)
-					e.Text = p.GetValue(_model).ToString();
-				hb.Add (l);
-				hb.Add (e);
-				this.VBox.Add (hb);
+				if (p.PropertyType == typeof(string)) {
+					HBox hb = new HBox ();
+					Label l = new Label (p.Name);
+					l.Name = p.Name + "_label";
+					Entry e = new Entry ();
+					e.Name = p.Name;
+					e.IsEditable = editable;
+					if (!editable)
+						e.Text = p.GetValue(_model).ToString();
+					hb.Add (l);
+					hb.Add (e);
+					this.VBox.Add (hb);
+				}
 			}
 
 			Build ();

@@ -81,7 +81,6 @@ public partial class MainWindow: Gtk.Window {
 
 	protected void OnAddBtnClicked (object sender, EventArgs e) {
 		object model = Activator.CreateInstance (selectedModel);
-
 		NodeDialog addDialog = new NodeDialog (selectedModel, model);
 		if (addDialog.Run () == (int)ResponseType.Ok && !string.IsNullOrEmpty(model.ToString())) {
 			//adding node to drawing area

@@ -1,11 +1,19 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Graphs/MVObject.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Graphs/MovablePanel.cs">
     <Files>
-      <File FileName="Graphs/MainWindow.cs" Line="85" Column="85" />
-      <File FileName="Graphs/AddNodeDialog.cs" Line="36" Column="36" />
-      <File FileName="Graphs/MVObject.cs" Line="43" Column="43" />
+      <File FileName="Graphs/MainWindow.cs" Line="59" Column="59" />
+      <File FileName="Graphs/NodeVisualization.cs" Line="22" Column="22" />
+      <File FileName="Graphs/MovablePanel.cs" Line="3" Column="3" />
+      <File FileName="Graphs/NodeDialog.cs" Line="26" Column="26" />
+      <File FileName="models/City.cs" Line="4" Column="4" />
+      <File FileName="models/Vertex.cs" Line="1" Column="1" />
     </Files>
+    <Pads>
+      <Pad Id="MonoDevelop.NUnit.TestPad">
+        <State expanded="True" selected="True" />
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
