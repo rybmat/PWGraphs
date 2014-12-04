@@ -5,7 +5,7 @@ using Graphs;
 namespace Graphs {
 
 	[System.ComponentModel.ToolboxItem (true)]
-	public partial class MVPanel : Gtk.Bin {
+	public partial class MovablePanel : Gtk.Bin {
 		private Widget currCtrl = null;
 		private Widget currClone = null;
 		private int origX = 0;
@@ -16,7 +16,7 @@ namespace Graphs {
 		private string rightClick;
 		private string doubleClick;
 
-		public MVPanel(string _rightClick, string _doubleClick) {		
+		public MovablePanel(string _rightClick, string _doubleClick) {		
 			rightClick = _rightClick;
 			doubleClick = _doubleClick;
 			Build();
@@ -33,28 +33,24 @@ namespace Graphs {
 			}
 			RefreshChildren ();
 		}
-
-		//Add a movable control to the panel
-		public void AddMovingObject(Widget wdg, int x, int y) {
+			
+		public void AddNode(Widget wdg, int x, int y) {
 			if (x<0) {
 				x = 0;
 			}
 			if (y<0) {
 				y = 0;
 			}
-
-			//Create the box where the custom object is rendered
+				
 			EventBox ev = GetMovingBox(wdg);
-			//Add the events to control the movement of the box
 			ev.ButtonPressEvent += new ButtonPressEventHandler(OnButtonPressed);
 			ev.ButtonReleaseEvent += new ButtonReleaseEventHandler(OnButtonReleased);
 
-			//Add the control to the panel
+			//Add to the panel
 			fixed1.Put(ev, x, y);
 			ShowAll();
 		}
-
-		//Create the event box for the custom control
+			
 		private EventBox GetMovingBox(Widget wdg) { 
 			EventBox rev = new EventBox();
 			rev.Name = wdg.ToString();
@@ -63,8 +59,7 @@ namespace Graphs {
 			Console.WriteLine("Creating new moving object"+rev.Name);
 			return rev;
 		}
-
-		//Create a clone of the selected object that will be shown until the destination of the control is reached
+			
 		private Widget CloneCurrCtrl() {
 			Widget re = null;
 
@@ -77,8 +72,7 @@ namespace Graphs {
 			}
 			return re;
 		}
-
-		//Render the clone of the selected object at the intermediate position
+			
 		private void MoveClone(ref Widget wdg, object eventX, object eventY) {
 			if (wdg == null) {
 				wdg = CloneCurrCtrl();
@@ -87,8 +81,7 @@ namespace Graphs {
 			}
 			MoveControl(wdg, eventX, eventY, true);
 		}
-
-		//Move a control to the specified event location
+			
 		private void MoveControl(Widget wdg, object eventX, object eventY, bool isClone) {
 			int destX = origX+System.Convert.ToInt32(eventX)+origX-pointX;
 			int destY = origY+System.Convert.ToInt32(eventY)+origY-pointY;
@@ -119,7 +112,6 @@ namespace Graphs {
 				//Double-click
 				if (a.Event.Type == Gdk.EventType.TwoButtonPress) {
 					if (sender is EventBox) {
-						//Calling the edit method of the control
 						(sender as EventBox).Child.GetType().GetMethod(doubleClick).Invoke((sender as EventBox).Child, null);
 					}	
 				}
@@ -155,7 +147,6 @@ namespace Graphs {
 			}
 		}
 
-		//Called whenever a control is moved
 		protected virtual void OnFixed1MotionNotifyEvent (object o, Gtk.MotionNotifyEventArgs args) {
 			if (isDragged) {
 				//Render of a clone at the desired location

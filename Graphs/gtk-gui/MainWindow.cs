@@ -35,8 +35,6 @@ public partial class MainWindow
 	
 	private global::Gtk.HBox hbox1;
 	
-	private global::Gtk.Button removeBtn;
-	
 	private global::Gtk.Button addBtn;
 
 	protected virtual void Build ()
@@ -140,17 +138,6 @@ public partial class MainWindow
 		this.hbox1.Name = "hbox1";
 		this.hbox1.Spacing = 6;
 		// Container child hbox1.Gtk.Box+BoxChild
-		this.removeBtn = new global::Gtk.Button ();
-		this.removeBtn.Sensitive = false;
-		this.removeBtn.CanFocus = true;
-		this.removeBtn.Name = "removeBtn";
-		this.removeBtn.UseStock = true;
-		this.removeBtn.UseUnderline = true;
-		this.removeBtn.Label = "gtk-remove";
-		this.hbox1.Add (this.removeBtn);
-		global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.removeBtn]));
-		w9.Position = 0;
-		// Container child hbox1.Gtk.Box+BoxChild
 		this.addBtn = new global::Gtk.Button ();
 		this.addBtn.Sensitive = false;
 		this.addBtn.CanFocus = true;
@@ -159,21 +146,21 @@ public partial class MainWindow
 		this.addBtn.UseUnderline = true;
 		this.addBtn.Label = "gtk-add";
 		this.hbox1.Add (this.addBtn);
-		global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.addBtn]));
-		w10.Position = 1;
+		global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.addBtn]));
+		w9.Position = 0;
 		this.vbox3.Add (this.hbox1);
-		global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.hbox1]));
-		w11.Position = 2;
+		global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.hbox1]));
+		w10.Position = 2;
+		w10.Expand = false;
+		w10.Fill = false;
+		this.hbox3.Add (this.vbox3);
+		global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.vbox3]));
+		w11.Position = 0;
 		w11.Expand = false;
 		w11.Fill = false;
-		this.hbox3.Add (this.vbox3);
-		global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.vbox3]));
-		w12.Position = 0;
-		w12.Expand = false;
-		w12.Fill = false;
 		this.mainVbox.Add (this.hbox3);
-		global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.mainVbox [this.hbox3]));
-		w13.Position = 1;
+		global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.mainVbox [this.hbox3]));
+		w12.Position = 1;
 		this.Add (this.mainVbox);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();

@@ -6,11 +6,11 @@ using Graphs;
 using System.Linq;
 
 namespace Graphs {
-	public partial class AddNodeDialog : Gtk.Dialog {
+	public partial class NodeDialog : Gtk.Dialog {
 
 		object model;
 
-		public AddNodeDialog (Type type, object _model, bool editable=true) {
+		public NodeDialog (Type type, object _model, bool editable=true) {
 			model = _model;
 			foreach (var p in type.GetProperties()) {
 				HBox hb = new HBox ();

@@ -5,7 +5,7 @@ using GraphProject;
 
 namespace Graphs {
 
-	public class MVObject : Gtk.DrawingArea {
+	public class NodeVisualization : Gtk.DrawingArea {
 		private string caption = "";
 		private Gtk.Menu popup = null;
 		private int width = 0;
@@ -17,7 +17,7 @@ namespace Graphs {
 		private Type nodeType;
 		public Type NodeType { get { return nodeType; } }
 
-		public MVObject(Type _nodeType, object _node) {
+		public NodeVisualization(Type _nodeType, object _node) {
 			node = _node;
 			nodeType = _nodeType;
 
@@ -44,9 +44,7 @@ namespace Graphs {
 		}
 
 		public void ShowDetails() {
-			//Console.WriteLine (nodeType.GenericTypeArguments [0]);
-
-			AddNodeDialog addDialog = new AddNodeDialog (nodeType.GenericTypeArguments[0], node.GetType().GetProperty("Data").GetValue(node), false);
+			NodeDialog addDialog = new NodeDialog (nodeType.GenericTypeArguments[0], node.GetType().GetProperty("Data").GetValue(node), false);
 			addDialog.Run ();
 			addDialog.Destroy ();
 			QueueDraw();

@@ -9,7 +9,7 @@ public partial class MainWindow: Gtk.Window {
 	private string assemblyFileName;
 	private Type[] models;
 	Type selectedModel;
-	private MVPanel mvpanel1 = new MVPanel(_rightClick: "ShowMenu", _doubleClick: "ShowDetails");
+	private MovablePanel mvpanel1 = new MovablePanel(_rightClick: "ShowMenu", _doubleClick: "ShowDetails");
 
 
 	public MainWindow () : base (Gtk.WindowType.Toplevel) {
@@ -63,7 +63,6 @@ public partial class MainWindow: Gtk.Window {
 		clearBtn.Sensitive = true;
 		modelsCombobox.Sensitive = false;
 		addBtn.Sensitive = true;
-		removeBtn.Sensitive = true;
 	}
 
 	protected void OnClear (object sender, EventArgs e) {
@@ -71,7 +70,6 @@ public partial class MainWindow: Gtk.Window {
 		clearBtn.Sensitive = false;
 		modelsCombobox.Sensitive = true;
 		addBtn.Sensitive = false;
-		removeBtn.Sensitive = false;
 
 		mvpanel1.RemoveAllChildren ();
 		//TODO: remove nodes from graph
@@ -84,7 +82,7 @@ public partial class MainWindow: Gtk.Window {
 	protected void OnAddBtnClicked (object sender, EventArgs e) {
 		object model = Activator.CreateInstance (selectedModel);
 
-		AddNodeDialog addDialog = new AddNodeDialog (selectedModel, model);
+		NodeDialog addDialog = new NodeDialog (selectedModel, model);
 		if (addDialog.Run () == (int)ResponseType.Ok && !string.IsNullOrEmpty(model.ToString())) {
 			//adding node to drawing area
 			Type[] typeArgs = { selectedModel };
@@ -92,8 +90,8 @@ public partial class MainWindow: Gtk.Window {
 			Type constructedNodeType = nodeType.MakeGenericType(typeArgs);
 			object node = Activator.CreateInstance (constructedNodeType, model);
 
-			MVObject mvo = new MVObject (constructedNodeType, node);
-			mvpanel1.AddMovingObject (mvo, 10, 10);
+			NodeVisualization mvo = new NodeVisualization (constructedNodeType, node);
+			mvpanel1.AddNode (mvo, 10, 10);
 
 			//TODO: add model to graph
 		}
