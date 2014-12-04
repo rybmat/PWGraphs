@@ -17,11 +17,11 @@ namespace Tests {
 		[SetUp]
 		public void SetUp() {
 			eulerianWithCycle = new Graph<Vertex> ();
-			eulerianWithCycle.AddNode(new Vertex ("1")).AddNode(new Vertex ("2")).AddNode(new Vertex ("3")).AddNode(new Vertex ("4")).AddNode(new Vertex ("5")).AddNode(new Vertex("6"));
+			eulerianWithCycle.AddNodeFromModel(new Vertex ("1")).AddNodeFromModel(new Vertex ("2")).AddNodeFromModel(new Vertex ("3")).AddNodeFromModel(new Vertex ("4")).AddNodeFromModel(new Vertex ("5")).AddNodeFromModel(new Vertex("6"));
 			nonEulerian = new Graph<Vertex> ();
-			nonEulerian.AddNode(new Vertex ("1")).AddNode(new Vertex ("2")).AddNode(new Vertex ("3")).AddNode(new Vertex ("4")).AddNode(new Vertex ("5")).AddNode(new Vertex("6"));
+			nonEulerian.AddNodeFromModel(new Vertex ("1")).AddNodeFromModel(new Vertex ("2")).AddNodeFromModel(new Vertex ("3")).AddNodeFromModel(new Vertex ("4")).AddNodeFromModel(new Vertex ("5")).AddNodeFromModel(new Vertex("6"));
 			withoutCycle = new Graph<Vertex> ();
-			withoutCycle.AddNode(new Vertex ("1")).AddNode(new Vertex ("2")).AddNode(new Vertex ("3")).AddNode(new Vertex ("4")).AddNode(new Vertex ("5"));
+			withoutCycle.AddNodeFromModel(new Vertex ("1")).AddNodeFromModel(new Vertex ("2")).AddNodeFromModel(new Vertex ("3")).AddNodeFromModel(new Vertex ("4")).AddNodeFromModel(new Vertex ("5"));
 
 
 			//    .	  .

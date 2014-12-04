@@ -41,7 +41,7 @@ namespace Tests {
 		[Test ()]
 		public void AddNodeTest_T ()
 		{
-			g.AddNode (c);
+			g.AddNodeFromModel (c);
 			Assert.AreSame (c, g["poz"].Data);
 		}
 
@@ -56,7 +56,7 @@ namespace Tests {
 		public void AddNodeTest_invocation_chain ()
 		{
 			City c1 = new City ("war", "maz", "bbb");
-			Graph<City> r = g.AddNode (c1).AddNode (n);
+			Graph<City> r = g.AddNodeFromModel (c1).AddNode (n);
 
 			Assert.AreSame (n, g["poz"]);
 			Assert.AreSame (c1, g["war"].Data);
@@ -93,7 +93,7 @@ namespace Tests {
 		[Test ()]	
 		public void RemoveNodeTest_T ()
 		{
-			g.AddNode (c);
+			g.AddNodeFromModel (c);
 			Assert.True(g.RemoveNode (c));
 		}
 
@@ -132,9 +132,9 @@ namespace Tests {
 
 		[Test ()]
 		public void EnumerableTest() {
-			g.AddNode (c);
-			g.AddNode( new City("war", "maz", "bbb"));
-			g.AddNode( new City("kra", "mlp", "ccc"));
+			g.AddNodeFromModel (c);
+			g.AddNodeFromModel( new City("war", "maz", "bbb"));
+			g.AddNodeFromModel( new City("kra", "mlp", "ccc"));
 
 			foreach (var n in g) {
 				Assert.True (n.Data.Name.Equals ("war") || n.Data.Name.Equals ("kra") || n.Data.Name.Equals ("poz"));

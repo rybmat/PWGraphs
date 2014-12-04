@@ -78,5 +78,9 @@
       <Project>{F9B1B5B1-9BB1-494F-ABE2-A731E25758E6}</Project>
       <Name>GraphProject</Name>
     </ProjectReference>
+    <ProjectReference Include="..\models\models.csproj">
+      <Project>{0BBA3C33-D248-4E09-AFE5-4FF3CB760C6F}</Project>
+      <Name>models</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

@@ -9,6 +9,10 @@ namespace GraphProject {
 
 		private Dictionary<string, Node<T>> nodes = new Dictionary<string, Node<T>>(); 
 
+		public Graph () {
+		
+		}
+
 		public Node<T> this [string id] {
 			get {
 				if (nodes.ContainsKey (id))
@@ -22,7 +26,7 @@ namespace GraphProject {
 			}
 		}
 
-		public Graph<T> AddNode (T n) {
+		public Graph<T> AddNodeFromModel (T n) {
 			nodes [n.ToString ()] = new Node<T> (n);
 			return this;
 		}
@@ -33,7 +37,7 @@ namespace GraphProject {
 		}
 
 		public static Graph<T> operator +(Graph<T> g, T n) {
-			g.AddNode (n);
+			g.AddNodeFromModel (n);
 			return g;
 		}
 
@@ -52,6 +56,10 @@ namespace GraphProject {
 
 		public bool RemoveNode (string n) {
 			return nodes.Remove (n);
+		}
+
+		public void Clear() {
+			nodes.Clear ();
 		}
 
 		//IEnumerable

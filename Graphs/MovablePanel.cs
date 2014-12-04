@@ -8,11 +8,14 @@ namespace Graphs {
 	public partial class MovablePanel : Gtk.Bin {
 		private Widget currCtrl = null;
 		private Widget currClone = null;
+
 		private int origX = 0;
 		private int origY = 0;
 		private int pointX = 0;
 		private int pointY = 0;
+
 		private bool isDragged = false;
+
 		private string rightClick;
 		private string doubleClick;
 
