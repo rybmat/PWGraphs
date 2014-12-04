@@ -27,6 +27,13 @@ namespace Graphs {
 			fixed1.QueueDraw();
 		}
 
+		public void RemoveAllChildren() {
+			foreach (Widget ch in fixed1.AllChildren) {
+				ch.Destroy ();
+			}
+			RefreshChildren ();
+		}
+
 		//Add a movable control to the panel
 		public void AddMovingObject(Widget wdg, int x, int y) {
 			if (x<0) {

@@ -72,7 +72,9 @@ public partial class MainWindow: Gtk.Window {
 		modelsCombobox.Sensitive = true;
 		addBtn.Sensitive = false;
 		removeBtn.Sensitive = false;
-		//todo: remove nodes from graph and from mvpanel
+
+		mvpanel1.RemoveAllChildren ();
+		//TODO: remove nodes from graph
 	}
 
 	protected void OnSelect (object sender, EventArgs e) {
