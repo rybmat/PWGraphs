@@ -72,6 +72,19 @@ namespace Tests {
 			Assert.False (n.RemoveSuccesor (ct));
 			Assert.False (n.successors.Contains(ct));
 		}
+
+		[Test]
+		public void RemoveNeighboursTest() {
+			Node<City> ct = new Node<City> (new City ("war", "maz", "24351"));
+			n.AddSuccessor (ct);
+			n.AddPredecessor (ct);
+			ct.RemoveNieghbours ();
+
+			Assert.True (ct.predecessors.Count == 0);
+			Assert.True (ct.successors.Count == 0);
+			Assert.True (n.predecessors.Count == 0);
+			Assert.True (n.successors.Count == 0);
+		}
 			
 	}
 }

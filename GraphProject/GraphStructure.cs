@@ -51,6 +51,7 @@ namespace GraphProject {
 		}
 
 		public bool RemoveNode (Node<T> n) {
+			n.RemoveNieghbours ();
 			return nodes.Remove (n.ToString ());
 		}
 

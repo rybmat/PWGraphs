@@ -93,8 +93,8 @@ namespace Graphs {
 
 		protected void OnRemove(object sender, EventArgs args) {
 			object[] margs = {Node};
-
 			graph.GetType().GetMethod("RemoveNode").Invoke(graph, margs);
+
 			Console.WriteLine ("NodeVisualization.RemoveNode");
 			Console.WriteLine (graph.ToString ());
 			Destroy ();
@@ -106,7 +106,7 @@ namespace Graphs {
 		}
 
 		protected void OnDisconnect(object sender, EventArgs args) {
-			mvpanel.StertRemoveConnection (this);
+			mvpanel.StartRemoveConnection (this);
 		}
 
 		protected override bool OnExposeEvent (Gdk.EventExpose args) {

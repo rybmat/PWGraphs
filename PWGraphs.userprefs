@@ -1,16 +1,22 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Graphs/NodeVisualization.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Tests/NodeTests.cs">
     <Files>
-      <File FileName="Graphs/MainWindow.cs" Line="33" Column="33" />
-      <File FileName="Graphs/NodeVisualization.cs" Line="4" Column="4" />
-      <File FileName="Graphs/MovablePanel.cs" Line="23" Column="23" />
+      <File FileName="Graphs/MainWindow.cs" Line="1" Column="1" />
+      <File FileName="Graphs/NodeVisualization.cs" Line="59" Column="59" />
+      <File FileName="Graphs/MovablePanel.cs" Line="25" Column="25" />
       <File FileName="Graphs/NodeDialog.cs" Line="1" Column="1" />
       <File FileName="models/City.cs" Line="1" Column="1" />
       <File FileName="models/Vertex.cs" Line="1" Column="1" />
       <File FileName="GraphProject/Node.cs" Line="4" Column="4" />
-      <File FileName="GraphProject/GraphStructure.cs" Line="24" Column="24" />
+      <File FileName="GraphProject/GraphStructure.cs" Line="26" Column="26" />
+      <File FileName="Tests/NodeTests.cs" Line="27" Column="27" />
     </Files>
+    <Pads>
+      <Pad Id="MonoDevelop.NUnit.TestPad">
+        <State expanded="True" selected="True" />
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

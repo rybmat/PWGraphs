@@ -51,7 +51,7 @@ namespace Graphs {
 			predecessor = nv;
 		}
 
-		public void StertRemoveConnection(NodeVisualization nv) {
+		public void StartRemoveConnection(NodeVisualization nv) {
 			removeConnection = true;
 			predecessor = nv;
 		}

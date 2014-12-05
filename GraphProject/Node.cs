@@ -34,6 +34,18 @@ namespace GraphProject {
 			return predecessors.Remove (n);
 		}
 
+		public void RemoveNieghbours() {
+			foreach (var p in predecessors) {
+				p.successors.Remove (this);
+			}
+			predecessors.Clear ();
+
+			foreach (var s in successors) {
+				s.predecessors.Remove (this);
+			}
+			successors.Clear ();
+		}
+
 		override public string ToString() {
 			return Data.ToString ();
 		}
