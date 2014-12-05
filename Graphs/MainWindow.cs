@@ -15,6 +15,10 @@ public partial class MainWindow: Gtk.Window {
 	public MainWindow () : base (Gtk.WindowType.Toplevel) {
 		Build ();
 		hbox3.Add (mvpanel1);
+		algorithmCombobox.InsertText (0, "BFS");
+		algorithmCombobox.InsertText (1, "DFS");
+		algorithmCombobox.InsertText (2, "Eulerian Directed Path");
+		algorithmCombobox.InsertText (3, "Topological Sort");
 	}
 
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a) {
@@ -59,24 +63,28 @@ public partial class MainWindow: Gtk.Window {
 	}
 
 	protected void OnDraw (object sender, EventArgs e) {
-		drawBtn.Sensitive = false;
-		clearBtn.Sensitive = true;
-		modelsCombobox.Sensitive = false;
-		addBtn.Sensitive = true;
-
 		Type[] typeArgs = { selectedModel };
 		Type graphType = typeof(Graph<>);
 		Type constructedGraphType = graphType.MakeGenericType(typeArgs);
 		mvpanel1.graph = Activator.CreateInstance (constructedGraphType);
+
+		drawBtn.Sensitive = false;
+		clearBtn.Sensitive = true;
+		modelsCombobox.Sensitive = false;
+		addBtn.Sensitive = true;
+		executeButton.Sensitive = true;
+		algorithmCombobox.Sensitive = true;
 	}
 
 	protected void OnClear (object sender, EventArgs e) {
+		mvpanel1.RemoveAllChildren ();
+
 		drawBtn.Sensitive = true;
 		clearBtn.Sensitive = false;
 		modelsCombobox.Sensitive = true;
 		addBtn.Sensitive = false;
-
-		mvpanel1.RemoveAllChildren ();
+		executeButton.Sensitive = false;
+		algorithmCombobox.Sensitive = false;
 	}
 
 	protected void OnSelect (object sender, EventArgs e) {
@@ -97,5 +105,10 @@ public partial class MainWindow: Gtk.Window {
 			mvpanel1.AddNode (mvo, 10, 10);
 		}
 		addDialog.Destroy ();
+	}
+
+	protected void OnExecuteButtonClicked (object sender, EventArgs e) {
+		//TODO: execute proper algorithm
+		throw new NotImplementedException ();
 	}
 }

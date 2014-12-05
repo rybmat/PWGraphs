@@ -36,6 +36,12 @@ public partial class MainWindow
 	private global::Gtk.HBox hbox1;
 	
 	private global::Gtk.Button addBtn;
+	
+	private global::Gtk.HSeparator hseparator1;
+	
+	private global::Gtk.ComboBox algorithmCombobox;
+	
+	private global::Gtk.Button executeButton;
 
 	protected virtual void Build ()
 	{
@@ -153,14 +159,44 @@ public partial class MainWindow
 		w10.Position = 2;
 		w10.Expand = false;
 		w10.Fill = false;
-		this.hbox3.Add (this.vbox3);
-		global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.vbox3]));
-		w11.Position = 0;
+		// Container child vbox3.Gtk.Box+BoxChild
+		this.hseparator1 = new global::Gtk.HSeparator ();
+		this.hseparator1.Name = "hseparator1";
+		this.vbox3.Add (this.hseparator1);
+		global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.hseparator1]));
+		w11.Position = 3;
 		w11.Expand = false;
 		w11.Fill = false;
+		// Container child vbox3.Gtk.Box+BoxChild
+		this.algorithmCombobox = global::Gtk.ComboBox.NewText ();
+		this.algorithmCombobox.Sensitive = false;
+		this.algorithmCombobox.Name = "algorithmCombobox";
+		this.vbox3.Add (this.algorithmCombobox);
+		global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.algorithmCombobox]));
+		w12.Position = 4;
+		w12.Expand = false;
+		w12.Fill = false;
+		// Container child vbox3.Gtk.Box+BoxChild
+		this.executeButton = new global::Gtk.Button ();
+		this.executeButton.Sensitive = false;
+		this.executeButton.CanFocus = true;
+		this.executeButton.Name = "executeButton";
+		this.executeButton.UseStock = true;
+		this.executeButton.UseUnderline = true;
+		this.executeButton.Label = "gtk-execute";
+		this.vbox3.Add (this.executeButton);
+		global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.executeButton]));
+		w13.Position = 5;
+		w13.Expand = false;
+		w13.Fill = false;
+		this.hbox3.Add (this.vbox3);
+		global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.vbox3]));
+		w14.Position = 0;
+		w14.Expand = false;
+		w14.Fill = false;
 		this.mainVbox.Add (this.hbox3);
-		global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.mainVbox [this.hbox3]));
-		w12.Position = 1;
+		global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.mainVbox [this.hbox3]));
+		w15.Position = 1;
 		this.Add (this.mainVbox);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
@@ -176,5 +212,6 @@ public partial class MainWindow
 		this.clearBtn.Clicked += new global::System.EventHandler (this.OnClear);
 		this.drawBtn.Clicked += new global::System.EventHandler (this.OnDraw);
 		this.addBtn.Clicked += new global::System.EventHandler (this.OnAddBtnClicked);
+		this.executeButton.Clicked += new global::System.EventHandler (this.OnExecuteButtonClicked);
 	}
 }
