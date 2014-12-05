@@ -15,6 +15,10 @@ namespace Graphs {
 		private int pointY = 0;
 
 		private bool isDragged = false;
+		private bool makeConnection = false;
+		private bool removeConnection = false;
+
+		private object predecessor;
 
 		private string rightClick;
 		private string doubleClick;
@@ -41,7 +45,17 @@ namespace Graphs {
 			Console.WriteLine ("MovablePanel.RemoveAllChildren");
 			Console.WriteLine (graph.ToString ());
 		}
-			
+
+		public void StartConnection(NodeVisualization nv) {
+			makeConnection = true;
+			predecessor = nv;
+		}
+
+		public void StertRemoveConnection(NodeVisualization nv) {
+			removeConnection = true;
+			predecessor = nv;
+		}
+
 		public void AddNode(Widget wdg, int x, int y) {
 			if (x<0) {
 				x = 0;
@@ -53,9 +67,10 @@ namespace Graphs {
 			(wdg as NodeVisualization).X = x;
 			(wdg as NodeVisualization).Y = y;
 			(wdg as NodeVisualization).graph = graph;
+			(wdg as NodeVisualization).mvpanel = this;
+
 			object[] args = {(wdg as NodeVisualization).Node};
 			graph.GetType().GetMethod("AddNode").Invoke(graph, args);
-
 
 			EventBox ev = GetMovingBox(wdg);
 			ev.ButtonPressEvent += new ButtonPressEventHandler(OnButtonPressed);
@@ -137,14 +152,28 @@ namespace Graphs {
 					}	
 				}
 				else {
-					//Setup the origin of the move
-					isDragged = true;
-					currCtrl = sender as Widget;
-					currCtrl.TranslateCoordinates(fixed1, 0, 0, out origX, out origY);
-					fixed1.GetPointer(out pointX, out pointY);
-					Console.WriteLine("MovingBox KeyPressed");
-					Console.WriteLine("Pointer:" + pointX.ToString() + "-" + pointY.ToString());
-					Console.WriteLine("Origin:" + origX.ToString() + "-" + origY.ToString());
+					if (makeConnection) {
+						if (sender is EventBox) {
+							object[] args = { predecessor };
+							(sender as EventBox).Child.GetType().GetMethod("AddPredecessor").Invoke((sender as EventBox).Child, args);
+							Console.WriteLine (graph.ToString ());
+						}
+					} else if (removeConnection) {
+						if (sender is EventBox) {
+							object[] args = { predecessor };
+							(sender as EventBox).Child.GetType().GetMethod("RemovePredecessor").Invoke((sender as EventBox).Child, args);
+							Console.WriteLine (graph.ToString ());
+						}
+					} else {
+						//Setup the origin of the move
+						isDragged = true;
+						currCtrl = sender as Widget;
+						currCtrl.TranslateCoordinates (fixed1, 0, 0, out origX, out origY);
+						fixed1.GetPointer (out pointX, out pointY);
+						Console.WriteLine ("MovingBox KeyPressed");
+						Console.WriteLine ("Pointer:" + pointX.ToString () + "-" + pointY.ToString ());
+						Console.WriteLine ("Origin:" + origX.ToString () + "-" + origY.ToString ());
+					}
 				}
 			}
 		}
@@ -152,6 +181,12 @@ namespace Graphs {
 		protected void OnButtonReleased(object sender, ButtonReleaseEventArgs a) {
 			//Final destination of the control
 			if (a.Event.Button == 1) {
+				if (makeConnection || removeConnection) {
+					makeConnection = false;
+					removeConnection = false;
+					predecessor = null;
+					return;
+				}
 				if (currClone!=null) {
 					Widget wdg = (currClone as EventBox).Child;
 					(currClone as EventBox).Remove (wdg);

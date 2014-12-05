@@ -13,6 +13,7 @@ namespace Graphs {
 		private int height;
 
 		public object graph;
+		public MovablePanel mvpanel;
 
 		public int X{ get; set; }
 		public int Y{ get; set; }
@@ -70,6 +71,26 @@ namespace Graphs {
 			QueueDraw();
 		}
 
+		public void AddSuccessor(NodeVisualization nv) {
+			object[] args = { nv.Node };
+			node.GetType ().GetMethod ("AddSuccessor").Invoke (node, args);
+		}
+
+		public void RemoveSuccesor(NodeVisualization nv) {
+			object[] args = { nv.Node };
+			node.GetType ().GetMethod ("RemoveSuccesor").Invoke (node, args);
+		}
+
+		public void AddPredecessor(NodeVisualization nv) {
+			object[] args = { nv.Node };
+			node.GetType ().GetMethod ("AddPredecessor").Invoke (node, args);
+		}
+
+		public void RemovePredecessor(NodeVisualization nv) {
+			object[] args = { nv.Node };
+			node.GetType ().GetMethod ("RemovePredecessor").Invoke (node, args);
+		}
+
 		protected void OnRemove(object sender, EventArgs args) {
 			object[] margs = {Node};
 
@@ -81,11 +102,11 @@ namespace Graphs {
 		}
 
 		protected void OnConnect(object sender, EventArgs args) {
-			
+			mvpanel.StartConnection (this);
 		}
 
 		protected void OnDisconnect(object sender, EventArgs args) {
-	
+			mvpanel.StertRemoveConnection (this);
 		}
 
 		protected override bool OnExposeEvent (Gdk.EventExpose args) {

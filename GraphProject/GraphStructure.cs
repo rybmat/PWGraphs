@@ -71,7 +71,7 @@ namespace GraphProject {
 				}
 				re += "\n\t\tsucc:";
 				foreach (var p in n.Value.successors) {
-					re += "\t\t" + p.ToString() + ", ";
+					re += p.ToString() + ", ";
 				}
 				re += "\n";
 			}
