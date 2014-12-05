@@ -83,7 +83,12 @@ namespace Graphs {
 			Console.WriteLine ("MovablePanel.addNode");
 			Console.WriteLine (graph.ToString ());
 		}
-			
+
+		public void AddEdge(EdgeVisualization edge){
+			fixed1.Put(edge, edge.X, edge.Y);
+			ShowAll ();
+		}
+
 		private EventBox GetMovingBox(Widget wdg) { 
 			EventBox rev = new EventBox();
 			rev.Name = wdg.ToString();
@@ -132,7 +137,7 @@ namespace Graphs {
 				((wdg as EventBox).Child as NodeVisualization).Y = destY;
 
 			}
-			fixed1.QueueDraw();	
+			RefreshChildren ();
 		}
 
 		//Mouse click on the controls of the panel  

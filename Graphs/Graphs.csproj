@@ -71,6 +71,7 @@
     <Compile Include="MovablePanel.cs" />
     <Compile Include="gtk-gui\Graphs.MovablePanel.cs" />
     <Compile Include="NodeVisualization.cs" />
+    <Compile Include="EdgeVisualization.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

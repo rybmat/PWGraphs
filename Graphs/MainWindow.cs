@@ -67,7 +67,7 @@ public partial class MainWindow: Gtk.Window {
 		Type graphType = typeof(Graph<>);
 		Type constructedGraphType = graphType.MakeGenericType(typeArgs);
 		mvpanel1.graph = Activator.CreateInstance (constructedGraphType);
-
+		
 		drawBtn.Sensitive = false;
 		clearBtn.Sensitive = true;
 		modelsCombobox.Sensitive = false;

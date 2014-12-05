@@ -63,7 +63,8 @@ namespace Graphs {
 			NodeDialog addDialog = new NodeDialog (nodeType.GenericTypeArguments[0], node.GetType().GetProperty("Data").GetValue(node), false);
 			addDialog.Run ();
 			addDialog.Destroy ();
-			QueueDraw();
+			caption = "dupa";
+			Redraw();
 		}
 
 		public void Redraw() {
@@ -74,6 +75,7 @@ namespace Graphs {
 		public void AddSuccessor(NodeVisualization nv) {
 			object[] args = { nv.Node };
 			node.GetType ().GetMethod ("AddSuccessor").Invoke (node, args);
+			mvpanel.AddEdge (new EdgeVisualization(this, nv));
 		}
 
 		public void RemoveSuccesor(NodeVisualization nv) {
@@ -84,6 +86,7 @@ namespace Graphs {
 		public void AddPredecessor(NodeVisualization nv) {
 			object[] args = { nv.Node };
 			node.GetType ().GetMethod ("AddPredecessor").Invoke (node, args);
+			mvpanel.AddEdge (new EdgeVisualization(nv, this));
 		}
 
 		public void RemovePredecessor(NodeVisualization nv) {
@@ -98,7 +101,6 @@ namespace Graphs {
 			Console.WriteLine ("NodeVisualization.RemoveNode");
 			Console.WriteLine (graph.ToString ());
 			Destroy ();
-			QueueDraw();
 		}
 
 		protected void OnConnect(object sender, EventArgs args) {
