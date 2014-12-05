@@ -81,10 +81,7 @@ namespace Graphs {
 		}
 
 		protected void OnConnect(object sender, EventArgs args) {
-			object[] margs = { (sender as MenuItem).Parent.Parent };
-			node.GetType ().GetMethod ("AddSuccessor").Invoke (node, margs);
-			Console.WriteLine ("NodeVisualization.OnConnect");
-			Console.WriteLine (graph.ToString ());
+			
 		}
 
 		protected void OnDisconnect(object sender, EventArgs args) {
