@@ -116,12 +116,13 @@ namespace Graphs {
 			foreach (var s in successors.Keys) {
 				s.successors.Remove (this);
 			}
-			mvpanel.edgeVis.nodes.Remove (this);
+			mvpanel.edgeVis.RemoveNode (this);
 
 			Console.WriteLine ("NodeVisualization.RemoveNode");
 			Console.WriteLine (graph.ToString ());
 			Destroy ();
 			mvpanel.RefreshChildren ();
+			mvpanel.Dispose ();
 		}
 
 		protected void OnConnect(object sender, EventArgs args) {
