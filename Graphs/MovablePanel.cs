@@ -44,6 +44,7 @@ namespace Graphs {
 
 		public void RemoveAllChildren() {
 			graph.GetType().GetMethod("Clear").Invoke(graph, null);
+			edgeVis.nodes.Clear ();
 			foreach (Widget ch in fixed1.AllChildren) {
 				if (ch.GetType() == typeof(EventBox))
 					ch.Destroy ();
