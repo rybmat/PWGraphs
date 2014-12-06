@@ -3,6 +3,8 @@ using Gtk;
 using Graphs;
 using Cairo;
 using System.Collections.Generic;
+using System.Collections;
+using System.Linq;
 
 namespace Graphs {
 
@@ -16,28 +18,34 @@ namespace Graphs {
 		private int pointX = 0;
 		private int pointY = 0;
 
+		private bool algStartNode = false;
 		private bool isDragged = false;
 		private bool makeConnection = false;
 		private bool removeConnection = false;
-		private bool dfs = false;
-		private bool bfs = false;
+
+		private Dictionary<string, Func<object, IEnumerable<object>>> Algorithms = new Dictionary<string, Func<object, IEnumerable<object>>>();
+		private List<object>AlgorithmResult = new List<object>();
 
 		private object predecessor;
-		public GraphVisualization edgeVis;
+		public GraphVisualization Graph;
 
 		private string rightClick;
 		private string doubleClick;
-
-		public object graph;
+		private string algName;
 
 		public MovablePanel(string _rightClick, string _doubleClick) {		
 			rightClick = _rightClick;
 			doubleClick = _doubleClick;
 
 			Build();
-			edgeVis = new GraphVisualization (800, 600);
-			fixed1.Put (edgeVis, 0, 0);
+			Graph = new GraphVisualization (800, 600);
+			fixed1.Put (Graph, 0, 0);
 			ShowAll ();
+
+			Algorithms.Add("Depth-first Search", start => Graph.Run("DFS", start));
+			Algorithms.Add("Breath-first Search", start => Graph.Run("BFS", start));
+			Algorithms.Add("Eulerian Path", start => Graph.Run("EulerianDirectedPath", start).Reverse());
+			Algorithms.Add("Topological Sort", start => Graph.Run("SortTopologically", start));
 		}
 
 		//Set the controls to be redrawn
@@ -46,15 +54,15 @@ namespace Graphs {
 		}
 
 		public void RemoveAllChildren() {
-			graph.GetType().GetMethod("Clear").Invoke(graph, null);
-			edgeVis.RemoveAllNodes ();
+			Graph.graph.GetType().GetMethod("Clear").Invoke(Graph.graph, null);
+			Graph.RemoveAllNodes ();
 			foreach (Widget ch in fixed1.AllChildren) {
 				if (ch.GetType() == typeof(EventBox))
 					ch.Destroy ();
 			}
 			RefreshChildren ();
 			Console.WriteLine ("MovablePanel.RemoveAllChildren");
-			Console.WriteLine (graph.ToString ());
+			Console.WriteLine (Graph.graph.ToString ());
 		}
 
 		public void StartConnection(NodeVisualization nv) {
@@ -77,12 +85,12 @@ namespace Graphs {
 				
 			(wdg as NodeVisualization).X = x;
 			(wdg as NodeVisualization).Y = y;
-			(wdg as NodeVisualization).graph = graph;
+			(wdg as NodeVisualization).graph = Graph.graph;
 			(wdg as NodeVisualization).mvpanel = this;
 
 			object[] args = {(wdg as NodeVisualization).Node};
-			graph.GetType().GetMethod("AddNode").Invoke(graph, args);
-			edgeVis.AddNode (wdg as NodeVisualization);
+			Graph.graph.GetType().GetMethod("AddNode").Invoke(Graph.graph, args);
+			Graph.AddNode (wdg as NodeVisualization);
 
 			EventBox ev = GetMovingBox(wdg);
 			ev.ButtonPressEvent += new ButtonPressEventHandler(OnButtonPressed);
@@ -93,7 +101,7 @@ namespace Graphs {
 			ShowAll();
 
 			Console.WriteLine ("MovablePanel.addNode");
-			Console.WriteLine (graph.ToString ());
+			Console.WriteLine (Graph.graph.ToString ());
 		}
 
 		private EventBox GetMovingBox(Widget wdg) { 
@@ -168,21 +176,18 @@ namespace Graphs {
 						if (sender is EventBox) {
 							object[] args = { predecessor };
 							(sender as EventBox).Child.GetType ().GetMethod ("AddPredecessor").Invoke ((sender as EventBox).Child, args);
-							Console.WriteLine (graph.ToString ());
+							Console.WriteLine (Graph.graph.ToString ());
 						}
 					} else if (removeConnection) {
 						if (sender is EventBox) {
 							object[] args = { predecessor };
 							(sender as EventBox).Child.GetType ().GetMethod ("RemovePredecessor").Invoke ((sender as EventBox).Child, args);
-							Console.WriteLine (graph.ToString ());
+							Console.WriteLine (Graph.graph.ToString ());
 						}
-					} else if (dfs) {
-						if (sender is EventBox) {
-							RunDFS ((sender as EventBox).Child.GetType ().GetProperty ("Node").GetValue ((sender as EventBox).Child));
-						}
-					} else if (bfs) {
-						if (sender is EventBox) {
-							RunBFS ((sender as EventBox).Child.GetType ().GetProperty ("Node").GetValue ((sender as EventBox).Child));
+					} else if (algStartNode) {
+						if (sender is EventBox) {						
+							RunAlgorithm (algName, ((sender as EventBox).Child as NodeVisualization).Node);
+							Console.WriteLine ("Run with start node");
 						}
 					} else {
 						//Setup the origin of the move
@@ -208,9 +213,8 @@ namespace Graphs {
 					RefreshChildren ();
 					return;
 				}
-				if (dfs || bfs) {
-					dfs = false;
-					bfs = false;
+				if (algStartNode) {
+					algStartNode = false;
 					return;
 				}
 				if (currClone!=null) {
@@ -238,67 +242,87 @@ namespace Graphs {
 			}
 		}
 
-		public void RunAlgorithm(string alg) {
-			switch (alg) {
-			case "DFS":
-				dfs = true;
-				break;
-			case "BFS":
-				bfs = true;
-				break;
-			case "Topological Sort":
-				RunTopologicalSort ();
-				break;
-			case "Eulerian Directed Path":
-				RunEulerianDirectedPath ();
-				break;
-			default:
-				break;
+		public void Run(string name, bool startNode) {
+			if (startNode) {
+				algStartNode = startNode;
+				algName = name;
 			}
-		}
-			
-		private void RunDFS(object f) {
-			List<NodeVisualization> prev = new List<NodeVisualization>();
-			NodeVisualization curr = null;
-
-			object[] args = { f };
-			List<object> result = (List<object>)graph.GetType ().GetMethod ("DFS").Invoke (graph, args).GetType().GetMethod("ToList").Invoke(graph, null);
-
-			
-			foreach (object n in result) {
-				//if (prev == null) {
-				//	prev.Add(GetNodeVisualizationForNode (n));
-				//} else {
-				//	curr = GetNodeVisualizationForNode (n);
-
-
-				//	prev.Add(curr);
-				//}
-				Console.WriteLine (n);
-			}
+			else
+				RunAlgorithm (name, null);
 		}
 
-		private void RunBFS(object f) {
+		public void RunAlgorithm(string name, object start) {
+			Graph.ResetEdgesState();
+			Graph.ResetNodesState();
 
-		}
+			AlgorithmResult = Algorithms[name].Invoke(start).ToList();
+			foreach( var a in AlgorithmResult)
+				Console.WriteLine (a);
 
-		private void RunTopologicalSort() {
+			object previous = null;
+			bool edges_exist = true;
+			foreach (var node in AlgorithmResult) {
+				Graph.SetNodeState(node, true);
+				CurrentAlgorithmPosition = node;
 
-		}
-
-		private void RunEulerianDirectedPath() {
-
-		}
-
-		private NodeVisualization GetNodeVisualizationForNode(object node) {
-			foreach (Widget ch in fixed1.AllChildren) {
-				if (ch.GetType() == typeof(EventBox)) {
-					NodeVisualization nv = ((ch as EventBox).Child) as NodeVisualization;
-					if (nv.Node == node)
-						return nv;
+				if (previous != null && edges_exist) {
+					try {
+						Graph.SetEdgeState(previous, node, true);
+					} catch {
+						edges_exist = false;
+					}
 				}
+
+				previous = node;
+				RefreshChildren ();
 			}
-			return null;
+
+			if (!edges_exist)
+				Graph.ResetEdgesState();
+		}
+
+		public void PreviousAlgorithmStep() {
+			object previous = null;
+			foreach (object node in AlgorithmResult.Reverse<object>()) {
+				if (previous == CurrentAlgorithmPosition) {
+					Graph.SetNodeState(CurrentAlgorithmPosition, false);
+
+					try {
+						Graph.SetEdgeState(node, CurrentAlgorithmPosition, false);
+					} catch {
+
+					}
+
+					CurrentAlgorithmPosition = node;
+					break;
+				}
+
+				previous = node;
+			}
+		}
+
+		public void NextAlgorithmStep() {
+			object previous = null;
+			foreach (object node in AlgorithmResult) {
+				if (previous == CurrentAlgorithmPosition) {
+					Graph.SetNodeState(node, true);
+
+					try {
+						Graph.SetEdgeState(CurrentAlgorithmPosition, node, true);
+					} catch {
+
+					}
+
+					CurrentAlgorithmPosition = node;
+					break;
+				}
+
+				previous = node;
+			}
+		}
+		public object CurrentAlgorithmPosition {
+			get;
+			private set;
 		}
 	}	
 }

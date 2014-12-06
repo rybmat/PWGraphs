@@ -216,6 +216,23 @@
                   </packing>
                 </child>
                 <child>
+                  <widget class="Gtk.Button" id="nextStepBtn">
+                    <property name="MemberName" />
+                    <property name="CanFocus">True</property>
+                    <property name="UseStock">True</property>
+                    <property name="Type">StockItem</property>
+                    <property name="StockId">gtk-go-forward</property>
+                    <signal name="Clicked" handler="OnNextStepBtnClicked" />
+                    <property name="label">gtk-go-forward</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">6</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+                <child>
                   <placeholder />
                 </child>
               </widget>

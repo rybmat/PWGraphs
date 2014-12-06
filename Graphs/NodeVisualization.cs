@@ -107,14 +107,16 @@ namespace Graphs {
 			predecessors.Remove (nv);
 		}
 
-		public void ClearEdgeStates() {
-			foreach (var node in successors) {
-				successors[node.Key] = false;
-				node.Key.predecessors [this] = false;
+		public void ResetEdgesState() {
+			List<NodeVisualization> succs = new List<NodeVisualization>(successors.Keys);
+			foreach (var node in succs) {
+				successors[node] = false;
+				node.predecessors [this] = false;
 			}
-			foreach (var node in predecessors) {
-				predecessors[node.Key] = false;
-				node.Key.successors [this] = false;
+			List<NodeVisualization> preds = new List<NodeVisualization>(predecessors.Keys);
+			foreach (var node in preds) {
+				predecessors[node] = false;
+				node.successors [this] = false;
 			}
 		}
 
@@ -133,19 +135,23 @@ namespace Graphs {
 		}
 
 		public void SetOutEdgeState(object succ, bool visited) {
-			foreach (var n in successors) {
-				if (n.Key == succ) {
-					successors[n.Key] = visited;
-					n.Key.predecessors [this] = visited;
+			List<NodeVisualization> succs = new List<NodeVisualization>(successors.Keys);
+			foreach (var n in succs) {
+				if (n.Node == succ) {
+					Console.WriteLine ("seting out edge state in NodeVis");
+					successors[n] = visited;
+					n.predecessors [this] = visited;
 				}
 			}
 		}
 
 		public void SetInEdgeState(object pred, bool visited) {
-			foreach (var n in predecessors) {
-				if (n.Key == pred) {
-					predecessors[n.Key] = visited;
-					n.Key.successors [this] = visited;
+			List<NodeVisualization> preds = new List<NodeVisualization>(predecessors.Keys);
+			foreach (var n in preds) {
+				if (n.Node == pred) {
+					Console.WriteLine ("seting in edge state in NodeVis");
+					predecessors[n] = visited;
+					n.successors [this] = visited;
 				}
 			}
 		}
@@ -169,7 +175,7 @@ namespace Graphs {
 			foreach (var s in successors.Keys) {
 				s.successors.Remove (this);
 			}
-			mvpanel.edgeVis.RemoveNode (this);
+			mvpanel.Graph.RemoveNode (this);
 
 			Console.WriteLine ("NodeVisualization.RemoveNode");
 			Console.WriteLine (graph.ToString ());

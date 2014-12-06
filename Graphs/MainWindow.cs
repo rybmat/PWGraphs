@@ -15,9 +15,9 @@ public partial class MainWindow: Gtk.Window {
 	public MainWindow () : base (Gtk.WindowType.Toplevel) {
 		Build ();
 		hbox3.Add (mvpanel1);
-		algorithmCombobox.InsertText (0, "BFS");
-		algorithmCombobox.InsertText (1, "DFS");
-		algorithmCombobox.InsertText (2, "Eulerian Directed Path");
+		algorithmCombobox.InsertText (0, "Breath-first Search");
+		algorithmCombobox.InsertText (1, "Depth-first Search");
+		algorithmCombobox.InsertText (2, "Eulerian Path");
 		algorithmCombobox.InsertText (3, "Topological Sort");
 	}
 
@@ -66,7 +66,7 @@ public partial class MainWindow: Gtk.Window {
 		Type[] typeArgs = { selectedModel };
 		Type graphType = typeof(Graph<>);
 		Type constructedGraphType = graphType.MakeGenericType(typeArgs);
-		mvpanel1.graph = Activator.CreateInstance (constructedGraphType);
+		mvpanel1.Graph.graph = Activator.CreateInstance (constructedGraphType);
 		
 		drawBtn.Sensitive = false;
 		clearBtn.Sensitive = true;
@@ -74,6 +74,7 @@ public partial class MainWindow: Gtk.Window {
 		addBtn.Sensitive = true;
 		executeButton.Sensitive = true;
 		algorithmCombobox.Sensitive = true;
+		algorithmCombobox.Active = 0;
 	}
 
 	protected void OnClear (object sender, EventArgs e) {
@@ -108,6 +109,14 @@ public partial class MainWindow: Gtk.Window {
 	}
 
 	protected void OnExecuteButtonClicked (object sender, EventArgs e) {
-		mvpanel1.RunAlgorithm (algorithmCombobox.ActiveText);
+		if (algorithmCombobox.Active == 0 || algorithmCombobox.Active == 1) {
+			mvpanel1.Run (algorithmCombobox.ActiveText, true);
+		} else {
+			mvpanel1.Run (algorithmCombobox.ActiveText, false);
+		}
+	}
+
+	protected void OnNextStepBtnClicked (object sender, EventArgs e) {
+		mvpanel1.NextAlgorithmStep ();
 	}
 }

@@ -4,9 +4,12 @@ using Cairo;
 using System.Collections.Generic;
 
 namespace Graphs {
+
 	[System.ComponentModel.ToolboxItem (true)]
 	public class GraphVisualization : Gtk.DrawingArea {
-		private List<NodeVisualization> nodes = new List<NodeVisualization>();
+		private Dictionary<NodeVisualization, bool> nodes = new Dictionary<NodeVisualization, bool>();
+
+		public object graph;
 
 		public GraphVisualization (int width, int height) {
 			Console.WriteLine ("EdgeVis: " + width + " " + height);
@@ -14,7 +17,7 @@ namespace Graphs {
 		}
 
 		public void AddNode(NodeVisualization node) {
-			nodes.Add (node);
+			nodes[node] = false;
 		}
 
 		public void RemoveNode(NodeVisualization node) {
@@ -25,12 +28,46 @@ namespace Graphs {
 			nodes.Clear ();
 		}
 
+		public void ResetEdgesState() {
+			foreach (var n in nodes.Keys) {
+				n.ResetEdgesState ();
+			}
+		}
+
+		public void ResetNodesState() {
+			List<NodeVisualization> nds = new List<NodeVisualization> (nodes.Keys);
+			foreach (var n in nds) {
+				nodes [n] = false;
+			}
+		}
+
+		public void SetNodeState(object node, bool visited) {
+			List<NodeVisualization> nds = new List<NodeVisualization> (nodes.Keys);
+			foreach (NodeVisualization n in nds) {
+				if (n.Node == node) {
+					Console.WriteLine ("seting node state in GraphVis");
+					nodes [n] = visited;
+				}
+			}
+		}
+
+		public void SetEdgeState(object _from, object _to, bool visited) {
+			List<NodeVisualization> nds = new List<NodeVisualization> (nodes.Keys);
+			NodeVisualization f, t; 
+			foreach (NodeVisualization n in nds) {
+				if (n.Node == _from) {
+					Console.WriteLine ("seting edge state in GraphVis");
+					n.SetOutEdgeState (_to, visited);
+				}
+			}
+		}
+
 		protected override bool OnExposeEvent(Gdk.EventExpose ev) {
 			base.OnExposeEvent(ev);
 
 			Cairo.Context cr = Gdk.CairoHelper.Create(GdkWindow);
 
-			foreach (NodeVisualization source in nodes) {
+			foreach (NodeVisualization source in nodes.Keys) {
 				foreach (NodeVisualization destination in source.successors.Keys) {
 					DrawEdge(cr, source, destination);
 				}
@@ -82,6 +119,19 @@ namespace Graphs {
 			cx.MoveTo (tipX, tipY);
 			cx.LineTo (x2, y2);
 			cx.Stroke ();
+		}
+
+		public IEnumerable<object> Run(string name, object start) {
+			if (start == null) {
+				return (IEnumerable<object>)graph.GetType().GetMethod(name).Invoke(graph, null);
+			} else {
+				try {
+					return (IEnumerable<object>)graph.GetType().GetMethod(name).Invoke(graph, new [] { start });
+
+				} catch (System.Reflection.TargetParameterCountException) {
+					return Run(name, null);
+				}
+			}
 		}
 	}
 }

@@ -42,6 +42,8 @@ public partial class MainWindow
 	private global::Gtk.ComboBox algorithmCombobox;
 	
 	private global::Gtk.Button executeButton;
+	
+	private global::Gtk.Button nextStepBtn;
 
 	protected virtual void Build ()
 	{
@@ -189,14 +191,26 @@ public partial class MainWindow
 		w13.Position = 5;
 		w13.Expand = false;
 		w13.Fill = false;
-		this.hbox3.Add (this.vbox3);
-		global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.vbox3]));
-		w14.Position = 0;
+		// Container child vbox3.Gtk.Box+BoxChild
+		this.nextStepBtn = new global::Gtk.Button ();
+		this.nextStepBtn.CanFocus = true;
+		this.nextStepBtn.Name = "nextStepBtn";
+		this.nextStepBtn.UseStock = true;
+		this.nextStepBtn.UseUnderline = true;
+		this.nextStepBtn.Label = "gtk-go-forward";
+		this.vbox3.Add (this.nextStepBtn);
+		global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.nextStepBtn]));
+		w14.Position = 6;
 		w14.Expand = false;
 		w14.Fill = false;
+		this.hbox3.Add (this.vbox3);
+		global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.vbox3]));
+		w15.Position = 0;
+		w15.Expand = false;
+		w15.Fill = false;
 		this.mainVbox.Add (this.hbox3);
-		global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.mainVbox [this.hbox3]));
-		w15.Position = 1;
+		global::Gtk.Box.BoxChild w16 = ((global::Gtk.Box.BoxChild)(this.mainVbox [this.hbox3]));
+		w16.Position = 1;
 		this.Add (this.mainVbox);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
@@ -213,5 +227,6 @@ public partial class MainWindow
 		this.drawBtn.Clicked += new global::System.EventHandler (this.OnDraw);
 		this.addBtn.Clicked += new global::System.EventHandler (this.OnAddBtnClicked);
 		this.executeButton.Clicked += new global::System.EventHandler (this.OnExecuteButtonClicked);
+		this.nextStepBtn.Clicked += new global::System.EventHandler (this.OnNextStepBtnClicked);
 	}
 }
