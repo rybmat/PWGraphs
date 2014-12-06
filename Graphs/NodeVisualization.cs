@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Gtk;
 using Cairo;
 using GraphProject;
@@ -20,6 +21,8 @@ namespace Graphs {
 
 		private object node;
 		public object Node { get { return node; } }
+
+		public List<NodeVisualization> successors = new List<NodeVisualization>();
 
 		private Type nodeType;
 		public Type NodeType { get { return nodeType; } }
@@ -75,29 +78,30 @@ namespace Graphs {
 		public void AddSuccessor(NodeVisualization nv) {
 			object[] args = { nv.Node };
 			node.GetType ().GetMethod ("AddSuccessor").Invoke (node, args);
-			mvpanel.AddEdge (new EdgeVisualization(this, nv));
+			successors.Add (nv);
 		}
 
 		public void RemoveSuccesor(NodeVisualization nv) {
 			object[] args = { nv.Node };
 			node.GetType ().GetMethod ("RemoveSuccesor").Invoke (node, args);
+			successors.Remove (nv);
 		}
 
 		public void AddPredecessor(NodeVisualization nv) {
 			object[] args = { nv.Node };
 			node.GetType ().GetMethod ("AddPredecessor").Invoke (node, args);
-			mvpanel.AddEdge (new EdgeVisualization(nv, this));
+			nv.successors.Add (this);
 		}
 
 		public void RemovePredecessor(NodeVisualization nv) {
 			object[] args = { nv.Node };
 			node.GetType ().GetMethod ("RemovePredecessor").Invoke (node, args);
+			nv.successors.Remove (this);
 		}
 
 		protected void OnRemove(object sender, EventArgs args) {
 			object[] margs = {Node};
 			graph.GetType().GetMethod("RemoveNode").Invoke(graph, margs);
-
 			Console.WriteLine ("NodeVisualization.RemoveNode");
 			Console.WriteLine (graph.ToString ());
 			Destroy ();

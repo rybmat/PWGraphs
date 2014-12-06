@@ -1,77 +1,46 @@
 ﻿using System;
 using Gtk;
 using Cairo;
+using System.Collections.Generic;
 
 namespace Graphs {
 	[System.ComponentModel.ToolboxItem (true)]
 	public class EdgeVisualization : Gtk.DrawingArea {
-		private NodeVisualization nodeFrom;
-		private NodeVisualization nodeTo;
-		private Point begin;
-		private Point end;
+		public List<NodeVisualization> nodes = new List<NodeVisualization>();
 
-		private int x, y, width, height;
-		public int X { get{ return x; }}
-		public int Y { get{ return y; }}
-		public int Width { get{ return width; }}
-		public int Height { get{ return height; }}
-
-		public EdgeVisualization (NodeVisualization _nodeFrom, NodeVisualization _nodeTo) {
-			nodeFrom = _nodeFrom;
-			nodeTo = _nodeTo;
+		public EdgeVisualization (int width, int height) {
+			Console.WriteLine ("EdgeVis: " + width + " " + height);
+			SetSizeRequest (width, height);
 		}
 
-		//public void Redraw() {
-		//	QueueDraw();
-		//}
 
-		protected override bool OnExposeEvent (Gdk.EventExpose ev) {
-			base.OnExposeEvent (ev);
 
-			calculateCoordinates ();
-			(Parent as Fixed).Move (this, x, y);
+		protected override bool OnExposeEvent(Gdk.EventExpose ev) {
+			base.OnExposeEvent(ev);
 
-			using (Context gr = Gdk.CairoHelper.Create (ev.Window)) {
-				gr.Antialias = Antialias.Gray;
-				gr.LineWidth = 8;
-				gr.SetSourceColor(new Color (1, 0, 0, 1));
-				gr.LineCap = LineCap.Round;
-				gr.MoveTo (begin.X, begin.Y);
-				gr.LineTo (end.X, end.Y);
-				gr.Stroke ();
+			Cairo.Context cr = Gdk.CairoHelper.Create(GdkWindow);
+
+			foreach (NodeVisualization source in nodes) {
+				foreach (NodeVisualization destination in source.successors) {
+					DrawEdge(cr, source, destination);
+				}
 			}
+			cr.Dispose();
 
 			return true;
 		}
+			
 
-		private void calculateCoordinates() {
-			x = Math.Min (nodeFrom.X, nodeTo.X);
-			y = Math.Min (nodeFrom.Y, nodeTo.Y);
-			width = Math.Abs (nodeTo.X - nodeFrom.X);
-			height = Math.Abs (nodeTo.Y - nodeFrom.Y);
-			SetSizeRequest(width, height);
+		private void DrawEdge(Cairo.Context cx, NodeVisualization _from, NodeVisualization _to) {
+			Console.WriteLine ("drawedge");
 
-			if (nodeFrom.X > nodeTo.X && nodeFrom.Y > nodeTo.Y) {
-				begin.X = width;
-				begin.Y = height;
-				end.X = 0;
-				end.Y = 0;
-			} else if (nodeFrom.X > nodeTo.X && nodeFrom.Y <= nodeTo.Y) {
-				begin.X = width;
-				begin.Y = 0;
-				end.X = 0;
-				end.Y = height;
-			} else if (nodeFrom.X <= nodeTo.X && nodeFrom.Y > nodeTo.Y) {
-				begin.X = 0;
-				begin.Y = height;
-				end.X = width;
-				end.Y = 0;
-			} else if (nodeFrom.X <= nodeTo.X && nodeFrom.Y <= nodeTo.Y) {
-				begin.X = 0;
-				begin.Y = 0;
-				end.X = width;
-				end.Y = height;
-			}
+			cx.Antialias = Antialias.Gray;
+			cx.LineWidth = 8;
+			cx.Color = new Color (1, 0, 0, 1);
+			cx.LineCap = LineCap.Round;
+			cx.MoveTo (_from.X, _from.Y);
+			cx.LineTo (_to.X, _to.Y);
+			cx.Stroke ();
 		}
 	}
 }

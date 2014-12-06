@@ -1,6 +1,7 @@
 ﻿using System;
 using Gtk;
 using Graphs;
+using Cairo;
 
 namespace Graphs {
 
@@ -19,6 +20,7 @@ namespace Graphs {
 		private bool removeConnection = false;
 
 		private object predecessor;
+		public EdgeVisualization edgeVis;
 
 		private string rightClick;
 		private string doubleClick;
@@ -28,7 +30,11 @@ namespace Graphs {
 		public MovablePanel(string _rightClick, string _doubleClick) {		
 			rightClick = _rightClick;
 			doubleClick = _doubleClick;
+
 			Build();
+			edgeVis = new EdgeVisualization (500, 500);
+			fixed1.Put (edgeVis, 0, 0);
+			ShowAll ();
 		}
 
 		//Set the controls to be redrawn
@@ -39,7 +45,8 @@ namespace Graphs {
 		public void RemoveAllChildren() {
 			graph.GetType().GetMethod("Clear").Invoke(graph, null);
 			foreach (Widget ch in fixed1.AllChildren) {
-				ch.Destroy ();
+				if (ch.GetType() == typeof(EventBox))
+					ch.Destroy ();
 			}
 			RefreshChildren ();
 			Console.WriteLine ("MovablePanel.RemoveAllChildren");
@@ -55,7 +62,7 @@ namespace Graphs {
 			removeConnection = true;
 			predecessor = nv;
 		}
-
+			
 		public void AddNode(Widget wdg, int x, int y) {
 			if (x<0) {
 				x = 0;
@@ -71,6 +78,7 @@ namespace Graphs {
 
 			object[] args = {(wdg as NodeVisualization).Node};
 			graph.GetType().GetMethod("AddNode").Invoke(graph, args);
+			edgeVis.nodes.Add (wdg as NodeVisualization);
 
 			EventBox ev = GetMovingBox(wdg);
 			ev.ButtonPressEvent += new ButtonPressEventHandler(OnButtonPressed);
@@ -84,11 +92,6 @@ namespace Graphs {
 			Console.WriteLine (graph.ToString ());
 		}
 
-		public void AddEdge(EdgeVisualization edge){
-			fixed1.Put(edge, edge.X, edge.Y);
-			ShowAll ();
-		}
-
 		private EventBox GetMovingBox(Widget wdg) { 
 			EventBox rev = new EventBox();
 			rev.Name = wdg.ToString();
@@ -97,7 +100,7 @@ namespace Graphs {
 			Console.WriteLine("Creating new moving object"+rev.Name);
 			return rev;
 		}
-			
+
 		private Widget CloneCurrCtrl() {
 			Widget re = null;
 
