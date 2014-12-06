@@ -13,6 +13,9 @@ namespace Graphs {
 		private int width = 0;
 		private int height;
 
+		public int Width{ get { return width; } }
+		public int Height{ get { return height; } }
+
 		public object graph;
 		public MovablePanel mvpanel;
 

@@ -38,8 +38,8 @@ namespace Graphs {
 			cx.LineWidth = 8;
 			cx.Color = new Color (1, 0, 0, 1);
 			cx.LineCap = LineCap.Round;
-			cx.MoveTo (_from.X, _from.Y);
-			cx.LineTo (_to.X, _to.Y);
+			cx.MoveTo (_from.X + _from.Width/2, _from.Y + _from.Height/2);
+			cx.LineTo (_to.X + _to.Width/2, _to.Y + _to.Height/2);
 			cx.Stroke ();
 		}
 	}

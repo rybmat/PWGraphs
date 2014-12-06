@@ -32,7 +32,7 @@ namespace Graphs {
 			doubleClick = _doubleClick;
 
 			Build();
-			edgeVis = new EdgeVisualization (500, 500);
+			edgeVis = new EdgeVisualization (800, 600);
 			fixed1.Put (edgeVis, 0, 0);
 			ShowAll ();
 		}
