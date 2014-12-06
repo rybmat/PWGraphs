@@ -5,14 +5,26 @@ using System.Collections.Generic;
 
 namespace Graphs {
 	[System.ComponentModel.ToolboxItem (true)]
-	public class EdgeVisualization : Gtk.DrawingArea {
-		public List<NodeVisualization> nodes = new List<NodeVisualization>();
+	public class GraphVisualization : Gtk.DrawingArea {
+		private List<NodeVisualization> nodes = new List<NodeVisualization>();
 
-		public EdgeVisualization (int width, int height) {
+		public GraphVisualization (int width, int height) {
 			Console.WriteLine ("EdgeVis: " + width + " " + height);
 			SetSizeRequest (width, height);
 		}
-			
+
+		public void AddNode(NodeVisualization node) {
+			nodes.Add (node);
+		}
+
+		public void RemoveNode(NodeVisualization node) {
+			nodes.Remove (node);
+		}
+
+		public void RemoveAllNodes() {
+			nodes.Clear ();
+		}
+
 		protected override bool OnExposeEvent(Gdk.EventExpose ev) {
 			base.OnExposeEvent(ev);
 

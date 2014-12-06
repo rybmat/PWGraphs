@@ -23,7 +23,7 @@ namespace Graphs {
 		private bool bfs = false;
 
 		private object predecessor;
-		public EdgeVisualization edgeVis;
+		public GraphVisualization edgeVis;
 
 		private string rightClick;
 		private string doubleClick;
@@ -35,7 +35,7 @@ namespace Graphs {
 			doubleClick = _doubleClick;
 
 			Build();
-			edgeVis = new EdgeVisualization (800, 600);
+			edgeVis = new GraphVisualization (800, 600);
 			fixed1.Put (edgeVis, 0, 0);
 			ShowAll ();
 		}
@@ -47,7 +47,7 @@ namespace Graphs {
 
 		public void RemoveAllChildren() {
 			graph.GetType().GetMethod("Clear").Invoke(graph, null);
-			edgeVis.nodes.Clear ();
+			edgeVis.RemoveAllNodes ();
 			foreach (Widget ch in fixed1.AllChildren) {
 				if (ch.GetType() == typeof(EventBox))
 					ch.Destroy ();
@@ -82,7 +82,7 @@ namespace Graphs {
 
 			object[] args = {(wdg as NodeVisualization).Node};
 			graph.GetType().GetMethod("AddNode").Invoke(graph, args);
-			edgeVis.nodes.Add (wdg as NodeVisualization);
+			edgeVis.AddNode (wdg as NodeVisualization);
 
 			EventBox ev = GetMovingBox(wdg);
 			ev.ButtonPressEvent += new ButtonPressEventHandler(OnButtonPressed);
