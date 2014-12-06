@@ -9,6 +9,7 @@ namespace Graphs {
 	public class NodeVisualization : Gtk.DrawingArea {
 		private string caption = "";
 		private Gtk.Menu popup = null;
+		private string orderNum = "";
 
 		private int width = 0;
 		private int height;
@@ -70,7 +71,6 @@ namespace Graphs {
 			NodeDialog addDialog = new NodeDialog (nodeType.GenericTypeArguments[0], node.GetType().GetProperty("Data").GetValue(node), false);
 			addDialog.Run ();
 			addDialog.Destroy ();
-			caption = "dupa";
 			Redraw();
 		}
 
@@ -105,6 +105,59 @@ namespace Graphs {
 			node.GetType ().GetMethod ("RemovePredecessor").Invoke (node, args);
 			nv.successors.Remove (this);
 			predecessors.Remove (nv);
+		}
+
+		public void ClearEdgeStates() {
+			foreach (var node in successors) {
+				successors[node.Key] = false;
+				node.Key.predecessors [this] = false;
+			}
+			foreach (var node in predecessors) {
+				predecessors[node.Key] = false;
+				node.Key.successors [this] = false;
+			}
+		}
+
+		public void SetOutEdgeState(NodeVisualization succ, bool visited) {
+			if (successors.ContainsKey(succ)) {
+				successors [succ] = visited;
+				succ.predecessors [this] = visited;
+			}
+		}
+
+		public void SetInEdgeState(NodeVisualization pred, bool visited) {
+			if (predecessors.ContainsKey (pred)) {
+				predecessors [pred] = visited;
+				pred.successors [this] = visited;
+			}
+		}
+
+		public void SetOutEdgeState(object succ, bool visited) {
+			foreach (var n in successors) {
+				if (n.Key == succ) {
+					successors[n.Key] = visited;
+					n.Key.predecessors [this] = visited;
+				}
+			}
+		}
+
+		public void SetInEdgeState(object pred, bool visited) {
+			foreach (var n in predecessors) {
+				if (n.Key == pred) {
+					predecessors[n.Key] = visited;
+					n.Key.successors [this] = visited;
+				}
+			}
+		}
+
+		public void SetOrderNum(int num) {
+			orderNum = num.ToString ();
+			caption = orderNum + ": " + caption;
+		}
+
+		public void ClearOrderNum() {
+			orderNum = "";
+			caption = Name;
 		}
 
 		protected void OnRemove(object sender, EventArgs args) {
@@ -177,5 +230,3 @@ namespace Graphs {
 		}
 	}
 }
-
-

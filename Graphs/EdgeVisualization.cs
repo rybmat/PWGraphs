@@ -28,7 +28,6 @@ namespace Graphs {
 			return true;
 		}
 			
-
 		private void DrawEdge(Cairo.Context cx, NodeVisualization _from, NodeVisualization _to) {
 			int beginX = _from.X + _from.Width / 2;
 			int beginY = _from.Y + _from.Height / 2;
@@ -37,7 +36,11 @@ namespace Graphs {
 
 			cx.Antialias = Antialias.Gray;
 			cx.LineWidth = 3;
-			cx.SetSourceColor(new Color (0, 0, 0, 1));
+			if ( !_from.successors.ContainsKey(_to) || _from.successors[_to] == false)
+				cx.SetSourceColor(new Color (0, 0, 0, 1));
+			else
+				cx.SetSourceColor(new Color (1, 0, 0, 1));
+				
 			cx.LineCap = LineCap.Round;
 			cx.MoveTo (beginX, beginY);
 			cx.LineTo (endX, endY);
@@ -52,11 +55,11 @@ namespace Graphs {
 
 			double theta = Math.Atan2(dy, dx);
 
-			double rad = 35*Math.PI/180; //35 angle, can be adjusted
+			double rad = 35*Math.PI/180; //35 angle
 			double x = tipX - arrowLength * Math.Cos(theta + rad);
 			double y = tipY - arrowLength * Math.Sin(theta + rad);
 
-			double phi2 = -35*Math.PI/180;//-35 angle, can be adjusted
+			double phi2 = -35*Math.PI/180;//-35 angle
 			double x2 = tipX - arrowLength * Math.Cos(theta + phi2);
 			double y2 = tipY - arrowLength * Math.Sin(theta + phi2);
 

@@ -108,7 +108,6 @@ public partial class MainWindow: Gtk.Window {
 	}
 
 	protected void OnExecuteButtonClicked (object sender, EventArgs e) {
-		//TODO: execute proper algorithm
-		throw new NotImplementedException ();
+		mvpanel1.RunAlgorithm (algorithmCombobox.ActiveText);
 	}
 }
