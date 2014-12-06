@@ -12,9 +12,7 @@ namespace Graphs {
 			Console.WriteLine ("EdgeVis: " + width + " " + height);
 			SetSizeRequest (width, height);
 		}
-
-
-
+			
 		protected override bool OnExposeEvent(Gdk.EventExpose ev) {
 			base.OnExposeEvent(ev);
 
@@ -32,11 +30,9 @@ namespace Graphs {
 			
 
 		private void DrawEdge(Cairo.Context cx, NodeVisualization _from, NodeVisualization _to) {
-			Console.WriteLine ("drawedge");
-
 			cx.Antialias = Antialias.Gray;
-			cx.LineWidth = 8;
-			cx.Color = new Color (1, 0, 0, 1);
+			cx.LineWidth = 3;
+			cx.SetSourceColor(new Color (0, 0, 0, 1));
 			cx.LineCap = LineCap.Round;
 			cx.MoveTo (_from.X + _from.Width/2, _from.Y + _from.Height/2);
 			cx.LineTo (_to.X + _to.Width/2, _to.Y + _to.Height/2);

@@ -193,6 +193,7 @@ namespace Graphs {
 					makeConnection = false;
 					removeConnection = false;
 					predecessor = null;
+					RefreshChildren ();
 					return;
 				}
 				if (currClone!=null) {
