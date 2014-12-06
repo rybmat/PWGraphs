@@ -19,7 +19,7 @@ namespace Graphs {
 			Cairo.Context cr = Gdk.CairoHelper.Create(GdkWindow);
 
 			foreach (NodeVisualization source in nodes) {
-				foreach (NodeVisualization destination in source.successors) {
+				foreach (NodeVisualization destination in source.successors.Keys) {
 					DrawEdge(cr, source, destination);
 				}
 			}

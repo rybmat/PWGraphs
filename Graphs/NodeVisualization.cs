@@ -25,8 +25,8 @@ namespace Graphs {
 		private object node;
 		public object Node { get { return node; } }
 
-		public List<NodeVisualization> successors = new List<NodeVisualization>();
-		public List<NodeVisualization> predecessors = new List<NodeVisualization> ();
+		public Dictionary<NodeVisualization, bool> successors = new Dictionary<NodeVisualization, bool>();
+		public Dictionary<NodeVisualization, bool> predecessors = new Dictionary<NodeVisualization, bool> ();
 
 		private Type nodeType;
 		public Type NodeType { get { return nodeType; } }
@@ -82,8 +82,8 @@ namespace Graphs {
 		public void AddSuccessor(NodeVisualization nv) {
 			object[] args = { nv.Node };
 			node.GetType ().GetMethod ("AddSuccessor").Invoke (node, args);
-			successors.Add (nv);
-			nv.predecessors.Add (this);
+			successors[nv] = false;
+			nv.predecessors[this] = false;
 		}
 
 		public void RemoveSuccesor(NodeVisualization nv) {
@@ -96,8 +96,8 @@ namespace Graphs {
 		public void AddPredecessor(NodeVisualization nv) {
 			object[] args = { nv.Node };
 			node.GetType ().GetMethod ("AddPredecessor").Invoke (node, args);
-			nv.successors.Add (this);
-			predecessors.Add (nv);
+			nv.successors [this] = false;
+			predecessors[nv] = false;
 		}
 
 		public void RemovePredecessor(NodeVisualization nv) {
@@ -110,10 +110,10 @@ namespace Graphs {
 		protected void OnRemove(object sender, EventArgs args) {
 			object[] margs = {Node};
 			graph.GetType().GetMethod("RemoveNode").Invoke(graph, margs);
-			foreach (var p in predecessors) {
+			foreach (var p in predecessors.Keys) {
 				p.successors.Remove (this);
 			}
-			foreach (var s in successors) {
+			foreach (var s in successors.Keys) {
 				s.successors.Remove (this);
 			}
 			mvpanel.edgeVis.nodes.Remove (this);
