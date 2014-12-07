@@ -68,6 +68,13 @@ namespace Graphs {
 			return false;
 		}
 
+		public void Refresh() {
+			foreach (NodeVisualization n in nodes) {
+				n.Redraw ();
+			}
+			this.QueueDraw ();
+		}
+
 		protected override bool OnExposeEvent(Gdk.EventExpose ev) {
 			base.OnExposeEvent(ev);
 

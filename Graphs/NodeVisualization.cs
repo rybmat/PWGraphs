@@ -78,7 +78,6 @@ namespace Graphs {
 		}
 
 		public void Redraw() {
-			Console.WriteLine("Redrawing");
 			QueueDraw();
 		}
 
@@ -99,7 +98,7 @@ namespace Graphs {
 		public void SetVisited(int order) {
 			Visited = true;
 			orderNum = order.ToString ();
-			caption = orderNum + ": " + caption;
+			caption = orderNum + ": " + Name;
 		}
 			
 		public void ClearVisited() {

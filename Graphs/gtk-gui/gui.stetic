@@ -216,14 +216,37 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="Gtk.Button" id="nextStepBtn">
+                  <widget class="Gtk.HBox" id="hbox2">
                     <property name="MemberName" />
-                    <property name="CanFocus">True</property>
-                    <property name="UseStock">True</property>
-                    <property name="Type">StockItem</property>
-                    <property name="StockId">gtk-go-forward</property>
-                    <signal name="Clicked" handler="OnNextStepBtnClicked" />
-                    <property name="label">gtk-go-forward</property>
+                    <property name="Spacing">6</property>
+                    <child>
+                      <widget class="Gtk.Button" id="prevStepBtn">
+                        <property name="MemberName" />
+                        <property name="CanFocus">True</property>
+                        <property name="Type">TextAndIcon</property>
+                        <property name="Label" translatable="yes">_Wstecz</property>
+                        <property name="UseUnderline">True</property>
+                        <signal name="Clicked" handler="OnPrevStepBtnClicked" />
+                      </widget>
+                      <packing>
+                        <property name="Position">0</property>
+                        <property name="AutoSize">False</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <widget class="Gtk.Button" id="nextStepBtn">
+                        <property name="MemberName" />
+                        <property name="CanFocus">True</property>
+                        <property name="Type">TextAndIcon</property>
+                        <property name="Label" translatable="yes">_Dalej</property>
+                        <property name="UseUnderline">True</property>
+                        <signal name="Clicked" handler="OnNextStepBtnClicked" />
+                      </widget>
+                      <packing>
+                        <property name="Position">1</property>
+                        <property name="AutoSize">False</property>
+                      </packing>
+                    </child>
                   </widget>
                   <packing>
                     <property name="Position">6</property>
