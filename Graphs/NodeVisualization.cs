@@ -79,20 +79,6 @@ namespace Graphs {
 			QueueDraw();
 		}
 
-		public void AddSuccessor(NodeVisualization nv) {
-			object[] args = { nv.Node };
-			node.GetType ().GetMethod ("AddSuccessor").Invoke (node, args);
-			successors[nv] = false;
-			nv.predecessors[this] = false;
-		}
-
-		public void RemoveSuccesor(NodeVisualization nv) {
-			object[] args = { nv.Node };
-			node.GetType ().GetMethod ("RemoveSuccesor").Invoke (node, args);
-			successors.Remove (nv);
-			nv.predecessors.Remove (this);
-		}
-
 		public void AddPredecessor(NodeVisualization nv) {
 			object[] args = { nv.Node };
 			node.GetType ().GetMethod ("AddPredecessor").Invoke (node, args);
@@ -120,20 +106,6 @@ namespace Graphs {
 			}
 		}
 
-		public void SetOutEdgeState(NodeVisualization succ, bool visited) {
-			if (successors.ContainsKey(succ)) {
-				successors [succ] = visited;
-				succ.predecessors [this] = visited;
-			}
-		}
-
-		public void SetInEdgeState(NodeVisualization pred, bool visited) {
-			if (predecessors.ContainsKey (pred)) {
-				predecessors [pred] = visited;
-				pred.successors [this] = visited;
-			}
-		}
-
 		public void SetOutEdgeState(object succ, bool visited) {
 			List<NodeVisualization> succs = new List<NodeVisualization>(successors.Keys);
 			foreach (var n in succs) {
@@ -141,17 +113,6 @@ namespace Graphs {
 					Console.WriteLine ("seting out edge state in NodeVis");
 					successors[n] = visited;
 					n.predecessors [this] = visited;
-				}
-			}
-		}
-
-		public void SetInEdgeState(object pred, bool visited) {
-			List<NodeVisualization> preds = new List<NodeVisualization>(predecessors.Keys);
-			foreach (var n in preds) {
-				if (n.Node == pred) {
-					Console.WriteLine ("seting in edge state in NodeVis");
-					predecessors[n] = visited;
-					n.successors [this] = visited;
 				}
 			}
 		}

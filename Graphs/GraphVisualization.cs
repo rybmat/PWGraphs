@@ -53,7 +53,6 @@ namespace Graphs {
 
 		public void SetEdgeState(object _from, object _to, bool visited) {
 			List<NodeVisualization> nds = new List<NodeVisualization> (nodes.Keys);
-			NodeVisualization f, t; 
 			foreach (NodeVisualization n in nds) {
 				if (n.Node == _from) {
 					Console.WriteLine ("seting edge state in GraphVis");

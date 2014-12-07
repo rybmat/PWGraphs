@@ -174,14 +174,12 @@ namespace Graphs {
 				else {
 					if (makeConnection) {
 						if (sender is EventBox) {
-							object[] args = { predecessor };
-							(sender as EventBox).Child.GetType ().GetMethod ("AddPredecessor").Invoke ((sender as EventBox).Child, args);
+							((sender as EventBox).Child as NodeVisualization).AddPredecessor (predecessor as NodeVisualization);
 							Console.WriteLine (Graph.graph.ToString ());
 						}
 					} else if (removeConnection) {
 						if (sender is EventBox) {
-							object[] args = { predecessor };
-							(sender as EventBox).Child.GetType ().GetMethod ("RemovePredecessor").Invoke ((sender as EventBox).Child, args);
+							((sender as EventBox).Child as NodeVisualization).RemovePredecessor (predecessor as NodeVisualization);
 							Console.WriteLine (Graph.graph.ToString ());
 						}
 					} else if (algStartNode) {
