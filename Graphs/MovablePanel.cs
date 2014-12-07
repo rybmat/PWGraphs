@@ -254,6 +254,7 @@ namespace Graphs {
 			Graph.ResetNodesState();
 
 			AlgorithmResult = Algorithms[name].Invoke(start).ToList();
+			Console.WriteLine ("Alg results:");
 			foreach( var a in AlgorithmResult)
 				Console.WriteLine (a);
 
@@ -263,7 +264,7 @@ namespace Graphs {
 				Graph.SetNodeState(node, true);
 				CurrentAlgorithmPosition = node;
 
-				if (previous != null && edges_exist) {
+				if (previous != null) {
 					try {
 						Graph.SetEdgeState(previous, node, true);
 					} catch {

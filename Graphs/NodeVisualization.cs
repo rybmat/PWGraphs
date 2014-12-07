@@ -26,6 +26,8 @@ namespace Graphs {
 		private object node;
 		public object Node { get { return node; } }
 
+		public bool Visited { get; set; }
+
 		public Dictionary<NodeVisualization, bool> successors = new Dictionary<NodeVisualization, bool>();
 		public Dictionary<NodeVisualization, bool> predecessors = new Dictionary<NodeVisualization, bool> ();
 
@@ -35,6 +37,7 @@ namespace Graphs {
 		public NodeVisualization(Type _nodeType, object _node) {
 			node = _node;
 			nodeType = _nodeType;
+			Visited = false;
 
 			popup = new Gtk.Menu();
 
@@ -110,7 +113,7 @@ namespace Graphs {
 			List<NodeVisualization> succs = new List<NodeVisualization>(successors.Keys);
 			foreach (var n in succs) {
 				if (n.Node == succ) {
-					Console.WriteLine ("seting out edge state in NodeVis");
+					Console.WriteLine ("seting out edge state in NodeVis for edge " + this + " " + succ);
 					successors[n] = visited;
 					n.predecessors [this] = visited;
 				}
@@ -158,7 +161,10 @@ namespace Graphs {
 				DrawCurvedRectangle (g);
 				g.SetSourceColor(new Color (0.1, 0.6, 1, 1));
 				g.FillPreserve ();
-				g.SetSourceColor(new Color (0.2, 0.8, 1, 1));
+				if (Visited)
+					g.SetSourceColor(new Color (1, 0, 0, 1));
+				else
+					g.SetSourceColor(new Color (0.2, 0.8, 1, 1));
 				g.LineWidth = 5;
 				g.Stroke ();
 

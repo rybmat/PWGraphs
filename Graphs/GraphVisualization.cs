@@ -7,7 +7,7 @@ namespace Graphs {
 
 	[System.ComponentModel.ToolboxItem (true)]
 	public class GraphVisualization : Gtk.DrawingArea {
-		private Dictionary<NodeVisualization, bool> nodes = new Dictionary<NodeVisualization, bool>();
+		private List<NodeVisualization> nodes = new List<NodeVisualization>();
 
 		public object graph;
 
@@ -17,7 +17,7 @@ namespace Graphs {
 		}
 
 		public void AddNode(NodeVisualization node) {
-			nodes[node] = false;
+			nodes.Add(node);
 		}
 
 		public void RemoveNode(NodeVisualization node) {
@@ -29,33 +29,30 @@ namespace Graphs {
 		}
 
 		public void ResetEdgesState() {
-			foreach (var n in nodes.Keys) {
+			foreach (var n in nodes) {
 				n.ResetEdgesState ();
 			}
 		}
 
 		public void ResetNodesState() {
-			List<NodeVisualization> nds = new List<NodeVisualization> (nodes.Keys);
-			foreach (var n in nds) {
-				nodes [n] = false;
+			foreach (var n in nodes) {
+				n.Visited = false;
 			}
 		}
 
 		public void SetNodeState(object node, bool visited) {
-			List<NodeVisualization> nds = new List<NodeVisualization> (nodes.Keys);
-			foreach (NodeVisualization n in nds) {
+			foreach (NodeVisualization n in nodes) {
 				if (n.Node == node) {
-					Console.WriteLine ("seting node state in GraphVis");
-					nodes [n] = visited;
+					//Console.WriteLine ("seting node state in GraphVis");
+					n.Visited = visited;
 				}
 			}
 		}
 
 		public void SetEdgeState(object _from, object _to, bool visited) {
-			List<NodeVisualization> nds = new List<NodeVisualization> (nodes.Keys);
-			foreach (NodeVisualization n in nds) {
+			foreach (NodeVisualization n in nodes) {
 				if (n.Node == _from) {
-					Console.WriteLine ("seting edge state in GraphVis");
+					//Console.WriteLine ("seting edge state in GraphVis");
 					n.SetOutEdgeState (_to, visited);
 				}
 			}
@@ -66,7 +63,7 @@ namespace Graphs {
 
 			Cairo.Context cr = Gdk.CairoHelper.Create(GdkWindow);
 
-			foreach (NodeVisualization source in nodes.Keys) {
+			foreach (NodeVisualization source in nodes) {
 				foreach (NodeVisualization destination in source.successors.Keys) {
 					DrawEdge(cr, source, destination);
 				}
