@@ -49,13 +49,14 @@ namespace Graphs {
 			}
 		}
 
-		public void SetEdgeState(object _from, object _to, bool visited) {
+		public bool SetEdgeState(object _from, object _to, bool visited) {
 			foreach (NodeVisualization n in nodes) {
 				if (n.Node == _from) {
 					//Console.WriteLine ("seting edge state in GraphVis");
-					n.SetOutEdgeState (_to, visited);
+					return n.SetOutEdgeState (_to, visited);
 				}
 			}
+			return false;
 		}
 
 		protected override bool OnExposeEvent(Gdk.EventExpose ev) {

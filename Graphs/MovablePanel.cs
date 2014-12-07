@@ -264,14 +264,12 @@ namespace Graphs {
 				Graph.SetNodeState(node, true);
 				CurrentAlgorithmPosition = node;
 
-				if (previous != null) {
-					try {
-						Graph.SetEdgeState(previous, node, true);
-					} catch {
-						edges_exist = false;
-					}
-				}
+				Console.WriteLine ("Alg: prev: " + previous + " curr: " + CurrentAlgorithmPosition);
 
+				if (previous != null && edges_exist) {
+					edges_exist = Graph.SetEdgeState(previous, node, true);
+
+				}
 				previous = node;
 				RefreshChildren ();
 			}

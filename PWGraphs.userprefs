@@ -2,11 +2,10 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Graphs/MovablePanel.cs">
     <Files>
-      <File FileName="Graphs/MainWindow.cs" Line="33" Column="33" />
-      <File FileName="Graphs/NodeVisualization.cs" Line="4" Column="4" />
-      <File FileName="Graphs/MovablePanel.cs" Line="30" Column="30" />
-      <File FileName="Graphs/GraphVisualization.cs" Line="75" Column="75" />
-      <File FileName="Graphs/NodeDialog.cs" Line="1" Column="1" />
+      <File FileName="Graphs/MainWindow.cs" Line="27" Column="27" />
+      <File FileName="Graphs/NodeVisualization.cs" Line="19" Column="19" />
+      <File FileName="Graphs/MovablePanel.cs" Line="19" Column="19" />
+      <File FileName="Graphs/GraphVisualization.cs" Line="5" Column="5" />
       <File FileName="GraphProject/GraphStructure.cs" Line="1" Column="1" />
       <File FileName="GraphProject/TopologicalSort.cs" Line="1" Column="1" />
       <File FileName="GraphProject/BFS.cs" Line="1" Column="1" />

@@ -109,15 +109,17 @@ namespace Graphs {
 			}
 		}
 
-		public void SetOutEdgeState(object succ, bool visited) {
+		public bool SetOutEdgeState(object succ, bool visited) {
 			List<NodeVisualization> succs = new List<NodeVisualization>(successors.Keys);
 			foreach (var n in succs) {
 				if (n.Node == succ) {
 					Console.WriteLine ("seting out edge state in NodeVis for edge " + this + " " + succ);
 					successors[n] = visited;
 					n.predecessors [this] = visited;
+					return true;
 				}
 			}
+			return false;
 		}
 
 		public void SetOrderNum(int num) {
@@ -145,7 +147,7 @@ namespace Graphs {
 			Console.WriteLine (graph.ToString ());
 			Destroy ();
 			mvpanel.RefreshChildren ();
-			mvpanel.Dispose ();
+			Dispose ();
 		}
 
 		protected void OnConnect(object sender, EventArgs args) {
