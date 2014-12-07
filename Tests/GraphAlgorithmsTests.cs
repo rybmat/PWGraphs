@@ -53,14 +53,15 @@ namespace Tests {
 
 		[Test ()]
 		public void DFStest() {
-			CollectionAssert.AreEqual(new ArrayList{ "1", "6", "2", "4", "5", "3"},
-				nonEulerian.DFS(nonEulerian["1"]).Select(
-					n => n.Data.ToString()
-				).ToList());
+			CollectionAssert.AreEqual (new ArrayList{ "1", "6", "2", "4", "5", "3" },
+				nonEulerian.DFS (nonEulerian ["1"]).Select (
+					n => n.Item2.Data.ToString ().ToList ()));
+	
+			
 
 			CollectionAssert.AreEqual(new ArrayList{ "1", "3", "5", "4", "2" },
 				withoutCycle.DFS(withoutCycle["1"]).Select(
-					n => n.Data.ToString()
+					n => n.Item2.Data.ToString()
 				).ToList());
 		}
 
@@ -68,12 +69,12 @@ namespace Tests {
 		public void BFStest() {
 			CollectionAssert.AreEqual(new ArrayList{ "1", "2", "6", "3", "4", "5"},
 				nonEulerian.BFS(nonEulerian["1"]).Select(
-					n => n.Data.ToString()
+					n => n.Item2.Data.ToString()
 				).ToList());
 
 			CollectionAssert.AreEqual(new ArrayList{ "1", "2", "3", "4", "5" },
 				withoutCycle.BFS(withoutCycle["1"]).Select(
-					n => n.Data.ToString()
+					n => n.Item2.Data.ToString()
 				).ToList());
 		}
 

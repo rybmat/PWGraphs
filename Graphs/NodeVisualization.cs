@@ -26,7 +26,7 @@ namespace Graphs {
 		private object node;
 		public object Node { get { return node; } }
 
-		public bool Visited { get; set; }
+		public bool Visited { get; private set; }
 
 		public Dictionary<NodeVisualization, bool> successors = new Dictionary<NodeVisualization, bool>();
 		public Dictionary<NodeVisualization, bool> predecessors = new Dictionary<NodeVisualization, bool> ();
@@ -56,7 +56,7 @@ namespace Graphs {
 			caption = _node.ToString();
 			Name = _node.ToString();
 
-			width = caption.Length * 8 + 10;
+			width = caption.Length * 8 + 50;
 			height = 40;
 			SetSizeRequest(width, height);
 		}
@@ -96,6 +96,18 @@ namespace Graphs {
 			predecessors.Remove (nv);
 		}
 
+		public void SetVisited(int order) {
+			Visited = true;
+			orderNum = order.ToString ();
+			caption = orderNum + ": " + caption;
+		}
+			
+		public void ClearVisited() {
+			Visited = false;
+			orderNum = "";
+			caption = Name;
+		}
+
 		public void ResetEdgesState() {
 			List<NodeVisualization> succs = new List<NodeVisualization>(successors.Keys);
 			foreach (var node in succs) {
@@ -120,16 +132,6 @@ namespace Graphs {
 				}
 			}
 			return false;
-		}
-
-		public void SetOrderNum(int num) {
-			orderNum = num.ToString ();
-			caption = orderNum + ": " + caption;
-		}
-
-		public void ClearOrderNum() {
-			orderNum = "";
-			caption = Name;
 		}
 
 		protected void OnRemove(object sender, EventArgs args) {

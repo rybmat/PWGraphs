@@ -7,22 +7,22 @@ namespace GraphProject {
 
 	public partial class Graph<T> {
 
-		public IEnumerable<Node<T>> DFS(Node<T> node) {
-			Stack<Node<T>> stack = new Stack<Node<T>>();
+		public IEnumerable<Tuple<Node<T>, Node<T>>> DFS(Node<T> node) {
+			Stack<Tuple<Node<T>, Node<T>>> stack = new Stack<Tuple<Node<T>, Node<T>>>();
 			HashSet<Node<T>> visited = new HashSet<Node<T>>();
 
-			stack.Push(node);
+			stack.Push(new Tuple<Node<T>, Node<T>>(null, node));
 
 			while (stack.Count > 0) {
-				Node<T> current = stack.Pop();
+				Tuple<Node<T>, Node<T>> current = stack.Pop();
 
-				if (!visited.Contains(current)) {
+				if (!visited.Contains(current.Item2)) {
 					yield return current;
 
-					visited.Add(current);
+					visited.Add(current.Item2);
 
-					foreach (var n in current.successors) {
-						stack.Push(n);
+					foreach (var n in current.Item2.successors) {
+						stack.Push(new Tuple<Node<T>, Node<T>>(current.Item2, n));
 					}
 				}
 			}

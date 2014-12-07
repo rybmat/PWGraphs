@@ -117,6 +117,6 @@ public partial class MainWindow: Gtk.Window {
 	}
 
 	protected void OnNextStepBtnClicked (object sender, EventArgs e) {
-		mvpanel1.NextAlgorithmStep ();
+		//mvpanel1.NextAlgorithmStep ();
 	}
 }

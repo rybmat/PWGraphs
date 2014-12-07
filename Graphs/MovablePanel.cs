@@ -251,38 +251,45 @@ namespace Graphs {
 
 		public void RunAlgorithm(string name, object start) {
 			Graph.ResetEdgesState();
-			Graph.ResetNodesState();
+			Graph.ClearNodesVisited();
 
 			AlgorithmResult = Algorithms[name].Invoke(start).ToList();
 			Console.WriteLine ("Alg results:");
 			foreach( var a in AlgorithmResult)
 				Console.WriteLine (a);
 
-			object previous = null;
-			bool edges_exist = true;
-			foreach (var node in AlgorithmResult) {
-				Graph.SetNodeState(node, true);
-				CurrentAlgorithmPosition = node;
-
-				Console.WriteLine ("Alg: prev: " + previous + " curr: " + CurrentAlgorithmPosition);
-
-				if (previous != null && edges_exist) {
-					edges_exist = Graph.SetEdgeState(previous, node, true);
-
+			if (name.Equals ("Depth-first Search") || name.Equals ("Breath-first Search")) {
+				foreach (var e in AlgorithmResult) {
+					Graph.SetNodeVisited (e.GetType().GetProperty("Item2").GetValue(e), AlgorithmResult.IndexOf (e));
+					CurrentAlgorithmPosition = e;
+					Graph.SetEdgeState (e.GetType().GetProperty("Item1").GetValue(e), e.GetType().GetProperty("Item2").GetValue(e), true);
+					RefreshChildren ();
 				}
-				previous = node;
-				RefreshChildren ();
-			}
+			} else {
+				object previous = null;
+				bool edges_exist = true;
+				foreach (var node in AlgorithmResult) {
+					Graph.SetNodeVisited (node, AlgorithmResult.IndexOf (node));
+					CurrentAlgorithmPosition = node;
 
-			if (!edges_exist)
-				Graph.ResetEdgesState();
+					Console.WriteLine ("Alg: prev: " + previous + " curr: " + CurrentAlgorithmPosition);
+
+					if (previous != null && edges_exist) {
+						edges_exist = Graph.SetEdgeState (previous, node, true);
+
+					}
+					previous = node;
+					RefreshChildren ();
+				}
+			}
+				
 		}
 
-		public void PreviousAlgorithmStep() {
+		/*public void PreviousAlgorithmStep() {
 			object previous = null;
 			foreach (object node in AlgorithmResult.Reverse<object>()) {
 				if (previous == CurrentAlgorithmPosition) {
-					Graph.SetNodeState(CurrentAlgorithmPosition, false);
+					Graph.ClearNodeVisited(CurrentAlgorithmPosition);
 
 					try {
 						Graph.SetEdgeState(node, CurrentAlgorithmPosition, false);
@@ -302,7 +309,7 @@ namespace Graphs {
 			object previous = null;
 			foreach (object node in AlgorithmResult) {
 				if (previous == CurrentAlgorithmPosition) {
-					Graph.SetNodeState(node, true);
+					Graph.SetNodeVisited(node, true);
 
 					try {
 						Graph.SetEdgeState(CurrentAlgorithmPosition, node, true);
@@ -316,7 +323,8 @@ namespace Graphs {
 
 				previous = node;
 			}
-		}
+		}*/
+		
 		public object CurrentAlgorithmPosition {
 			get;
 			private set;
