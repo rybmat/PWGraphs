@@ -26,7 +26,7 @@ namespace Graphs {
 
 		private Dictionary<string, Func<object, IEnumerable<object>>> Algorithms = new Dictionary<string, Func<object, IEnumerable<object>>>();
 		private List<object>AlgorithmResult = new List<object>();
-		private object currentAlgorithmPosition;
+		private int currentAlgorithmPosition;
 
 		private object predecessor;
 		public GraphVisualization Graph;
@@ -255,7 +255,7 @@ namespace Graphs {
 			Graph.ResetEdgesState();
 			Graph.ClearNodesVisited();
 
-			currentAlgorithmPosition = null;
+			currentAlgorithmPosition = -1;
 			AlgorithmResult = Algorithms[name].Invoke(start).ToList();
 			Console.WriteLine ("Alg results:");
 			foreach( var a in AlgorithmResult)
@@ -267,43 +267,49 @@ namespace Graphs {
 		}
 
 		public bool PreviousAlgorithmStep() {
-			object previous = null;
-			foreach (object node in AlgorithmResult.Reverse<object>()) {
-				if (previous == currentAlgorithmPosition) {
-					if (algName.Equals ("Depth-first Search") || algName.Equals ("Breath-first Search")) {
-						Graph.SetNodeVisited (node.GetType ().GetProperty ("Item2").GetValue (node), AlgorithmResult.IndexOf (node));
-						Graph.SetEdgeState (node.GetType ().GetProperty ("Item1").GetValue (node), node.GetType ().GetProperty ("Item2").GetValue (node), true);
-					} else {
-						Graph.SetNodeVisited (node, AlgorithmResult.IndexOf (node));
-						Graph.SetEdgeState (previous, node, true);
-					}
-					currentAlgorithmPosition = node;
-					RefreshChildren ();
-					return true;
-				}
-				previous = node;
+			if (--currentAlgorithmPosition < 0) {
+				++currentAlgorithmPosition;
+				return false;
 			}
-			return false;
+			Console.WriteLine (currentAlgorithmPosition);
+
+		
+			object previous = AlgorithmResult [currentAlgorithmPosition];
+			object node = currentAlgorithmPosition >= AlgorithmResult.Count - 1 ? null : AlgorithmResult [currentAlgorithmPosition + 1];
+
+			Console.WriteLine ("node: " + node + " prev: " + previous);
+
+
+			if (algName.Equals ("Depth-first Search") || algName.Equals ("Breath-first Search")) {
+				Graph.ClearNodeVisited (node.GetType ().GetProperty ("Item2").GetValue (node));
+				Graph.SetEdgeState (node.GetType ().GetProperty ("Item1").GetValue (node), node.GetType ().GetProperty ("Item2").GetValue (node), false);
+			} else {
+				Graph.ClearNodeVisited (node);
+				Graph.SetEdgeState (previous, node, false);
+			}
+			RefreshChildren ();
+			return true;
+
 		}
 
 		public bool NextAlgorithmStep() {
-			object previous = null;
-			foreach (object node in AlgorithmResult) {
-				if (previous == currentAlgorithmPosition) {
-					if (algName.Equals ("Depth-first Search") || algName.Equals ("Breath-first Search")) {
-						Graph.SetNodeVisited (node.GetType ().GetProperty ("Item2").GetValue (node), AlgorithmResult.IndexOf (node));
-						Graph.SetEdgeState (node.GetType ().GetProperty ("Item1").GetValue (node), node.GetType ().GetProperty ("Item2").GetValue (node), true);
-					} else {
-						Graph.SetNodeVisited (node, AlgorithmResult.IndexOf (node));
-						Graph.SetEdgeState (previous, node, true);
-					}
-					currentAlgorithmPosition = node;
-					RefreshChildren ();
-					return true;
-				}
-				previous = node;
+			if (++currentAlgorithmPosition >= AlgorithmResult.Count) {
+				--currentAlgorithmPosition;
+				return false;		
 			}
-			return false;
+
+			object node = AlgorithmResult [currentAlgorithmPosition];
+			object previous = currentAlgorithmPosition <= 0 ? null : AlgorithmResult [currentAlgorithmPosition - 1];
+
+			if (algName.Equals ("Depth-first Search") || algName.Equals ("Breath-first Search")) {
+				Graph.SetNodeVisited (node.GetType ().GetProperty ("Item2").GetValue (node), AlgorithmResult.IndexOf (node));
+				Graph.SetEdgeState (node.GetType ().GetProperty ("Item1").GetValue (node), node.GetType ().GetProperty ("Item2").GetValue (node), true);
+			} else {
+				Graph.SetNodeVisited (node, AlgorithmResult.IndexOf (node));
+				Graph.SetEdgeState (previous, node, true);
+			}
+			RefreshChildren ();
+			return true;
 		}		
 	}	
 }
