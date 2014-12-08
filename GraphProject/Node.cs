@@ -13,6 +13,9 @@ namespace GraphProject {
 		} 
 
 		public Node<T> AddSuccessor(Node<T> n) {
+			if (successors.Contains (n))
+				return this;
+			
 			successors.Add (n);
 			n.predecessors.Add (this);
 			return this;
@@ -24,6 +27,9 @@ namespace GraphProject {
 		}
 
 		public Node<T> AddPredecessor(Node<T> n) {
+			if (predecessors.Contains(n))
+				return this;
+
 			predecessors.Add (n);
 			n.successors.Add (this);
 			return this;
