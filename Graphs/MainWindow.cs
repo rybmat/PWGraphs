@@ -115,14 +115,28 @@ public partial class MainWindow: Gtk.Window {
 
 			mvpanel1.Run (algorithmCombobox.ActiveText, false);
 		}
+		nextStepBtn.Sensitive = true;
+		prevStepBtn.Sensitive = true;
+		clearAlgsBtn.Sensitive = true;
 	}
 
 
 	protected void OnNextStepBtnClicked (object sender, EventArgs e) {
-		mvpanel1.NextAlgorithmStep ();
+		if (!mvpanel1.NextAlgorithmStep ())
+			nextStepBtn.Sensitive = false;
+		prevStepBtn.Sensitive = true;
+
 	}
 
 	protected void OnPrevStepBtnClicked (object sender, EventArgs e) {
-		mvpanel1.PreviousAlgorithmStep ();
+		if (!mvpanel1.PreviousAlgorithmStep ())
+			prevStepBtn.Sensitive = false;
+		nextStepBtn.Sensitive = true;
+	}
+
+	protected void OnClearAlgsBtnClicked (object sender, EventArgs e) {
+		mvpanel1.ClearAlgsResult ();
+		nextStepBtn.Sensitive = false;
+		prevStepBtn.Sensitive = false;
 	}
 }

@@ -48,6 +48,8 @@ public partial class MainWindow
 	private global::Gtk.Button prevStepBtn;
 	
 	private global::Gtk.Button nextStepBtn;
+	
+	private global::Gtk.Button clearAlgsBtn;
 
 	protected virtual void Build ()
 	{
@@ -201,6 +203,7 @@ public partial class MainWindow
 		this.hbox2.Spacing = 6;
 		// Container child hbox2.Gtk.Box+BoxChild
 		this.prevStepBtn = new global::Gtk.Button ();
+		this.prevStepBtn.Sensitive = false;
 		this.prevStepBtn.CanFocus = true;
 		this.prevStepBtn.Name = "prevStepBtn";
 		this.prevStepBtn.UseUnderline = true;
@@ -212,6 +215,7 @@ public partial class MainWindow
 		w15.Position = 0;
 		// Container child hbox2.Gtk.Box+BoxChild
 		this.nextStepBtn = new global::Gtk.Button ();
+		this.nextStepBtn.Sensitive = false;
 		this.nextStepBtn.CanFocus = true;
 		this.nextStepBtn.Name = "nextStepBtn";
 		this.nextStepBtn.UseUnderline = true;
@@ -226,14 +230,27 @@ public partial class MainWindow
 		w18.Position = 6;
 		w18.Expand = false;
 		w18.Fill = false;
-		this.hbox3.Add (this.vbox3);
-		global::Gtk.Box.BoxChild w19 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.vbox3]));
-		w19.Position = 0;
+		// Container child vbox3.Gtk.Box+BoxChild
+		this.clearAlgsBtn = new global::Gtk.Button ();
+		this.clearAlgsBtn.Sensitive = false;
+		this.clearAlgsBtn.CanFocus = true;
+		this.clearAlgsBtn.Name = "clearAlgsBtn";
+		this.clearAlgsBtn.UseStock = true;
+		this.clearAlgsBtn.UseUnderline = true;
+		this.clearAlgsBtn.Label = "gtk-clear";
+		this.vbox3.Add (this.clearAlgsBtn);
+		global::Gtk.Box.BoxChild w19 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.clearAlgsBtn]));
+		w19.Position = 7;
 		w19.Expand = false;
 		w19.Fill = false;
+		this.hbox3.Add (this.vbox3);
+		global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.vbox3]));
+		w20.Position = 0;
+		w20.Expand = false;
+		w20.Fill = false;
 		this.mainVbox.Add (this.hbox3);
-		global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.mainVbox [this.hbox3]));
-		w20.Position = 1;
+		global::Gtk.Box.BoxChild w21 = ((global::Gtk.Box.BoxChild)(this.mainVbox [this.hbox3]));
+		w21.Position = 1;
 		this.Add (this.mainVbox);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
@@ -252,5 +269,6 @@ public partial class MainWindow
 		this.executeButton.Clicked += new global::System.EventHandler (this.OnExecuteButtonClicked);
 		this.prevStepBtn.Clicked += new global::System.EventHandler (this.OnPrevStepBtnClicked);
 		this.nextStepBtn.Clicked += new global::System.EventHandler (this.OnNextStepBtnClicked);
+		this.clearAlgsBtn.Clicked += new global::System.EventHandler (this.OnClearAlgsBtnClicked);
 	}
 }

@@ -326,6 +326,13 @@ namespace Graphs {
 			}
 			RefreshChildren ();
 			return true;
-		}		
+		}
+
+		public void ClearAlgsResult() {
+			AlgorithmResult.Clear ();
+			Graph.ClearNodesVisited ();
+			Graph.ResetEdgesState ();
+			RefreshChildren ();
+		}
 	}	
 }
