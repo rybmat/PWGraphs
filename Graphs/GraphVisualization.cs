@@ -43,7 +43,7 @@ namespace Graphs {
 		public void SetNodeVisited(object node, int order) {
 			foreach (NodeVisualization n in nodes) {
 				if (n.Node == node) {
-					Console.WriteLine ("seting node state in GraphVis" + node);
+					//Console.WriteLine ("seting node state in GraphVis" + node);
 					n.SetVisited (order);
 				}
 			}
@@ -136,14 +136,13 @@ namespace Graphs {
 
 		public IEnumerable<object> Run(string name, object start) {
 			if (start == null) {
-				return (IEnumerable<object>)graph.GetType().GetMethod(name).Invoke(graph, null);
-			} else {
 				try {
-					return (IEnumerable<object>)graph.GetType().GetMethod(name).Invoke(graph, new [] { start });
-
-				} catch (System.Reflection.TargetParameterCountException) {
-					return Run(name, null);
+					return (IEnumerable<object>)graph.GetType().GetMethod(name).Invoke(graph, null);
+				}catch {
+					throw;
 				}
+			} else {
+				return (IEnumerable<object>)graph.GetType().GetMethod(name).Invoke(graph, new [] { start });
 			}
 		}
 	}
