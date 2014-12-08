@@ -284,7 +284,7 @@ namespace Graphs {
 			object previous = null;
 			foreach (object node in AlgorithmResult.Reverse<object>()) {
 				if (previous == currentAlgorithmPosition) {
-					Console.WriteLine ("prev: " + previous + " curr: " + currentAlgorithmPosition + " node: " + node);
+					//Console.WriteLine ("prev: " + previous + " curr: " + currentAlgorithmPosition + " node: " + node);
 					if (algName.Equals ("Depth-first Search") || algName.Equals ("Breath-first Search")) {
 						Graph.ClearNodeVisited (previous.GetType ().GetProperty ("Item2").GetValue (previous));
 						Graph.SetEdgeState (previous.GetType ().GetProperty ("Item1").GetValue (previous), previous.GetType ().GetProperty ("Item2").GetValue (previous), false);
@@ -305,7 +305,7 @@ namespace Graphs {
 			object previous = null;
 			foreach (object node in AlgorithmResult) {
 				if (previous == currentAlgorithmPosition) {
-					Console.WriteLine ("prev: " + previous + " curr: " + currentAlgorithmPosition + " node: " + node);
+					//Console.WriteLine ("prev: " + previous + " curr: " + currentAlgorithmPosition + " node: " + node);
 					if (algName.Equals ("Depth-first Search") || algName.Equals ("Breath-first Search")) {
 						Graph.SetNodeVisited (node.GetType ().GetProperty ("Item2").GetValue (node), AlgorithmResult.IndexOf (node));
 						Graph.SetEdgeState (node.GetType ().GetProperty ("Item1").GetValue (node), node.GetType ().GetProperty ("Item2").GetValue (node), true);

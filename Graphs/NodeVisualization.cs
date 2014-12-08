@@ -124,7 +124,7 @@ namespace Graphs {
 			List<NodeVisualization> succs = new List<NodeVisualization>(successors.Keys);
 			foreach (var n in succs) {
 				if (n.Node == succ) {
-					Console.WriteLine ("seting out edge state in NodeVis for edge " + this + " " + succ);
+					//Console.WriteLine ("seting out edge state in NodeVis for edge " + this + " " + succ);
 					successors[n] = visited;
 					n.predecessors [this] = visited;
 					return true;

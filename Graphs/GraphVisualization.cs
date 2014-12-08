@@ -43,7 +43,7 @@ namespace Graphs {
 		public void SetNodeVisited(object node, int order) {
 			foreach (NodeVisualization n in nodes) {
 				if (n.Node == node) {
-					Console.WriteLine ("seting node state in GraphVis" + node);
+					//Console.WriteLine ("seting node state in GraphVis" + node);
 					n.SetVisited (order);
 				}
 			}
