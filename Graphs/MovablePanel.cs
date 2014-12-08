@@ -261,8 +261,10 @@ namespace Graphs {
 			foreach( var a in AlgorithmResult)
 				Console.WriteLine (a);
 
-			while (NextAlgorithmStep ())
-				Thread.Sleep(250);
+			while (NextAlgorithmStep ()) {
+				RefreshChildren ();
+			}
+				
 				
 		}
 
@@ -270,12 +272,13 @@ namespace Graphs {
 			object previous = null;
 			foreach (object node in AlgorithmResult.Reverse<object>()) {
 				if (previous == currentAlgorithmPosition) {
+					Console.WriteLine ("prev: " + previous + " curr: " + currentAlgorithmPosition + " node: " + node);
 					if (algName.Equals ("Depth-first Search") || algName.Equals ("Breath-first Search")) {
-						Graph.SetNodeVisited (node.GetType ().GetProperty ("Item2").GetValue (node), AlgorithmResult.IndexOf (node));
-						Graph.SetEdgeState (node.GetType ().GetProperty ("Item1").GetValue (node), node.GetType ().GetProperty ("Item2").GetValue (node), true);
+						Graph.ClearNodeVisited (previous.GetType ().GetProperty ("Item2").GetValue (previous));
+						Graph.SetEdgeState (previous.GetType ().GetProperty ("Item1").GetValue (previous), previous.GetType ().GetProperty ("Item2").GetValue (previous), false);
 					} else {
-						Graph.SetNodeVisited (node, AlgorithmResult.IndexOf (node));
-						Graph.SetEdgeState (previous, node, true);
+						Graph.ClearNodeVisited (previous);
+						Graph.SetEdgeState (previous, node, false);
 					}
 					currentAlgorithmPosition = node;
 					RefreshChildren ();
@@ -290,6 +293,7 @@ namespace Graphs {
 			object previous = null;
 			foreach (object node in AlgorithmResult) {
 				if (previous == currentAlgorithmPosition) {
+					Console.WriteLine ("prev: " + previous + " curr: " + currentAlgorithmPosition + " node: " + node);
 					if (algName.Equals ("Depth-first Search") || algName.Equals ("Breath-first Search")) {
 						Graph.SetNodeVisited (node.GetType ().GetProperty ("Item2").GetValue (node), AlgorithmResult.IndexOf (node));
 						Graph.SetEdgeState (node.GetType ().GetProperty ("Item1").GetValue (node), node.GetType ().GetProperty ("Item2").GetValue (node), true);

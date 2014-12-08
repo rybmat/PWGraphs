@@ -2,15 +2,17 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Graphs/MovablePanel.cs">
     <Files>
-      <File FileName="Graphs/MainWindow.cs" Line="27" Column="27" />
-      <File FileName="Graphs/NodeVisualization.cs" Line="19" Column="19" />
-      <File FileName="Graphs/MovablePanel.cs" Line="19" Column="19" />
-      <File FileName="Graphs/GraphVisualization.cs" Line="5" Column="5" />
-      <File FileName="GraphProject/GraphStructure.cs" Line="1" Column="1" />
-      <File FileName="GraphProject/TopologicalSort.cs" Line="1" Column="1" />
-      <File FileName="GraphProject/BFS.cs" Line="1" Column="1" />
-      <File FileName="GraphProject/DFS.cs" Line="1" Column="1" />
+      <File FileName="Graphs/MainWindow.cs" Line="1" Column="1" />
+      <File FileName="Graphs/NodeVisualization.cs" Line="1" Column="1" />
+      <File FileName="Graphs/MovablePanel.cs" Line="6" Column="6" />
+      <File FileName="Graphs/GraphVisualization.cs" Line="1" Column="1" />
+      <File FileName="Tests/GraphAlgorithmsTests.cs" Line="1" Column="1" />
     </Files>
+    <Pads>
+      <Pad Id="MonoDevelop.NUnit.TestPad">
+        <State expanded="True" selected="True" />
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
