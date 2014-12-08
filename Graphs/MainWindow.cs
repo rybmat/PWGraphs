@@ -112,6 +112,7 @@ public partial class MainWindow: Gtk.Window {
 		if (algorithmCombobox.Active == 0 || algorithmCombobox.Active == 1) {
 			mvpanel1.Run (algorithmCombobox.ActiveText, true);
 		} else {
+
 			mvpanel1.Run (algorithmCombobox.ActiveText, false);
 		}
 	}

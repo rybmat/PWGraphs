@@ -256,7 +256,21 @@ namespace Graphs {
 			Graph.ClearNodesVisited();
 
 			currentAlgorithmPosition = null;
-			AlgorithmResult = Algorithms[name].Invoke(start).ToList();
+			try {
+				AlgorithmResult = Algorithms[name].Invoke(start).ToList();
+			} catch (GraphProject.GraphHasCycleException) {
+				MessageDialog md = new MessageDialog(Parent.Parent as Gtk.Window, 
+					DialogFlags.DestroyWithParent, MessageType.Info, 
+					ButtonsType.Close, "Graf zawiera cykl skierowany. Wybrany algorytm wymaga by graf nie zawierał cyklu skierowanego");
+				md.Run();
+				md.Destroy();	
+			} catch (GraphProject.GraphIsNotEulerianException) {
+				MessageDialog md = new MessageDialog(Parent.Parent as Gtk.Window, 
+					DialogFlags.DestroyWithParent, MessageType.Info, 
+					ButtonsType.Close, "Stworzony graf nie zawiera ścieżki/cyklu Eulera");
+				md.Run();
+				md.Destroy();
+			}
 			Console.WriteLine ("Alg results:");
 			foreach( var a in AlgorithmResult)
 				Console.WriteLine (a);
@@ -264,8 +278,6 @@ namespace Graphs {
 			while (NextAlgorithmStep ()) {
 				RefreshChildren ();
 			}
-				
-				
 		}
 
 		public bool PreviousAlgorithmStep() {

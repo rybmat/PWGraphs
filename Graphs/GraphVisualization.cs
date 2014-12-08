@@ -136,14 +136,13 @@ namespace Graphs {
 
 		public IEnumerable<object> Run(string name, object start) {
 			if (start == null) {
-				return (IEnumerable<object>)graph.GetType().GetMethod(name).Invoke(graph, null);
-			} else {
 				try {
-					return (IEnumerable<object>)graph.GetType().GetMethod(name).Invoke(graph, new [] { start });
-
-				} catch (System.Reflection.TargetParameterCountException) {
-					return Run(name, null);
+					return (IEnumerable<object>)graph.GetType().GetMethod(name).Invoke(graph, null);
+				}catch {
+					throw;
 				}
+			} else {
+				return (IEnumerable<object>)graph.GetType().GetMethod(name).Invoke(graph, new [] { start });
 			}
 		}
 	}
