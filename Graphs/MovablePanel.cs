@@ -56,7 +56,6 @@ namespace Graphs {
 		}
 
 		public void RemoveAllChildren() {
-			Graph.graph.GetType().GetMethod("Clear").Invoke(Graph.graph, null);
 			Graph.RemoveAllNodes ();
 			foreach (Widget ch in fixed1.AllChildren) {
 				if (ch.GetType() == typeof(EventBox))
@@ -90,8 +89,6 @@ namespace Graphs {
 			(wdg as NodeVisualization).graph = Graph.graph;
 			(wdg as NodeVisualization).mvpanel = this;
 
-			object[] args = {(wdg as NodeVisualization).Node};
-			Graph.graph.GetType().GetMethod("AddNode").Invoke(Graph.graph, args);
 			Graph.AddNode (wdg as NodeVisualization);
 
 			EventBox ev = GetMovingBox(wdg);

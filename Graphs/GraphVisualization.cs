@@ -17,6 +17,7 @@ namespace Graphs {
 		}
 
 		public void AddNode(NodeVisualization node) {
+			graph.GetType().GetMethod("AddNode").Invoke(graph, new[] { node.Node });
 			nodes.Add(node);
 		}
 
@@ -25,6 +26,7 @@ namespace Graphs {
 		}
 
 		public void RemoveAllNodes() {
+			graph.GetType().GetMethod("Clear").Invoke(graph, null);
 			nodes.Clear ();
 		}
 
