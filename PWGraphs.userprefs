@@ -1,13 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Graphs/MovablePanel.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Graphs/MainWindow.cs">
     <Files>
-      <File FileName="Graphs/MainWindow.cs" Line="31" Column="31" />
-      <File FileName="Graphs/NodeVisualization.cs" Line="4" Column="4" />
-      <File FileName="Graphs/MovablePanel.cs" Line="12" Column="12" />
-      <File FileName="Graphs/GraphVisualization.cs" Line="1" Column="1" />
+      <File FileName="Graphs/MainWindow.cs" Line="3" Column="3" />
+      <File FileName="Graphs/NodeVisualization.cs" Line="36" Column="36" />
+      <File FileName="Graphs/MovablePanel.cs" Line="17" Column="17" />
+      <File FileName="Graphs/GraphVisualization.cs" Line="4" Column="4" />
       <File FileName="GraphProject/GraphStructure.cs" Line="1" Column="1" />
       <File FileName="GraphProject/Node.cs" Line="1" Column="1" />
+      <File FileName="Tests/GraphAlgorithmsTests.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

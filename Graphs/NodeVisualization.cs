@@ -41,10 +41,6 @@ namespace Graphs {
 
 			popup = new Gtk.Menu();
 
-			Gtk.MenuItem rm = new MenuItem("Remove");
-			rm.Activated += new EventHandler(OnRemove);
-			popup.Add(rm);
-
 			Gtk.MenuItem connect = new MenuItem("Connect To");
 			connect.Activated += new EventHandler(OnConnect);
 			popup.Add(connect);
@@ -52,6 +48,12 @@ namespace Graphs {
 			Gtk.MenuItem disconnect = new MenuItem("Remove Connection To");
 			disconnect.Activated += new EventHandler(OnDisconnect);
 			popup.Add(disconnect);
+
+			popup.Add (new Gtk.MenuItem ());
+
+			Gtk.MenuItem rm = new MenuItem("Remove");
+			rm.Activated += new EventHandler(OnRemove);
+			popup.Add(rm);
 
 			caption = _node.ToString();
 			Name = _node.ToString();
