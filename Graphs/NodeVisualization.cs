@@ -16,8 +16,7 @@ namespace Graphs {
 
 		public int Width{ get { return width; } }
 		public int Height{ get { return height; } }
-
-		public object graph;
+			
 		public MovablePanel mvpanel;
 
 		public int X{ get; set; }
@@ -134,18 +133,14 @@ namespace Graphs {
 		}
 
 		protected void OnRemove(object sender, EventArgs args) {
-			object[] margs = {Node};
-			graph.GetType().GetMethod("RemoveNode").Invoke(graph, margs);
 			foreach (var p in predecessors.Keys) {
 				p.successors.Remove (this);
 			}
 			foreach (var s in successors.Keys) {
-				s.successors.Remove (this);
+				s.predecessors.Remove (this);
 			}
 			mvpanel.Graph.RemoveNode (this);
 
-			Console.WriteLine ("NodeVisualization.RemoveNode");
-			Console.WriteLine (graph.ToString ());
 			Destroy ();
 			mvpanel.RefreshChildren ();
 			Dispose ();

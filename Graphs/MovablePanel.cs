@@ -77,30 +77,35 @@ namespace Graphs {
 		}
 			
 		public void AddNode(Widget wdg, int x, int y) {
-			if (x<0) {
-				x = 0;
-			}
-			if (y<0) {
-				y = 0;
-			}
+			if (Graph.AddNode (wdg as NodeVisualization)) {
+				if (x < 0) {
+					x = 0;
+				}
+				if (y < 0) {
+					y = 0;
+				}
 				
-			(wdg as NodeVisualization).X = x;
-			(wdg as NodeVisualization).Y = y;
-			(wdg as NodeVisualization).graph = Graph.graph;
-			(wdg as NodeVisualization).mvpanel = this;
+				(wdg as NodeVisualization).X = x;
+				(wdg as NodeVisualization).Y = y;
+				(wdg as NodeVisualization).mvpanel = this;
 
-			Graph.AddNode (wdg as NodeVisualization);
+				EventBox ev = GetMovingBox (wdg);
+				ev.ButtonPressEvent += new ButtonPressEventHandler (OnButtonPressed);
+				ev.ButtonReleaseEvent += new ButtonReleaseEventHandler (OnButtonReleased);
 
-			EventBox ev = GetMovingBox(wdg);
-			ev.ButtonPressEvent += new ButtonPressEventHandler(OnButtonPressed);
-			ev.ButtonReleaseEvent += new ButtonReleaseEventHandler(OnButtonReleased);
+				//Add to the panel
+				fixed1.Put (ev, x, y);
+				ShowAll ();
 
-			//Add to the panel
-			fixed1.Put(ev, x, y);
-			ShowAll();
-
-			Console.WriteLine ("MovablePanel.addNode");
-			Console.WriteLine (Graph.graph.ToString ());
+				Console.WriteLine ("MovablePanel.addNode");
+				Console.WriteLine (Graph.graph.ToString ());
+			} else {
+				MessageDialog md = new MessageDialog (Parent.Parent as Gtk.Window, 
+					                   DialogFlags.DestroyWithParent, MessageType.Info, 
+					                   ButtonsType.Close, "Graf zawiera już wierzchołek o takiej nazwie");
+				md.Run ();
+				md.Destroy ();
+			}
 		}
 
 		private EventBox GetMovingBox(Widget wdg) { 

@@ -2,6 +2,7 @@
 using Gtk;
 using Cairo;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Graphs {
 
@@ -16,13 +17,21 @@ namespace Graphs {
 			SetSizeRequest (width, height);
 		}
 
-		public void AddNode(NodeVisualization node) {
+		public bool AddNode(NodeVisualization node) {
+			List<string> names = nodes.Select (n => n.ToString ()).ToList();
+			if (names.Contains(node.ToString()))
+				return false;
+
 			graph.GetType().GetMethod("AddNode").Invoke(graph, new[] { node.Node });
 			nodes.Add(node);
+			return true;
 		}
 
 		public void RemoveNode(NodeVisualization node) {
+			graph.GetType().GetMethod("RemoveNode").Invoke(graph, new[] {node.Node});
 			nodes.Remove (node);
+			Console.WriteLine ("RemoveNode");
+			Console.WriteLine (graph.ToString ());
 		}
 
 		public void RemoveAllNodes() {
