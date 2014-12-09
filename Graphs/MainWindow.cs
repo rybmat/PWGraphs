@@ -94,7 +94,7 @@ public partial class MainWindow: Gtk.Window {
 
 	protected void OnAddBtnClicked (object sender, EventArgs e) {
 		object model = Activator.CreateInstance (selectedModel);
-		NodeDialog addDialog = new NodeDialog (selectedModel, model);
+		NodeDialog addDialog = new NodeDialog (model);
 		if (addDialog.Run () == (int)ResponseType.Ok && !string.IsNullOrEmpty(model.ToString())) {
 			//adding node to drawing area
 			Type[] typeArgs = { selectedModel };
@@ -102,7 +102,7 @@ public partial class MainWindow: Gtk.Window {
 			Type constructedNodeType = nodeType.MakeGenericType(typeArgs);
 			object node = Activator.CreateInstance (constructedNodeType, model);
 
-			NodeVisualization mvo = new NodeVisualization (constructedNodeType, node);
+			NodeVisualization mvo = new NodeVisualization (node);
 			mvpanel1.AddNode (mvo, 10, 10);
 		}
 		addDialog.Destroy ();

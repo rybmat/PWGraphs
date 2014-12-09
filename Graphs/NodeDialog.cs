@@ -10,9 +10,9 @@ namespace Graphs {
 
 		object model;
 
-		public NodeDialog (Type type, object _model, bool editable=true) {
+		public NodeDialog (object _model, bool editable=true) {
 			model = _model;
-			foreach (var p in type.GetProperties()) {
+			foreach (var p in model.GetType().GetProperties()) {
 				if (p.PropertyType == typeof(string)) {
 					HBox hb = new HBox ();
 					Label l = new Label (p.Name);

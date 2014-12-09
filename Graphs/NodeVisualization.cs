@@ -10,19 +10,15 @@ namespace Graphs {
 		private string caption = "";
 		private Gtk.Menu popup = null;
 
-		private int width = 0;
-		private int height;
-
-		public int Width{ get { return width; } }
-		public int Height{ get { return height; } }
+		public int Width{ get; private set; }
+		public int Height{ get; private set; }
 			
 		public MovablePanel mvpanel;
 
 		public int X{ get; set; }
 		public int Y{ get; set; }
 
-		private object node;
-		public object Node { get { return node; } }
+		public object Node { get; private set; }
 
 		private int visitCount;
 		public bool Visited { get; private set; }
@@ -30,12 +26,8 @@ namespace Graphs {
 		public Dictionary<NodeVisualization, bool> successors = new Dictionary<NodeVisualization, bool>();
 		public Dictionary<NodeVisualization, bool> predecessors = new Dictionary<NodeVisualization, bool> ();
 
-		private Type nodeType;
-		public Type NodeType { get { return nodeType; } }
-
-		public NodeVisualization(Type _nodeType, object _node) {
-			node = _node;
-			nodeType = _nodeType;
+		public NodeVisualization(object _node) {
+			Node = _node;
 			Visited = false;
 			visitCount = 0;
 
@@ -58,13 +50,13 @@ namespace Graphs {
 			caption = _node.ToString();
 			Name = _node.ToString();
 
-			width = caption.Length * 8 + 50;
-			height = 40;
-			SetSizeRequest(width, height);
+			Width = caption.Length * 8 + 50;
+			Height = 40;
+			SetSizeRequest(Width, Height);
 		}
 
 		public override string ToString () {
-			return node.ToString();
+			return Node.ToString();
 		}
 
 		public void ShowMenu() {
@@ -73,7 +65,7 @@ namespace Graphs {
 		}
 
 		public void ShowDetails() {
-			NodeDialog addDialog = new NodeDialog (nodeType.GenericTypeArguments[0], node.GetType().GetProperty("Data").GetValue(node), false);
+			NodeDialog addDialog = new NodeDialog (Node.GetType().GetProperty("Data").GetValue(Node), false);
 			addDialog.Run ();
 			addDialog.Destroy ();
 			Redraw();
@@ -85,14 +77,14 @@ namespace Graphs {
 
 		public void AddPredecessor(NodeVisualization nv) {
 			object[] args = { nv.Node };
-			node.GetType ().GetMethod ("AddPredecessor").Invoke (node, args);
+			Node.GetType ().GetMethod ("AddPredecessor").Invoke (Node, args);
 			nv.successors [this] = false;
 			predecessors[nv] = false;
 		}
 
 		public void RemovePredecessor(NodeVisualization nv) {
 			object[] args = { nv.Node };
-			node.GetType ().GetMethod ("RemovePredecessor").Invoke (node, args);
+			Node.GetType ().GetMethod ("RemovePredecessor").Invoke (Node, args);
 			nv.successors.Remove (this);
 			predecessors.Remove (nv);
 		}
@@ -143,7 +135,6 @@ namespace Graphs {
 			List<NodeVisualization> succs = new List<NodeVisualization>(successors.Keys);
 			foreach (var n in succs) {
 				if (n.Node == succ) {
-					//Console.WriteLine ("seting out edge state in NodeVis for edge " + this + " " + succ);
 					successors[n] = visited;
 					n.predecessors [this] = visited;
 					return true;
@@ -189,8 +180,8 @@ namespace Graphs {
 				SetupFont (g);
 				FontExtents fe = g.FontExtents;
 				TextExtents te = g.TextExtents(caption);
-				double x = width/2 + te.XBearing - te.Width / 2;
-				double y = height/2 + fe.Descent + fe.Height / 2;
+				double x = Width/2 + te.XBearing - te.Width / 2;
+				double y = Height/2 + fe.Descent + fe.Height / 2;
 
 				g.MoveTo(x, y);
 				g.SetSourceColor(new Color(0, 0, 0));
@@ -202,11 +193,11 @@ namespace Graphs {
 		private void DrawCurvedRectangle (Cairo.Context gr) {	
 			double x = 0, y = 0;
 			gr.Save ();
-			gr.MoveTo (x, y + height / 2);
-			gr.CurveTo (x, y, x, y, x + width / 2, y);
-			gr.CurveTo (x + width, y, x + width, y, x + width, y + height / 2);
-			gr.CurveTo (x + width, y + height, x + width, y + height, x + width / 2, y + height);
-			gr.CurveTo (x, y + height, x, y + height, x, y + height / 2);
+			gr.MoveTo (x, y + Height / 2);
+			gr.CurveTo (x, y, x, y, x + Width / 2, y);
+			gr.CurveTo (x + Width, y, x + Width, y, x + Width, y + Height / 2);
+			gr.CurveTo (x + Width, y + Height, x + Width, y + Height, x + Width / 2, y + Height);
+			gr.CurveTo (x, y + Height, x, y + Height, x, y + Height / 2);
 			gr.Restore ();
 		}
 

@@ -54,7 +54,6 @@ namespace Graphs {
 		public void SetNodeVisited(object node, int order) {
 			foreach (NodeVisualization n in nodes) {
 				if (n.Node == node) {
-					//Console.WriteLine ("seting node state in GraphVis" + node);
 					n.Visit (order);
 				}
 			}
@@ -63,7 +62,6 @@ namespace Graphs {
 		public void ClearNodeVisited(object node) {
 			foreach (NodeVisualization n in nodes) {
 				if (n.Node == node) {
-					//Console.WriteLine ("seting node state in GraphVis");
 					n.Unvisit();
 				}
 			}
@@ -72,7 +70,6 @@ namespace Graphs {
 		public bool SetEdgeState(object _from, object _to, bool visited) {
 			foreach (NodeVisualization n in nodes) {
 				if (n.Node == _from) {
-					//Console.WriteLine ("seting edge state in GraphVis");
 					return n.SetOutEdgeState (_to, visited);
 				}
 			}
