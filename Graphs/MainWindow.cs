@@ -78,7 +78,7 @@ public partial class MainWindow: Gtk.Window {
 	}
 
 	protected void OnClear (object sender, EventArgs e) {
-		mvpanel1.RemoveAllChildren ();
+		mvpanel1.RemoveAllNodes ();
 
 		drawBtn.Sensitive = true;
 		clearBtn.Sensitive = false;

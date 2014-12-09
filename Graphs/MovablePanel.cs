@@ -49,13 +49,12 @@ namespace Graphs {
 			Algorithms.Add("Eulerian Path", start => Graph.Run("EulerianDirectedPath", start).Reverse());
 			Algorithms.Add("Topological Sort", start => Graph.Run("SortTopologically", start));
 		}
-
-		//Set the controls to be redrawn
+			
 		public void RefreshChildren() {
 			fixed1.QueueDraw();
 		}
 
-		public void RemoveAllChildren() {
+		public void RemoveAllNodes() {
 			Graph.RemoveAllNodes ();
 			foreach (Widget ch in fixed1.AllChildren) {
 				if (ch.GetType() == typeof(EventBox))
@@ -93,7 +92,6 @@ namespace Graphs {
 				ev.ButtonPressEvent += new ButtonPressEventHandler (OnButtonPressed);
 				ev.ButtonReleaseEvent += new ButtonReleaseEventHandler (OnButtonReleased);
 
-				//Add to the panel
 				fixed1.Put (ev, x, y);
 				ShowAll ();
 
@@ -140,8 +138,8 @@ namespace Graphs {
 		}
 			
 		private void MoveControl(Widget wdg, object eventX, object eventY, bool isClone) {
-			int destX = origX+System.Convert.ToInt32(eventX)+origX-pointX;
-			int destY = origY+System.Convert.ToInt32(eventY)+origY-pointY;
+			int destX = origX+System.Convert.ToInt32(eventX) + origX - pointX;
+			int destY = origY+System.Convert.ToInt32(eventY) + origY - pointY;
 			if (destX<0) {
 				destX = 0;
 			}
@@ -197,16 +195,12 @@ namespace Graphs {
 						currCtrl = sender as Widget;
 						currCtrl.TranslateCoordinates (fixed1, 0, 0, out origX, out origY);
 						fixed1.GetPointer (out pointX, out pointY);
-						Console.WriteLine ("MovingBox KeyPressed");
-						Console.WriteLine ("Pointer:" + pointX.ToString () + "-" + pointY.ToString ());
-						Console.WriteLine ("Origin:" + origX.ToString () + "-" + origY.ToString ());
 					}
 				}
 			}
 		}
 
 		protected void OnButtonReleased(object sender, ButtonReleaseEventArgs a) {
-			//Final destination of the control
 			if (a.Event.Button == 1) {
 				if (makeConnection || removeConnection) {
 					makeConnection = false;
@@ -219,13 +213,12 @@ namespace Graphs {
 					algStartNode = false;
 					return;
 				}
-				if (currClone!=null) {
+				if (currClone != null) {
 					Widget wdg = (currClone as EventBox).Child;
 					(currClone as EventBox).Remove (wdg);
 					(currCtrl as EventBox).Add (wdg);
 
 					fixed1.Remove(currClone);
-					Console.WriteLine("Deleting moving object" + currClone.Name);
 					currClone.Destroy();
 					currClone = null;
 				}
@@ -237,9 +230,8 @@ namespace Graphs {
 
 		protected virtual void OnFixed1MotionNotifyEvent (object o, Gtk.MotionNotifyEventArgs args) {
 			if (isDragged) {
-				//Render of a clone at the desired location
-				if (currCtrl!=null) {
-					MoveClone(ref currClone, args.Event.X,args.Event.Y);
+				if (currCtrl != null) {
+					MoveClone(ref currClone, args.Event.X, args.Event.Y);
 				}
 			}
 		}
@@ -256,7 +248,6 @@ namespace Graphs {
 		public void RunAlgorithm(string name, object start) {
 			Graph.ResetEdgesState();
 			Graph.ClearNodesVisited();
-
 
 			currentAlgorithmPosition = -1;
 			try {
@@ -279,9 +270,8 @@ namespace Graphs {
 			foreach( var a in AlgorithmResult)
 				Console.WriteLine (a);
 
-			while (NextAlgorithmStep ()) {
-				RefreshChildren ();
-			}
+			while (NextAlgorithmStep ())
+				;
 		}
 
 		public bool PreviousAlgorithmStep() {
@@ -289,14 +279,9 @@ namespace Graphs {
 				++currentAlgorithmPosition;
 				return false;
 			}
-			Console.WriteLine (currentAlgorithmPosition);
 
-		
 			object previous = AlgorithmResult [currentAlgorithmPosition];
 			object node = currentAlgorithmPosition >= AlgorithmResult.Count - 1 ? null : AlgorithmResult [currentAlgorithmPosition + 1];
-
-			Console.WriteLine ("node: " + node + " prev: " + previous);
-
 
 			if (algName.Equals ("Depth-first Search") || algName.Equals ("Breath-first Search")) {
 				Graph.ClearNodeVisited (node.GetType ().GetProperty ("Item2").GetValue (node));

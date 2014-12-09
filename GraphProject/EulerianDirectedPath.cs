@@ -34,19 +34,16 @@ namespace GraphProject {
 					if (found_io != null)
 						throw new GraphIsNotEulerianException();
 					found_io = node;
-				} else
-					if (outgoing[node].Count - incoming[node].Count == 1) {
-						if (found_oi != null)
-							throw new GraphIsNotEulerianException();
-						found_oi = node;
-						start = node;
-					} else
-						if (outgoing[node].Count != incoming[node].Count) {
-							throw new GraphIsNotEulerianException();
-						} else
-							if (start == null) {
-								start = node;
-							}
+				} else if (outgoing[node].Count - incoming[node].Count == 1) {
+					if (found_oi != null)
+						throw new GraphIsNotEulerianException();
+					found_oi = node;
+					start = node;
+				} else if (outgoing[node].Count != incoming[node].Count) {
+					throw new GraphIsNotEulerianException();
+				} else if (start == null) {
+					start = node;
+				}
 			}
 
 			var stack = new Stack<Node<T>>();
