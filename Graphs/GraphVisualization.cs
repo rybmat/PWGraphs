@@ -55,7 +55,7 @@ namespace Graphs {
 			foreach (NodeVisualization n in nodes) {
 				if (n.Node == node) {
 					//Console.WriteLine ("seting node state in GraphVis" + node);
-					n.SetVisited (order);
+					n.Visit (order);
 				}
 			}
 		}
@@ -64,7 +64,7 @@ namespace Graphs {
 			foreach (NodeVisualization n in nodes) {
 				if (n.Node == node) {
 					//Console.WriteLine ("seting node state in GraphVis");
-					n.ClearVisited();
+					n.Unvisit();
 				}
 			}
 		}

@@ -320,10 +320,10 @@ namespace Graphs {
 			object previous = currentAlgorithmPosition <= 0 ? null : AlgorithmResult [currentAlgorithmPosition - 1];
 
 			if (algName.Equals ("Depth-first Search") || algName.Equals ("Breath-first Search")) {
-				Graph.SetNodeVisited (node.GetType ().GetProperty ("Item2").GetValue (node), AlgorithmResult.IndexOf (node));
+				Graph.SetNodeVisited (node.GetType ().GetProperty ("Item2").GetValue (node), currentAlgorithmPosition);
 				Graph.SetEdgeState (node.GetType ().GetProperty ("Item1").GetValue (node), node.GetType ().GetProperty ("Item2").GetValue (node), true);
 			} else {
-				Graph.SetNodeVisited (node, AlgorithmResult.IndexOf (node));
+				Graph.SetNodeVisited (node, currentAlgorithmPosition);
 				Graph.SetEdgeState (previous, node, true);
 			}
 			RefreshChildren ();

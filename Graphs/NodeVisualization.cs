@@ -9,7 +9,6 @@ namespace Graphs {
 	public class NodeVisualization : Gtk.DrawingArea {
 		private string caption = "";
 		private Gtk.Menu popup = null;
-		private string orderNum = "";
 
 		private int width = 0;
 		private int height;
@@ -25,6 +24,7 @@ namespace Graphs {
 		private object node;
 		public object Node { get { return node; } }
 
+		private int visitCount;
 		public bool Visited { get; private set; }
 
 		public Dictionary<NodeVisualization, bool> successors = new Dictionary<NodeVisualization, bool>();
@@ -37,6 +37,7 @@ namespace Graphs {
 			node = _node;
 			nodeType = _nodeType;
 			Visited = false;
+			visitCount = 0;
 
 			popup = new Gtk.Menu();
 
@@ -94,15 +95,34 @@ namespace Graphs {
 			predecessors.Remove (nv);
 		}
 
-		public void SetVisited(int order) {
+		public void Visit(int order) {
 			Visited = true;
-			orderNum = order.ToString ();
-			caption = orderNum + ": " + Name;
+			visitCount++;
+			Console.WriteLine (visitCount);
+			addLabel (order.ToString ());
+		}
+
+		private void addLabel(string label) {
+			caption = label + ": " + caption;
 		}
 			
+		public void Unvisit() {
+			visitCount--;
+			if(visitCount <= 0)
+				Visited = false;
+			Console.WriteLine (visitCount);
+
+			removeLastLabel ();
+		}
+
+		private void removeLastLabel() {
+			int ind = caption.IndexOf (' ');
+			caption = caption.Substring (ind + 1);
+		}
+
 		public void ClearVisited() {
 			Visited = false;
-			orderNum = "";
+			visitCount = 0;
 			caption = Name;
 		}
 
