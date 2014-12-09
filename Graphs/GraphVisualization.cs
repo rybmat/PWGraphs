@@ -116,8 +116,8 @@ namespace Graphs {
 			cx.LineTo (endX, endY);
 			cx.Stroke ();
 
-			int tipX = (endX + beginX) / 2;
-			int tipY = (endY + beginY) / 2;
+			int tipX = ((2 * endX) + beginX) / 3; 
+			int tipY = ((2 * endY) + beginY) / 3;
 
 			int arrowLength = 10; //can be adjusted
 			int dx = endX - beginX;
