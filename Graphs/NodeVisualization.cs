@@ -98,7 +98,6 @@ namespace Graphs {
 		public void Visit(int order) {
 			Visited = true;
 			visitCount++;
-			Console.WriteLine (visitCount);
 			addLabel (order.ToString ());
 		}
 
@@ -110,7 +109,6 @@ namespace Graphs {
 			visitCount--;
 			if(visitCount <= 0)
 				Visited = false;
-			Console.WriteLine (visitCount);
 
 			removeLastLabel ();
 		}
@@ -177,12 +175,12 @@ namespace Graphs {
 		protected override bool OnExposeEvent (Gdk.EventExpose args) {
 			using (Context g = Gdk.CairoHelper.Create (args.Window)) {
 				DrawCurvedRectangle (g);
-				g.SetSourceColor(new Color (0.1, 0.6, 1, 1));
+				g.SetSourceColor(new Color (0.8, 0.8, 0.8, 1));
 				g.FillPreserve ();
 				if (Visited)
-					g.SetSourceColor(new Color (1, 0, 0, 1));
+					g.SetSourceColor(new Color (0, 0.8, 0, 1));
 				else
-					g.SetSourceColor(new Color (0.2, 0.8, 1, 1));
+					g.SetSourceColor(new Color (0, 0.65, 1, 1));
 				g.LineWidth = 5;
 				g.Stroke ();
 

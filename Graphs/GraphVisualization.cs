@@ -112,8 +112,8 @@ namespace Graphs {
 			if ( !_from.successors.ContainsKey(_to) || _from.successors[_to] == false)
 				cx.SetSourceColor(new Color (0, 0, 0, 1));
 			else
-				cx.SetSourceColor(new Color (1, 0, 0, 1));
-				
+				cx.SetSourceColor(new Color (0, 0.8, 0, 1));
+
 			cx.LineCap = LineCap.Round;
 			cx.MoveTo (beginX, beginY);
 			cx.LineTo (endX, endY);
